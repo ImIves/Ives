@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/Ives/2020/02/11/%E4%BD%BF%E7%94%A8github-hexo-next%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/localhost.png">
 <meta property="article:published_time" content="2020-02-11T12:52:22.000Z">
-<meta property="article:modified_time" content="2020-02-14T01:34:41.601Z">
+<meta property="article:modified_time" content="2020-02-14T02:17:38.875Z">
 <meta property="article:author" content="Ives">
 <meta property="article:tag" content="github page">
 <meta property="article:tag" content="hexo">
@@ -195,7 +195,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-14 09:34:41" itemprop="dateModified" datetime="2020-02-14T09:34:41+08:00">2020-02-14</time>
+                <time title="修改时间：2020-02-14 10:17:38" itemprop="dateModified" datetime="2020-02-14T10:17:38+08:00">2020-02-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -228,7 +228,7 @@
 <p>输入 <code>npm -v</code> ，如果出现版本号，那说明安装成功了并且环境变量也配置好了，如果是未知命令那就要配置一下环境变量。</p>
 <p><strong>windows的安装</strong><br>如果已经安装了<em>git bash</em>,可以在<em>git bash</em>中使用以下安装命令（网上有人反应过失败，用cmd能成功，但应该是个例），否则使用<em>cmd</em>（快捷键<kbd>Win</kbd>+<kbd>R</kbd>然后输入cmd）窗口也是一样。后面的就和命令行安装一摸一样了。<br><strong>命令行安装</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#windows环境的话</span></span><br><span class="line">npm install -g hexo-cli</span><br><span class="line"><span class="comment">#linux环境的话</span></span><br><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure>
-<p>这一步安装可能略慢，原因大家都懂，就不说了。输入<code>hexo -v</code>如果能看到版本信息就说明成功了。<br>接下来就可以用hexo来生成博客了。新建一个博客文件夹，如blog,</p>
+<p>这一步安装可能略慢，原因大家都懂，就不说了。输入<code>hexo -v</code>如果能看到版本信息就说明成功了,另附<a href="https://www.w3cschool.cn/nodejs/nodejs-npm.html" target="_blank" rel="noopener">npm W3C教程</a>。<br>接下来就可以用hexo来生成博客了。新建一个博客文件夹，如blog,</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">hexo init</span><br><span class="line">hexo generate   //可以简写成hexo g</span><br><span class="line">hexo server     //可以简写成hexo s</span><br></pre></td></tr></table></figure>
 <p>成功后，我们可以看到提示 localhost:4000 可以访问，用浏览器打开，可以看到首页。<br><img src="localhost.png" alt="生成博客成功" title="博客首页"><br>个人调试可以用以下命令去一键生成：<br><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code><br>意思是先清除现有博客，然后生成，发布。另外hexo的远程部署命令是<code>hexo d</code>.</p>
 <h2 id="hexo配合github建站"><a href="#hexo配合github建站" class="headerlink" title="hexo配合github建站"></a>hexo配合github建站</h2><p>当我们需要远程部署的时候，需要先安装<em>hexo-deployer-git</em>。<br><code>npm install hexo-deployer-git --save</code><br>安装好之后在博客目录配置文件_config.yml最后面添加deploy字段如下：</p>
