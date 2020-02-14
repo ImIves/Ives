@@ -3,11 +3,11 @@
   <title>Ives&#39;s Blog</title>
   
   <subtitle>Reading maketh a full man; conference a ready man; and writing an exact man. --Fransis Bacon</subtitle>
-  <link href="/atom.xml" rel="self"/>
+  <link href="/Ives/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="http://yoursite.com/Ives/"/>
   <updated>2020-02-13T12:44:48.320Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://yoursite.com/Ives/</id>
   
   <author>
     <name>Ives</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Test</title>
-    <link href="http://yoursite.com/2020/02/13/Test/"/>
-    <id>http://yoursite.com/2020/02/13/Test/</id>
+    <link href="http://yoursite.com/Ives/2020/02/13/Test/"/>
+    <id>http://yoursite.com/Ives/2020/02/13/Test/</id>
     <published>2020-02-13T11:07:00.000Z</published>
     <updated>2020-02-13T12:44:48.320Z</updated>
     
@@ -33,17 +33,17 @@
     </summary>
     
     
-      <category term="C/C++" scheme="http://yoursite.com/categories/C-C/"/>
+      <category term="C/C++" scheme="http://yoursite.com/Ives/categories/C-C/"/>
     
     
-      <category term="C/C++" scheme="http://yoursite.com/tags/C-C/"/>
+      <category term="C/C++" scheme="http://yoursite.com/Ives/tags/C-C/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2020/02/12/hello-world/"/>
-    <id>http://yoursite.com/2020/02/12/hello-world/</id>
+    <link href="http://yoursite.com/Ives/2020/02/12/hello-world/"/>
+    <id>http://yoursite.com/Ives/2020/02/12/hello-world/</id>
     <published>2020-02-12T01:13:57.163Z</published>
     <updated>2020-02-13T10:38:27.750Z</updated>
     
@@ -61,8 +61,8 @@
   
   <entry>
     <title>使用github,hexo,next搭建个人博客</title>
-    <link href="http://yoursite.com/2020/02/11/%E4%BD%BF%E7%94%A8github-hexo-next%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://yoursite.com/2020/02/11/%E4%BD%BF%E7%94%A8github-hexo-next%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</id>
+    <link href="http://yoursite.com/Ives/2020/02/11/%E4%BD%BF%E7%94%A8github-hexo-next%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://yoursite.com/Ives/2020/02/11/%E4%BD%BF%E7%94%A8github-hexo-next%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</id>
     <published>2020-02-11T12:52:22.000Z</published>
     <updated>2020-02-14T08:08:39.026Z</updated>
     
@@ -75,14 +75,14 @@
     </summary>
     
     
-      <category term="其它" scheme="http://yoursite.com/categories/%E5%85%B6%E5%AE%83/"/>
+      <category term="其它" scheme="http://yoursite.com/Ives/categories/%E5%85%B6%E5%AE%83/"/>
     
     
-      <category term="github page" scheme="http://yoursite.com/tags/github-page/"/>
+      <category term="github page" scheme="http://yoursite.com/Ives/tags/github-page/"/>
     
-      <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
+      <category term="hexo" scheme="http://yoursite.com/Ives/tags/hexo/"/>
     
-      <category term="next" scheme="http://yoursite.com/tags/next/"/>
+      <category term="next" scheme="http://yoursite.com/Ives/tags/next/"/>
     
   </entry>
   

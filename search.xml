@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Test</title>
-    <url>/2020/02/13/Test/</url>
+    <url>/Ives/2020/02/13/Test/</url>
     <content><![CDATA[<h2 id="这是一个用Admin生成的一个文件，牛逼么？"><a href="#这是一个用Admin生成的一个文件，牛逼么？" class="headerlink" title="这是一个用Admin生成的一个文件，牛逼么？"></a>这是一个用Admin生成的一个文件，牛逼么？</h2><p><a href="http://www.tencent.com" target="_blank" rel="noopener">腾讯</a></p>
 <p><a href="http://www.baidu.com" target="_blank" rel="noopener">百度</a></p>
 <a id="more"></a>
@@ -23,7 +23,7 @@
   </entry>
   <entry>
     <title>Hello World</title>
-    <url>/2020/02/12/hello-world/</url>
+    <url>/Ives/2020/02/12/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <a id="more"></a>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
@@ -42,7 +42,7 @@
   </entry>
   <entry>
     <title>使用github,hexo,next搭建个人博客</title>
-    <url>/2020/02/11/%E4%BD%BF%E7%94%A8github-hexo-next%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+    <url>/Ives/2020/02/11/%E4%BD%BF%E7%94%A8github-hexo-next%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<p>本文将介绍如何使用GitHub pages和hexo来搭建一个个人博客。github pages 是一个静态网页博客平台。建立好git仓库之后，可以直接在github上配置生成一个简单的首页index.html <strong>(没错还是hello world)</strong>，另外还支持域名配置。hexo是一个基于nodeJS实现的博客框架。它的最大的作用就是能将 <strong>markdown文档</strong>自动转化成 <strong>html文档</strong>。再搭配一些主题（比如：<strong>next主题</strong>）,将显示的非常美观，而且next主题是一个开源的可以自由定制的主题。</p>
 <a id="more"></a>
 
