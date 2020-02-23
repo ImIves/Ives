@@ -424,8 +424,8 @@ commonweal: heartbeat</code></pre></li>
         <category>Qt</category>
       </categories>
       <tags>
-        <tag>打包</tag>
         <tag>qt</tag>
+        <tag>打包</tag>
         <tag>windeployqt</tag>
       </tags>
   </entry>
@@ -919,8 +919,8 @@ rebase操作可以把本地未push的分叉提交历史整理成直线；</li>
         <category>Qt</category>
       </categories>
       <tags>
-        <tag>打包</tag>
         <tag>qt</tag>
+        <tag>打包</tag>
       </tags>
   </entry>
   <entry>
