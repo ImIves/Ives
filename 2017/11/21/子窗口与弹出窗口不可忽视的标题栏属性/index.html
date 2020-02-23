@@ -23,14 +23,14 @@
   <meta name="description" content="之前写过一篇日志说child窗口edit不能输入。虽然解决了，但并不完美，后面发现能输入了，但是鼠标不能选择文字，键盘却可以。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="子窗口与弹出窗口不可忽视的标题栏属性">
-<meta property="og:url" content="http://icevil.cn/2017/11/21/%E5%AD%90%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E6%A0%87%E9%A2%98%E6%A0%8F%E5%B1%9E%E6%80%A7/index.html">
+<meta property="og:url" content="https://icevil.cn/2017/11/21/%E5%AD%90%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E6%A0%87%E9%A2%98%E6%A0%8F%E5%B1%9E%E6%80%A7/index.html">
 <meta property="og:site_name" content="Ives&#39;s Blog">
 <meta property="og:description" content="之前写过一篇日志说child窗口edit不能输入。虽然解决了，但并不完美，后面发现能输入了，但是鼠标不能选择文字，键盘却可以。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://icevil.cn/2017/11/21/%E5%AD%90%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E6%A0%87%E9%A2%98%E6%A0%8F%E5%B1%9E%E6%80%A7/20171121182014112.png">
-<meta property="og:image" content="http://icevil.cn/2017/11/21/%E5%AD%90%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E6%A0%87%E9%A2%98%E6%A0%8F%E5%B1%9E%E6%80%A7/20171121182021701.png">
-<meta property="og:image" content="http://icevil.cn/2017/11/21/%E5%AD%90%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E6%A0%87%E9%A2%98%E6%A0%8F%E5%B1%9E%E6%80%A7/20171121182027595.png">
-<meta property="og:image" content="http://icevil.cn/2017/11/21/%E5%AD%90%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E6%A0%87%E9%A2%98%E6%A0%8F%E5%B1%9E%E6%80%A7/20171121182034323.png">
+<meta property="og:image" content="https://icevil.cn/2017/11/21/%E5%AD%90%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E6%A0%87%E9%A2%98%E6%A0%8F%E5%B1%9E%E6%80%A7/20171121182014112.png">
+<meta property="og:image" content="https://icevil.cn/2017/11/21/%E5%AD%90%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E6%A0%87%E9%A2%98%E6%A0%8F%E5%B1%9E%E6%80%A7/20171121182021701.png">
+<meta property="og:image" content="https://icevil.cn/2017/11/21/%E5%AD%90%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E6%A0%87%E9%A2%98%E6%A0%8F%E5%B1%9E%E6%80%A7/20171121182027595.png">
+<meta property="og:image" content="https://icevil.cn/2017/11/21/%E5%AD%90%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E6%A0%87%E9%A2%98%E6%A0%8F%E5%B1%9E%E6%80%A7/20171121182034323.png">
 <meta property="article:published_time" content="2017-11-21T10:31:54.000Z">
 <meta property="article:modified_time" content="2020-02-17T06:33:56.253Z">
 <meta property="article:author" content="Ives">
@@ -39,9 +39,9 @@
 <meta property="article:tag" content="弹出窗口">
 <meta property="article:tag" content="标题属性">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://icevil.cn/2017/11/21/%E5%AD%90%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E6%A0%87%E9%A2%98%E6%A0%8F%E5%B1%9E%E6%80%A7/20171121182014112.png">
+<meta name="twitter:image" content="https://icevil.cn/2017/11/21/%E5%AD%90%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E6%A0%87%E9%A2%98%E6%A0%8F%E5%B1%9E%E6%80%A7/20171121182014112.png">
 
-<link rel="canonical" href="http://icevil.cn/2017/11/21/%E5%AD%90%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E6%A0%87%E9%A2%98%E6%A0%8F%E5%B1%9E%E6%80%A7/">
+<link rel="canonical" href="https://icevil.cn/2017/11/21/%E5%AD%90%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E6%A0%87%E9%A2%98%E6%A0%8F%E5%B1%9E%E6%80%A7/">
 
 
 <script id="page-configurations">
@@ -197,7 +197,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://icevil.cn/2017/11/21/%E5%AD%90%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E6%A0%87%E9%A2%98%E6%A0%8F%E5%B1%9E%E6%80%A7/">
+    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2017/11/21/%E5%AD%90%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E6%A0%87%E9%A2%98%E6%A0%8F%E5%B1%9E%E6%80%A7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.jpg">
@@ -287,8 +287,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <!--page.permalink有问题只能用page.path代替了-->
-    <a href="http://icevil.cn/2017/11/21/%E5%AD%90%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E6%A0%87%E9%A2%98%E6%A0%8F%E5%B1%9E%E6%80%A7/" title="子窗口与弹出窗口不可忽视的标题栏属性">http://icevil.cn/2017/11/21/子窗口与弹出窗口不可忽视的标题栏属性/</a>                   
+    <a href="https://icevil.cn/2017/11/21/%E5%AD%90%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E6%A0%87%E9%A2%98%E6%A0%8F%E5%B1%9E%E6%80%A7/" title="子窗口与弹出窗口不可忽视的标题栏属性">https://icevil.cn/2017/11/21/子窗口与弹出窗口不可忽视的标题栏属性/</a>                   
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -432,7 +431,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -445,7 +444,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-count">82</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

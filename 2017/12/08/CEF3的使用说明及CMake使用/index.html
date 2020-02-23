@@ -23,17 +23,17 @@
   <meta name="description" content="CEF简介Chromium Embedded Framework (CEF)是个基于Google Chromium项目的开源Web browser控件，支持Windows, Linux, Mac平台。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CEF3的使用说明及CMake使用">
-<meta property="og:url" content="http://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:url" content="https://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="Ives&#39;s Blog">
 <meta property="og:description" content="CEF简介Chromium Embedded Framework (CEF)是个基于Google Chromium项目的开源Web browser控件，支持Windows, Linux, Mac平台。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208150431090.jpg">
-<meta property="og:image" content="http://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208150453786.jpg">
-<meta property="og:image" content="http://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208155106665.png">
-<meta property="og:image" content="http://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208155909895.jpg">
-<meta property="og:image" content="http://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208160252696.jpg">
-<meta property="og:image" content="http://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208160332354.jpg">
-<meta property="og:image" content="http://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208164157983.jpg">
+<meta property="og:image" content="https://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208150431090.jpg">
+<meta property="og:image" content="https://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208150453786.jpg">
+<meta property="og:image" content="https://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208155106665.png">
+<meta property="og:image" content="https://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208155909895.jpg">
+<meta property="og:image" content="https://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208160252696.jpg">
+<meta property="og:image" content="https://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208160332354.jpg">
+<meta property="og:image" content="https://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208164157983.jpg">
 <meta property="article:published_time" content="2017-12-08T08:48:16.000Z">
 <meta property="article:modified_time" content="2020-02-17T07:40:21.087Z">
 <meta property="article:author" content="Ives">
@@ -42,9 +42,9 @@
 <meta property="article:tag" content="chromium">
 <meta property="article:tag" content="chrome">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208150431090.jpg">
+<meta name="twitter:image" content="https://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208150431090.jpg">
 
-<link rel="canonical" href="http://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/">
+<link rel="canonical" href="https://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/">
 
 
 <script id="page-configurations">
@@ -200,7 +200,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.jpg">
@@ -321,8 +321,7 @@ GYP结构<br>GYP的输入是.gyp和.gypi文件，.gypi文件是用于.gyp文件i
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <!--page.permalink有问题只能用page.path代替了-->
-    <a href="http://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/" title="CEF3的使用说明及CMake使用">http://icevil.cn/2017/12/08/CEF3的使用说明及CMake使用/</a>                   
+    <a href="https://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/" title="CEF3的使用说明及CMake使用">https://icevil.cn/2017/12/08/CEF3的使用说明及CMake使用/</a>                   
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -467,7 +466,7 @@ GYP结构<br>GYP的输入是.gyp和.gypi文件，.gypi文件是用于.gyp文件i
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -480,7 +479,7 @@ GYP结构<br>GYP的输入是.gyp和.gypi文件，.gypi文件是用于.gyp文件i
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-count">82</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

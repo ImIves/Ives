@@ -23,23 +23,23 @@
   <meta name="description" content="最近遇到这么个问题，想将写日志信息放到一个单独的线程中去执行，然而添加movetothread后程序就不进入槽函数了，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="QT将事件执行moveToThread槽函数不响应问题">
-<meta property="og:url" content="http://icevil.cn/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:url" content="https://icevil.cn/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="Ives&#39;s Blog">
 <meta property="og:description" content="最近遇到这么个问题，想将写日志信息放到一个单独的线程中去执行，然而添加movetothread后程序就不进入槽函数了，">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://icevil.cn/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/2018112717484772.png">
-<meta property="og:image" content="http://icevil.cn/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/20181127175317582.png">
-<meta property="og:image" content="http://icevil.cn/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/20181127175559889.png">
-<meta property="og:image" content="http://icevil.cn/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/20181127175633539.png">
+<meta property="og:image" content="https://icevil.cn/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/2018112717484772.png">
+<meta property="og:image" content="https://icevil.cn/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/20181127175317582.png">
+<meta property="og:image" content="https://icevil.cn/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/20181127175559889.png">
+<meta property="og:image" content="https://icevil.cn/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/20181127175633539.png">
 <meta property="article:published_time" content="2018-11-27T09:59:50.000Z">
 <meta property="article:modified_time" content="2020-02-18T03:15:12.270Z">
 <meta property="article:author" content="Ives">
 <meta property="article:tag" content="qt">
 <meta property="article:tag" content="moveToThread">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://icevil.cn/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/2018112717484772.png">
+<meta name="twitter:image" content="https://icevil.cn/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/2018112717484772.png">
 
-<link rel="canonical" href="http://icevil.cn/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/">
+<link rel="canonical" href="https://icevil.cn/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/">
 
 
 <script id="page-configurations">
@@ -195,7 +195,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://icevil.cn/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.jpg">
@@ -283,8 +283,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <!--page.permalink有问题只能用page.path代替了-->
-    <a href="http://icevil.cn/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/" title="QT将事件执行moveToThread槽函数不响应问题">http://icevil.cn/2018/11/27/QT将事件执行moveToThread槽函数不响应问题/</a>                   
+    <a href="https://icevil.cn/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/" title="QT将事件执行moveToThread槽函数不响应问题">https://icevil.cn/2018/11/27/QT将事件执行moveToThread槽函数不响应问题/</a>                   
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -426,7 +425,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -439,7 +438,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-count">82</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
