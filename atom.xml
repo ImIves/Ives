@@ -531,11 +531,11 @@
       <category term="Qt" scheme="http://yoursite.com/categories/Qt/"/>
     
     
-      <category term="qt" scheme="http://yoursite.com/tags/qt/"/>
-    
       <category term="model" scheme="http://yoursite.com/tags/model/"/>
     
       <category term="view" scheme="http://yoursite.com/tags/view/"/>
+    
+      <category term="qt" scheme="http://yoursite.com/tags/qt/"/>
     
   </entry>
   

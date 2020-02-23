@@ -850,9 +850,9 @@ rebase操作可以把本地未push的分叉提交历史整理成直线；</li>
         <category>Qt</category>
       </categories>
       <tags>
-        <tag>qt</tag>
         <tag>model</tag>
         <tag>view</tag>
+        <tag>qt</tag>
       </tags>
   </entry>
   <entry>
@@ -1199,9 +1199,9 @@ GYP结构<br>GYP的输入是.gyp和.gypi文件，.gypi文件是用于.gyp文件i
         <category>vc</category>
       </categories>
       <tags>
+        <tag>vc</tag>
         <tag>WindowsZ序</tag>
         <tag>子窗口管理</tag>
-        <tag>vc</tag>
       </tags>
   </entry>
   <entry>
@@ -1243,10 +1243,10 @@ GYP结构<br>GYP的输入是.gyp和.gypi文件，.gypi文件是用于.gyp文件i
         <category>vc</category>
       </categories>
       <tags>
+        <tag>vc</tag>
         <tag>ScreenToClient</tag>
         <tag>ClientToScreen</tag>
         <tag>windows坐标系统</tag>
-        <tag>vc</tag>
       </tags>
   </entry>
   <entry>
@@ -1546,8 +1546,8 @@ PNOTIFYICONDATA pnid);</code><br>这个函数呢，负责向系统传递消息�
         <category>vc</category>
       </categories>
       <tags>
-        <tag>托盘</tag>
         <tag>vc</tag>
+        <tag>托盘</tag>
       </tags>
   </entry>
 </search>
