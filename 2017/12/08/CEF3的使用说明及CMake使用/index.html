@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/uploads/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/uploads/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.7.1","exturl":false,"sidebar":{"position":"left","width":310,"display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="CEF简介Chromium Embedded Framework (CEF)是个基于Google Chromium项目的开源Web browser控件，支持Windows, Linux, Mac平台。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CEF3的使用说明及CMake使用">
+<meta property="og:url" content="http://yoursite.com/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Ives&#39;s Blog">
+<meta property="og:description" content="CEF简介Chromium Embedded Framework (CEF)是个基于Google Chromium项目的开源Web browser控件，支持Windows, Linux, Mac平台。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208150431090.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208150453786.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208155106665.png">
+<meta property="og:image" content="http://yoursite.com/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208155909895.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208160252696.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208160332354.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208164157983.jpg">
+<meta property="article:published_time" content="2017-12-08T08:48:16.000Z">
+<meta property="article:modified_time" content="2020-02-17T07:40:21.087Z">
+<meta property="article:author" content="Ives">
+<meta property="article:tag" content="cef">
+<meta property="article:tag" content="cmake">
+<meta property="article:tag" content="chromium">
+<meta property="article:tag" content="chrome">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/20171208150431090.jpg">
+
+<link rel="canonical" href="http://yoursite.com/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>CEF3的使用说明及CMake使用 | Ives's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Ives's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta custom-logo">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ives's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Reading maketh a full man; conference a ready man; and writing an exact man. --Fransis Bacon</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404.html" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/" class="github-corner" title="去全球最大同性交友网站，走！" aria-label="去全球最大同性交友网站，走！" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ives">
+      <meta itemprop="description" content="程序员要学的真是没完没了...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ives's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CEF3的使用说明及CMake使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-12-08 16:48:16" itemprop="dateCreated datePublished" datetime="2017-12-08T16:48:16+08:00">2017-12-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-17 15:40:21" itemprop="dateModified" datetime="2020-02-17T15:40:21+08:00">2020-02-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c-c/" itemprop="url" rel="index">
+                    <span itemprop="name">c/c++</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="CEF简介"><a href="#CEF简介" class="headerlink" title="CEF简介"></a>CEF简介</h2><p>Chromium Embedded Framework (CEF)是个基于Google Chromium项目的开源Web browser控件，支持Windows, Linux, Mac平台。</p>
+<a id="more"></a>
+<p>简单说就是Chrome的开源版，目前很多所谓的双核浏览器，实质就是chrome+IE的双核。基于HTML5的支持，以及v8引擎的效率，在软<br>件中嵌入chromium是个不错的选择，而且目前市面上应用及其广泛，如：tx系软件。spy++一抓就知道了，如下图<br><img src="20171208150431090.jpg" alt=""></p>
+<h2 id="cef下载"><a href="#cef下载" class="headerlink" title="cef下载"></a>cef下载</h2><p><a href="http://opensource.spotify.com/cefbuilds/index.html" target="_blank" rel="noopener">下载地址</a>下载速度是不快，但总算下载下来了，由于本人是vs2013，遇到的坑就是3.3以上的版本至少要vs2015以上才能编译，总之搞了很久最后下了一个3.27版本才成功，提示：如果不打算放弃32位就建议下载32位版本吧，不然64位软件在32位系统是跑不起来的。<br>由于新下载的标准开发包解压就是如下图了，<br><img src="20171208150453786.jpg" alt=""><br>文件目录结构在此做下说明，很是重要。笔者在此花费了很多时间。</p>
+<ol>
+<li>首先建议先阅读Readme.txt，该文件对项目结构做了简要说明。当然看一遍肯定不可能完全理解。但随着对项目的熟悉了解，发现该文件说的还是挺清晰的。</li>
+<li>licence.txt没啥说的，就是关于版权的说明。<br>几个gyp/gypi文件是不能手动修改的，是GYP（Generate Your Projects）工具自动生成的相当于工程配置文件。插入一段GYP说明：<blockquote>
+</blockquote>
+GYP结构<br>GYP的输入是.gyp和.gypi文件，.gypi文件是用于.gyp文件include使用的。.gyp文件就是符合特定格式的json文件。<br>gyp文件中包含target，Visual C++下，gyp生成sln，target生成vcproj或vxcproj。<br>chromium中GYP结构是，通过命令行统一使用build/common.gypi的公共文件，工程的配置，选项的处理，编译选项的使用，都是在这个文件中配置。</li>
+</ol>
+<blockquote>
+<p>生成一个总工程all.gyp，这个工程依赖于其他所有的工程，这个工程生成，所有工程都生成完成。而且有一个总工程也方便开发。<br>如果要使用GYP，建议依照chromium的结构，common.gypi也用chromium的进行裁剪，毕竟各种选项的选择也是需要经验的。</p>
+</blockquote>
+<blockquote>
+<p>使用GYP<br>chromium工程中的方法是使用build/gyp_chromium这个Python脚本来调用，这个脚本实现添加公共配置，侦测附加配置，添加需要的编译选项。</p>
+</blockquote>
+<ol start="3">
+<li>然后就是介绍CMakeList.txt文件了，该文件非常重要。这里要引入CMake的一些知识，下载地址：<br><a href="https://cmake.org/download/" target="_blank" rel="noopener">CMake下载地址</a><br>CMake是一个跨平台的安装（编译）工具，可以用简单的语句来描述所有平台的安装(目前很多开源跨平台库都使用此方式如：ProtoBuf，cef)。</li>
+</ol>
+<p>CMake脚本本文不做介绍，由于当前用的win平台所以直接下载免安装版解压运行cmake-gui.exe,（说句废话，这是一个qt程序，</p>
+<p>跨平台还是选择了qt，呵呵）。<br><img src="20171208155106665.png" alt=""></p>
+<p>需要注意的就是源代码目录和生成工程文件的目录了，<code>configue</code>没错误就<code>Generate</code>生成相应vs版本工程文件，然后<code>OpenProject</code>，<br><img src="20171208155909895.jpg" alt=""><br>正常情况就是所有的项目（包括库和测试程序）都包含在这个工程中。<br><code>libcef_dll_wrapper</code>会生成一个库，<code>cefclient</code>和<code>cefsimple</code>则会生成测试程序，对应下面两张图。<br><img src="20171208160252696.jpg" alt=""><br><img src="20171208160332354.jpg" alt=""></p>
+<ol start="4">
+<li>文件夹介绍</li>
+</ol>
+<p>（1）cmake，该文件夹包含Cmake的一些宏定义，配置信息。<br>（2）include，使用该库的所有头文件<br>（3）libcef_dll，库的源代码<br>（4）tests，测试程序demo源代码<br>（5）Resource,资源文件<br>该资源文件是程序运行需要依赖的资源文件，含语言包，unicode支持等<br>（6）Debug/Release，程序依赖的动态库/静态库。但不包括C++库：libcef_dll_wrapper.lib。</p>
+<p><strong>1. 必须文件，缺少任意一个CEF将无法运行：</strong><br>libcef.dll<br>    这个不用多说，CEF的核心库文件，js引擎、网页加载渲染逻辑等都在其中，也是size最大的一个文件（Release版将近50M，Debug版超过500M）。<br>icudtl.dat<br>    用来支持unicode，缺少这些文件虽然编译能通过，但是执行CefInitialize();的时候就会崩溃，在这个坑趴了很久还以为是代码问题。<br>natives_blob.bin<br>snapshot_blob.bin<br>    V8引擎快照数据。<br><strong>2. 可选文件：</strong><br>locales/<br>    该目录包含CEF，Chromium和Blink使用的本地化资源。 CefSettings.locale指定需要加载的.pak文件。 只需要发布配置的区域对应的.pak文件。</p>
+<p>如果没有区域设置将配置默认语言环境“en-US”。如果没有这些文件任意Web组件可能显示不正确。<br>cef.pak<br>cef_100_percent.pak<br>cef_200_percent.pak<br>    这些文件包含了供CEF使用的区域无关资源，缺少这些文件任意Web组件可能显示不正确。（笔者当时缺少cef_100_percent.pak，</p>
+<p>cef_200_percent.pak两文件，导致视频控件不显示音量和最大化按钮）。<br>cef_extensions.pak<br>    此文件包含扩展加载所需的非本地化资源传递<code>--disable-extensions</code>命令行标志来禁止使用文件。没有这个文件，依赖于扩展系统的组件将不起作用，</p>
+<p>如PDF查看器。<br>devtools_resources.pak<br>    此文件包含Chrome开发者工具所需的非本地化资源，缺少这个文件，Chrome开发者工具将无法运行。<br>d3dcompiler_43.dll (Windows XP需要该文件)<br>d3dcompiler_47.dll (Windows Vista和更高版本的系统需要该文件)<br>libEGL.dll<br>libGLESv2.dll<br>    Direct3D支持文件，如果缺少这些文件，HTML5在渲染2D画布，3D CSS，WebGL时将不起作用。<br>wow_helper.exe<br>    用来支持Windows Vista 64位沙箱。如果没有这个文件，32位的CEF将无法在开启了沙箱的64位的Vista机器上运行。</p>
+<p><a href="https://bitbucket.org/chromiumembedded/cef/src/816f700d3ea42bedc5ca5a2314c27b761b69abc5/tools/distrib/win/README.redistrib.txt?at=master&fileviewer=file-view-default" target="_blank" rel="noopener">英文原文</a></p>
+<p>附MFC使用CEF3简单Demo代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">CMFCDlgCefTestDlg::OnInitDialog</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	CDialogEx::OnInitDialog();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// <span class="doctag">TODO:</span>  在此添加额外的初始化代码</span></span><br><span class="line">	<span class="function">CefRefPtr&lt;CSimpleClient&gt; <span class="title">client</span><span class="params">(<span class="keyword">new</span> CSimpleClient())</span></span>;</span><br><span class="line">	m_simpleClient = client;</span><br><span class="line"></span><br><span class="line">	CefSettings settings;</span><br><span class="line">	CefSettingsTraits::init(&amp;settings);</span><br><span class="line">	settings.multi_threaded_message_loop = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">	CefMainArgs mainArgs;</span><br><span class="line">	CefRefPtr&lt;CefApp&gt; cefApp;</span><br><span class="line">	CefInitialize(mainArgs, settings, cefApp, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	RECT <span class="built_in">rect</span>;</span><br><span class="line">	GetClientRect(&amp;<span class="built_in">rect</span>);</span><br><span class="line">	RECT rectnew = <span class="built_in">rect</span>;</span><br><span class="line">	CefWindowInfo winInfo;</span><br><span class="line">	winInfo.SetAsChild(GetSafeHwnd(), rectnew);</span><br><span class="line"></span><br><span class="line">	CefBrowserSettings browserSettings;</span><br><span class="line">	CefBrowserHost::CreateBrowser(winInfo, client, _T(<span class="string">"http://www.lofter.com"</span>), browserSettings, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> TRUE;  <span class="comment">// 除非将焦点设置到控件，否则返回 TRUE</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CMFCDlgCefTestDlg::OnClose</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// <span class="doctag">TODO:</span>  在此添加消息处理程序代码和/或调用默认值</span></span><br><span class="line">	m_simpleClient-&gt;Release();</span><br><span class="line">	CefShutdown();<span class="comment">//其实这行代码如果没有设置cefApp的话，是会崩溃的，测试完全可以注释。但切记，该函数只能在主线程中调用。后续深入学习后，还需解一下惑</span></span><br><span class="line">	CDialogEx::OnClose();</span><br><span class="line">&#125;</span><br><span class="line">	<span class="comment">// <span class="doctag">TODO:</span>  在此添加消息处理程序代码和/或调用默认值</span></span><br><span class="line">	m_simpleClient-&gt;Release();</span><br><span class="line">	CefShutdown();<span class="comment">//其实这行代码如果没有设置cefApp的话，是会崩溃的，测试完全可以注释。但切记，该函数只能在主线程中调用。后续深入学习后，还需解一下惑</span></span><br><span class="line">	CDialogEx::OnClose();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="20171208164157983.jpg" alt="lofter"><br>推荐一个不错的文档地址：</p>
+<p><a href="https://github.com/fanfeilong/cefutil" target="_blank" rel="noopener">github文档</a></p>
+<p><a href="http://download.csdn.net/download/evil_119/10151078" target="_blank" rel="noopener">csdn下载</a></p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/uploads/wechatpay.png" alt="Ives 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="https://twitter.com/Ives">
+                <span class="icon">
+                  <i class="fa fa-twitter"></i>
+                </span>
+
+                <span class="label">Twitter</span>
+              </a>
+            </div>
+
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="/images/wechat.png">
+                <span class="icon">
+                  <i class="fa fa-wechat"></i>
+                </span>
+
+                <span class="label">WeChat</span>
+              </a>
+            </div>
+
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="/atom.xml">
+                <span class="icon">
+                  <i class="fa fa-rss"></i>
+                </span>
+
+                <span class="label">RSS</span>
+              </a>
+            </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/cef/" rel="tag"><i class="fa fa-tag"></i> cef</a>
+              <a href="/tags/cmake/" rel="tag"><i class="fa fa-tag"></i> cmake</a>
+              <a href="/tags/chromium/" rel="tag"><i class="fa fa-tag"></i> chromium</a>
+              <a href="/tags/chrome/" rel="tag"><i class="fa fa-tag"></i> chrome</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/11/24/%E5%BC%80%E5%8F%91%E7%95%8C%E9%9D%A2%E4%B9%8B%E7%AA%97%E5%8F%A3%E8%BE%B9%E6%A1%86%E9%87%8D%E7%BB%98/" rel="prev" title="开发界面之窗口边框重绘">
+      <i class="fa fa-chevron-left"></i> 开发界面之窗口边框重绘
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/04/03/Ubuntu-Windows%E4%BD%BF%E7%94%A8glog/" rel="next" title="Ubuntu/Windows使用glog">
+      Ubuntu/Windows使用glog <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CEF简介"><span class="nav-number">1.</span> <span class="nav-text">CEF简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cef下载"><span class="nav-number">2.</span> <span class="nav-text">cef下载</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ives"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Ives</p>
+  <div class="site-description" itemprop="description">程序员要学的真是没完没了...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:somepure@foxmail.com" title="E-Mail → mailto:somepure@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+    <!--插入外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" height=240 src="//music.163.com/outchain/player?type=0&id=4866221043&auto=0&height=430"></iframe>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">版权归原作者Ives所有，转载请标注。</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

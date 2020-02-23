@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-02-13T12:44:48.320Z</updated>
+  <updated>2020-02-23T02:56:55.396Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,56 +17,13 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Test</title>
-    <link href="http://yoursite.com/2020/02/13/Test/"/>
-    <id>http://yoursite.com/2020/02/13/Test/</id>
-    <published>2020-02-13T11:07:00.000Z</published>
-    <updated>2020-02-13T12:44:48.320Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="这是一个用Admin生成的一个文件，牛逼么？"><a href="#这是一个用Admin生成的一个文件，牛逼么？" class="headerlink" title="这是一个用Admin生成的一个文件，牛逼么？"></a>这是一个用Admin生成的一个文件，牛逼么？</h2><p><a href="http://www.tencent.com" target="_blank" rel="noopener">腾讯</a></p><p><a href="http://www.baidu.com" target="_blank" rel="noopener">百度</a></p><a id="more"></a><p>集群：多台机器处理同样的任务<br>分布式：多台机器可以处理不同的任务<br>负载均衡：应用层针对网络协议做的转发，从而实现均衡。集群不一定需要负载均衡的存在如mysql的主从同步。<br><span style=color:red>能显示红色么？</span></p><ul><li><p>牛逼1</p></li><li><p>牛逼2</p></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;这是一个用Admin生成的一个文件，牛逼么？&quot;&gt;&lt;a href=&quot;#这是一个用Admin生成的一个文件，牛逼么？&quot; class=&quot;headerlink&quot; title=&quot;这是一个用Admin生成的一个文件，牛逼么？&quot;&gt;&lt;/a&gt;这是一个用Admin生成的一个文件，牛逼么？&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;http://www.tencent.com&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;腾讯&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://www.baidu.com&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;百度&lt;/a&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="C/C++" scheme="http://yoursite.com/categories/C-C/"/>
-    
-    
-      <category term="C/C++" scheme="http://yoursite.com/tags/C-C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://yoursite.com/2020/02/12/hello-world/"/>
-    <id>http://yoursite.com/2020/02/12/hello-world/</id>
-    <published>2020-02-12T01:13:57.163Z</published>
-    <updated>2020-02-13T10:38:27.750Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><a id="more"></a><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>使用github,hexo,next搭建个人博客</title>
     <link href="http://yoursite.com/2020/02/11/%E4%BD%BF%E7%94%A8github-hexo-next%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
     <id>http://yoursite.com/2020/02/11/%E4%BD%BF%E7%94%A8github-hexo-next%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</id>
     <published>2020-02-11T12:52:22.000Z</published>
-    <updated>2020-02-14T08:08:39.026Z</updated>
+    <updated>2020-02-23T02:56:55.396Z</updated>
     
-    <content type="html"><![CDATA[<p>本文将介绍如何使用GitHub pages和hexo来搭建一个个人博客。github pages 是一个静态网页博客平台。建立好git仓库之后，可以直接在github上配置生成一个简单的首页index.html <strong>(没错还是hello world)</strong>，另外还支持域名配置。hexo是一个基于nodeJS实现的博客框架。它的最大的作用就是能将 <strong>markdown文档</strong>自动转化成 <strong>html文档</strong>。再搭配一些主题（比如：<strong>next主题</strong>）,将显示的非常美观，而且next主题是一个开源的可以自由定制的主题。</p><a id="more"></a><h2 id="关于hexo的安装及使用"><a href="#关于hexo的安装及使用" class="headerlink" title="关于hexo的安装及使用"></a>关于hexo的安装及使用</h2><p>先安装nodejs，官网下载安装即可。Linux 安装npm即可。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install npm</span><br></pre></td></tr></table></figure><p>输入 <code>npm -v</code> ，如果出现版本号，那说明安装成功了并且环境变量也配置好了，如果是未知命令那就要配置一下环境变量。</p><p><strong>windows的安装</strong><br>如果已经安装了<em>git bash</em>,可以在<em>git bash</em>中使用以下安装命令（网上有人反应过失败，用cmd能成功，但应该是个例），否则使用<em>cmd</em>（快捷键<kbd>Win</kbd>+<kbd>R</kbd>然后输入cmd）窗口也是一样。后面的就和命令行安装一摸一样了。<br><strong>命令行安装</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#windows环境的话</span></span><br><span class="line">npm install -g hexo-cli</span><br><span class="line"><span class="comment">#linux环境的话</span></span><br><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure><p>这一步安装可能略慢，原因大家都懂，就不说了。输入<code>hexo -v</code>如果能看到版本信息就说明成功了,另附<a href="https://www.w3cschool.cn/nodejs/nodejs-npm.html" target="_blank" rel="noopener">npm W3C教程</a>。<br>接下来就可以用hexo来生成博客了。新建一个博客文件夹，如blog,</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">hexo init</span><br><span class="line">hexo generate   //可以简写成hexo g</span><br><span class="line">hexo server     //可以简写成hexo s</span><br></pre></td></tr></table></figure><p>成功后，我们可以看到提示 localhost:4000 可以访问，用浏览器打开，可以看到首页。<br><img src="localhost.png" alt="生成博客成功" title="博客首页"><br>个人调试可以用以下命令去一键生成：<br><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code><br>意思是先清除现有博客，然后生成，发布。另外hexo的远程部署命令是<code>hexo d</code>.</p><h2 id="hexo配合github建站"><a href="#hexo配合github建站" class="headerlink" title="hexo配合github建站"></a>hexo配合github建站</h2><p>当我们需要远程部署的时候，需要先安装<em>hexo-deployer-git</em>。<br><code>npm install hexo-deployer-git --save</code><br>安装好之后在博客目录配置文件_config.yml最后面添加deploy字段如下：</p><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>:</span><br><span class="line">  <span class="attribute">type</span>: git</span><br><span class="line">  <span class="attribute">repo</span>: git<span class="variable">@github</span>.<span class="attribute">com</span>:UserName/Blog.git</span><br><span class="line">  <span class="attribute">branch</span>: master</span><br></pre></td></tr></table></figure><p>如果git仓库是ssh则需要生成rsa key,添加公钥到github，后续用远程更新代码即可不用输入用户名密码验证。这是git的操作，本文部再赘述。</p><blockquote><p>此外，如果您的 <code>Github Pages</code> 需要使用 <code>CNAME</code> 文件自定义域名，请将 <code>CNAME</code> 文件置于 <code>source</code> 目录下，只有这样 <code>hexo deploy</code> 才能将 <code>CNAME</code> 文件一并推送至部署分支。</p></blockquote><p>关于hexo的工程文件说明如下：</p><blockquote><p>_config.yml ——工程配置文件<br>source/ ——该目录为我们存放markdown文件的地方<br>theme/ ———存放主题的目录<br>public/ ——发布生成的路径，hexo clean可以删除该目录</p></blockquote><h3 id="hexo-创建文章、标签、分类"><a href="#hexo-创建文章、标签、分类" class="headerlink" title="hexo 创建文章、标签、分类"></a>hexo 创建文章、标签、分类</h3><ul><li><p>创建文章<code>hexo new &quot;文章名称&quot;</code></p><pre><code>---title: CentOS7下Tomcat启动慢的原因及解决方案date: 2017-12-02 21:01:24comments: true #是否可评论toc: true #是否显示文章目录categories: &quot;云服务器&quot; #分类tags:   #标签    - centOS    - tomcat---</code></pre></li><li><p>创建标签<code>hexo new page tags</code></p><pre><code>title: tagsdate: 2017-12-02 21:01:24type: &quot;tags&quot;</code></pre></li><li><p>创建分类<code>hexo new page categories</code></p><pre><code>title: categoriesdate: 2017-12-02 21:01:24type: &quot;categories&quot;</code></pre><p>更多hexo详细说明如<code>API，主题，插件</code>等请参阅<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">hexo中文官方文档</a>。<br>注意标签和分类中，title可以为空，但是type:一定要写对，否则网站不能自动关联。</p></li></ul><h2 id="next教程"><a href="#next教程" class="headerlink" title="next教程"></a>next教程</h2><p>在 Hexo 中有两份主要的配置文件，其名称都是 <code>_config.yml</code>。 其中，一份位于站点根目录下，主要包含 Hexo 本身的配置；称为 <code>站点配置文件</code>， 另一份位于主题目录下，称为 <code>主题配置文件</code>。<br><strong>nexT</strong>是一个<a href="https://github.com/iissnan/hexo-theme-next/releases/tag/v5.1.4" target="_blank" rel="noopener">github 上的开源主题</a>。<a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">nexT官网</a>有教程教怎么使用、配置等。</p><h3 id="下载主题"><a href="#下载主题" class="headerlink" title="下载主题"></a>下载主题</h3><ul><li><p>克隆最新版本</p><blockquote><p>在终端窗口下，定位到 Hexo 站点目录下。使用 Git checkout 代码：</p></blockquote><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">cd</span> your-hexo-site</span><br><span class="line">$ git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/iissnan/hexo-theme-<span class="keyword">next</span> themes/<span class="keyword">next</span></span><br></pre></td></tr></table></figure></li><li><p>下载稳定版本</p><blockquote><p>1.前往 NexT 版本 <a href="https://github.com/iissnan/hexo-theme-next/releases" target="_blank" rel="noopener">发布页面</a>。<br>2.选择你所需要的版本，下载 Download 区域下的 Source Code (zip) 到本地。例如，下载 v0.4.0 版本。<br>3.解压所下载的压缩包至站点的 themes 目录下， 并将 解压后的文件夹名称（<code>hexo-theme-next-0.4.0</code>）更改为 next。</p></blockquote></li></ul><h3 id="启用主题"><a href="#启用主题" class="headerlink" title="启用主题"></a>启用主题</h3><p>与所有 Hexo 主题启用的模式一样。 当 <code>克隆/下载</code> 完成后，打开 站点配置文件， 找到 <code>theme</code> 字段，并将其值更改为 <code>next</code>。</p><table><thead><tr><th>启用 NexT 主题</th></tr></thead><tbody><tr><td>theme:<code></code>next</td></tr></tbody></table><p>到此，NexT 主题安装完成。下一步我们将验证主题是否正确启用。在切换主题之后、验证之前， 我们最好使用 hexo clean 来清除 Hexo 的缓存。</p><h3 id="验证主题"><a href="#验证主题" class="headerlink" title="验证主题"></a>验证主题</h3><p>首先启动 Hexo 本地站点，并开启调试模式（即加上 –debug），整个命令是 hexo s –debug。 在服务启动的过程，注意观察命令行输出是否有任何异常信息，如果你碰到问题，这些信息将帮助他人更好的定位错误。 当命令行输出中提示出：<br><code>INFO  Hexo is running at http://0.0.0.0:4000/. Press Ctrl+C to stop.</code><br>此时即可使用浏览器访问 <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> ，检查站点是否正确运行。<br>现在，你已经成功安装并启用了 NexT 主题。下一步我们将要更改一些主题的设定，包括个性化以及集成第三方服务。</p><h3 id="主题设定"><a href="#主题设定" class="headerlink" title="主题设定"></a>主题设定</h3><h4 id="选择-Scheme"><a href="#选择-Scheme" class="headerlink" title="选择 Scheme"></a>选择 Scheme</h4><p>Scheme 是 NexT 提供的一种特性，借助于 Scheme，NexT 为你提供多种不同的外观。同时，几乎所有的配置都可以 在 Scheme 之间共用。目前 NexT 支持三种 Scheme，他们是：</p><blockquote></blockquote><p>Muse - 默认 Scheme，这是 NexT 最初的版本，黑白主调，大量留白<br>Mist - Muse 的紧凑版本，整洁有序的单栏外观<br>Pisces - 双栏 Scheme，小家碧玉似的清新</p><p>Scheme 的切换通过更改 <code>主题配置文件</code>，搜索 scheme 关键字。 你会看到有三行 scheme 的配置，将你需用启用的 scheme 前面注释 # 去除即可。</p><table><thead><tr><th>选择 Pisces Scheme</th></tr></thead><tbody><tr><td>#scheme: Muse</td></tr><tr><td>#scheme: Mist</td></tr><tr><td>scheme: Pisces</td></tr></tbody></table><h4 id="设置-界面语言"><a href="#设置-界面语言" class="headerlink" title="设置 界面语言"></a>设置 界面语言</h4><p>编辑 站点配置文件， 将 <code>language</code> 设置成你所需要的语言。建议明确设置你所需要的语言，例如选用简体中文，配置如下：<br>` language: zh-Hans<br>目前 NexT 支持的语言如以下表格所示：</p><table><thead><tr><th>语言</th><th>代码</th><th>设定示例</th></tr></thead><tbody><tr><td>English</td><td>en</td><td>language: en</td></tr><tr><td>简体中文</td><td>zh-Hans</td><td>language: zh-Hans</td></tr><tr><td>Français</td><td>fr-FR</td><td>language: fr-FR</td></tr><tr><td>Português</td><td>pt</td><td>language: pt or language: pt-BR</td></tr><tr><td>繁體中文</td><td>zh-hk 或者 zh-tw</td><td>language: zh-hk</td></tr><tr><td>Русский язык</td><td>ru</td><td>language: ru</td></tr><tr><td>Deutsch</td><td>de</td><td>language: de</td></tr><tr><td>日本語</td><td>ja</td><td>language: ja</td></tr><tr><td>Indonesian</td><td>id</td><td>language: id</td></tr><tr><td>Korean</td><td>ko</td><td>language: ko</td></tr></tbody></table><h4 id="设置-菜单"><a href="#设置-菜单" class="headerlink" title="设置 菜单"></a>设置 菜单</h4><p>菜单配置包括三个部分，第一是菜单项（名称和链接），第二是菜单项的显示文本，第三是菜单项对应的图标。 NexT 使用的是 <a href="http://fontawesome.io/" target="_blank" rel="noopener">Font Awesome</a> 提供的图标， Font Awesome 提供了 600+ 的图标，可以满足绝大的多数的场景，同时无须担心在 Retina 屏幕下 图标模糊的问题。</p><p>编辑 <code>主题配置文件</code>，修改以下内容：</p><ul><li>设定菜单内容，对应的字段是 menu。 菜单内容的设置格式是：<code>item name: link</code>。其中 <code>item name</code> 是一个名称，这个名称并不直接显示在页面上，她将用于匹配图标以及翻译。<blockquote></blockquote>菜单示例配置<br>menu:<br>home: /<br>archives: /archives<br>#about: /about<br>#categories: /categories<br>tags: /tags<br>#commonweal: /404.html</li></ul><blockquote><p>若你的站点运行在子目录中，请将链接前缀的 <code>/</code> 去掉</p></blockquote><p>NexT 默认的菜单项有（标注  的项表示需要手动创建这个页面）：</p><table><thead><tr><th>键值</th><th>设定值</th><th>显示文本（简体中文）</th></tr></thead><tbody><tr><td>home</td><td>home: /</td><td>主页</td></tr><tr><td>archives</td><td>archives: /archives</td><td>归档页</td></tr><tr><td>categories</td><td>categories: /categories</td><td>分类页</td></tr><tr><td>tags</td><td>tags: /tags</td><td>标签页</td></tr><tr><td>about</td><td>about: /about</td><td>关于页面</td></tr><tr><td>commonweal</td><td>commonweal: /404.html</td><td>公益 404</td></tr></tbody></table><ul><li>设置菜单项的显示文本。在第一步中设置的菜单的名称并不直接用于界面上的展示。Hexo 在生成的时候将使用 这个名称查找对应的语言翻译，并提取显示文本。这些翻译文本放置在 NexT 主题目录下的 <code>languages/{language}.yml</code> （{language} 为你所使用的语言）。</li></ul><p>以简体中文为例，若你需要添加一个菜单项，比如 something。那么就需要修改简体中文对应的翻译文件 <code>languages/zh-Hans.yml</code>，在 <code>menu</code> 字段下添加一项：</p><blockquote></blockquote><p>menu:<br>  home: 首页<br>  archives: 归档<br>  categories: 分类<br>  tags: 标签<br>  about: 关于<br>  search: 搜索<br>  commonweal: 公益404<br>  something: 有料</p><ul><li><p>设定菜单项的图标，对应的字段是 <code>menu_icons</code>。 此设定格式是 <code>item name: icon name</code>，其中 <code>item name</code> 与上一步所配置的菜单名字对应，<code>icon name</code> 是 Font Awesome 图标的 名字。而 <code>enable</code> 可用于控制是否显示图标，你可以设置成 <code>false</code> 来去掉图标。</p><blockquote></blockquote><p>菜单图标配置示例<br>menu_icons:</p><pre><code>enable: true\# Icon Mapping.home: homeabout: usercategories: thtags: tagsarchives: archivecommonweal: heartbeat</code></pre></li><li><p>在菜单图标开启的情况下，如果菜单项与菜单未匹配（没有设置或者无效的 Font Awesome 图标名字） 的情况下，NexT 将会使用 :?  作为图标。</p></li><li><p>请注意键值（如 <code>home</code>）的大小写要严格匹配</p><h4 id="设置-侧栏"><a href="#设置-侧栏" class="headerlink" title="设置 侧栏"></a>设置 侧栏</h4><p>默认情况下，侧栏仅在文章页面（拥有目录列表）时才显示，并放置于右侧位置。 可以通过修改 主题配置文件 中的 sidebar 字段来控制侧栏的行为。侧栏的设置包括两个部分，其一是侧栏的位置， 其二是侧栏显示的时机。</p></li><li><p>设置侧栏的位置，修改 sidebar.position 的值，支持的选项有：</p><blockquote></blockquote><p>left - 靠左放置<br>right - 靠右放置</p></li></ul><p>目前仅 Pisces Scheme 支持 <code>position</code> 配置。影响版本5.0.0及更低版本。</p><blockquote></blockquote><p>sidebar:<br>  position: left</p><ul><li>设置侧栏显示的时机，修改 <code>sidebar.display</code> 的值，支持的选项有：<blockquote></blockquote></li><li>post - 默认行为，在文章页面（拥有目录列表）时显示</li><li>always - 在所有页面中都显示</li><li>hide - 在所有页面中都隐藏（可以手动展开）</li><li>remove - 完全移除</li></ul><blockquote></blockquote><p>sidebar:<br>  display: post</p><ul><li>已知侧栏在 use motion: false 的情况下不会展示。 影响版本5.0.0及更低版本。</li></ul><h4 id="设置-头像"><a href="#设置-头像" class="headerlink" title="设置 头像"></a>设置 头像</h4><p>编辑 主题配置文件， 修改字段 <code>avatar</code>， 值设置成头像的链接地址。其中，头像的链接地址可以是：</p><table><thead><tr><th>地址</th><th>值</th></tr></thead><tbody><tr><td>完整的互联网 URI</td><td><a href="http://example.com/avatar.png" target="_blank" rel="noopener">http://example.com/avatar.png</a></td></tr><tr><td>站点内的地址</td><td>将头像放置主题目录下的 source/uploads/ （新建 uploads 目录若不存在）</td></tr><tr><td></td><td>配置为：avatar: /uploads/avatar.png</td></tr><tr><td></td><td>或者 放置在 source/images/ 目录下</td></tr><tr><td></td><td>配置为：avatar: /images/avatar.png</td></tr></tbody></table><blockquote></blockquote><p>头像设置示例<br>avatar: <a href="http://example.com/avatar.png" target="_blank" rel="noopener">http://example.com/avatar.png</a></p><h4 id="设置-作者昵称"><a href="#设置-作者昵称" class="headerlink" title="设置 作者昵称"></a>设置 作者昵称</h4><p>编辑 <code>站点配置文件</code>， 设置 <code>author</code> 为你的昵称。</p><h4 id="设置-站点描述"><a href="#设置-站点描述" class="headerlink" title="设置 站点描述"></a>设置 站点描述</h4><p>编辑 <code>站点配置文件</code>， 设置 <code>description</code> 字段为你的站点描述。站点描述可以是你喜欢的一句签名:)</p><h3 id="主题配置"><a href="#主题配置" class="headerlink" title="主题配置"></a>主题配置</h3><p>请参考连接<a href="http://theme-next.iissnan.com/theme-settings.html" target="_blank" rel="noopener">主题配置</a></p><h2 id="注意，踩坑记录："><a href="#注意，踩坑记录：" class="headerlink" title=" 注意，踩坑记录："></a><span style=color:red;> 注意，踩坑记录：</span></h2><ol><li><p>正文中表示超链接时，前后应该用空格流出或者用特殊标签标记如:`http:localhost:4000`。原因：md语法问题导致的编译工程报错!</p></li><li><p>正文中输入#等特殊字符应该使用转义，否则也会因为解析失败，不能编译成功。</p></li><li><p>关于定制样式。chrome调配置样式，使用<kbd>F12</kbd>进入调试模式，找到相应的css或者js再去IDE（如：<code>vs code</code>）中打开的工程中搜索并修改即可。</p></li><li><p>表格不显示，前面一定要空一行，且表头不能省略<code>|</code>。</p></li><li><p>404公益是直接将<code>/404/</code>改成<code>/404.html</code>.</p></li><li><p>主题(next)里面访问的资源路径总是根目录，即使站点设置了child目录为根目录也不行（设置upload目录也不会被生成，即使站点打开了asset，目录乱绝对是一个bug。待修复）。<br>似乎现在已经修复了这个bug（待验证）。总之官方的使用方式很麻烦且阅读性烂，<del>推荐 <code>hexo-asset-image</code> 插件，使用方法就是通过 <code>hexo new [layout] &lt;title&gt;</code> 命令创建新文章时自动创建一个同名文件夹</del>（新版本已经不再需要）。修改 <code>_config.yml</code>下的 <code>post_asset_folder: true</code> 将其改成true.用的时候只要 <code>![a](a.jpg)</code> 即可，插件会自动修改具体的路径。完整的目录结构如下:</p><blockquote></blockquote><p>TEST<br>├── a.jpg<br>├── b.jpg<br>└── c.jpg<br>TEST.md</p></li><li><p>关于插件，推荐<br> 1.使用RSS:<code>npm install --save hexo-generator-feed</code><br> 2.博客管理:<code>npm install --save hexo-admin</code><br> 3.<del>Asset管理:<code>npm install --save hexo-asset</code>,也许是新版修复了bug的问题，在新版中使用这个会导致有图片的文章重复解析一遍，害我找了半天，但我更相信这还是一个bug，（不推荐）</del>没试<code>hexo-asset-image</code>这个插件。<br> 4.文章字数统计:<code>npm i --save hexo-wordcount</code><br> 5.文章搜索插件:<code>npm install hexo-generator-searchdb --save</code></p></li></ol>]]></content>
+    <content type="html"><![CDATA[<p>本文将介绍如何使用GitHub pages和hexo来搭建一个个人博客。github pages 是一个静态网页博客平台。建立好git仓库之后，可以直接在github上配置生成一个简单的首页index.html <strong>(没错还是hello world)</strong>，另外还支持域名配置。hexo是一个基于nodeJS实现的博客框架。它的最大的作用就是能将 <strong>markdown文档</strong>自动转化成 <strong>html文档</strong>。再搭配一些主题（比如：<strong>next主题</strong>）,将显示的非常美观，而且next主题是一个开源的可以自由定制的主题。</p><a id="more"></a><h2 id="关于hexo的安装及使用"><a href="#关于hexo的安装及使用" class="headerlink" title="关于hexo的安装及使用"></a>关于hexo的安装及使用</h2><p>先安装nodejs，<a href="https://nodejs.org/en/" target="_blank" rel="noopener">nodejs官网</a>下载安装即可。Linux 安装npm即可。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install npm</span><br></pre></td></tr></table></figure><p>输入 <code>npm -v</code> ，如果出现版本号，那说明安装成功了并且环境变量也配置好了，如果是未知命令那就要配置一下环境变量。</p><p><strong>windows的安装</strong><br>如果已经安装了<em>git bash</em>,可以在<em>git bash</em>中使用以下安装命令（网上有人反应过失败，用cmd能成功，但应该是个例），否则使用<em>cmd</em>（快捷键<kbd>Win</kbd>+<kbd>R</kbd>然后输入cmd）窗口也是一样。后面的就和命令行安装一摸一样了。<br><strong>命令行安装</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#windows环境的话</span></span><br><span class="line">npm install -g hexo-cli</span><br><span class="line"><span class="comment">#linux环境的话</span></span><br><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure><p>这一步安装可能略慢，原因大家都懂，就不说了。输入<code>hexo -v</code>如果能看到版本信息就说明成功了,另附<a href="https://www.w3cschool.cn/nodejs/nodejs-npm.html" target="_blank" rel="noopener">npm W3C教程</a>。<br>接下来就可以用hexo来生成博客了。新建一个博客文件夹，如blog,</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">hexo init</span><br><span class="line">hexo generate   //可以简写成hexo g</span><br><span class="line">hexo server     //可以简写成hexo s</span><br></pre></td></tr></table></figure><p>成功后，我们可以看到提示 localhost:4000 可以访问，用浏览器打开，可以看到首页。<br><img src="localhost.png" alt="生成博客成功" title="博客首页"><br>个人调试可以用以下命令去一键生成：<br><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code><br>意思是先清除现有博客，然后生成，发布。另外hexo的远程部署命令是<code>hexo d</code>.</p><h2 id="hexo配合github建站"><a href="#hexo配合github建站" class="headerlink" title="hexo配合github建站"></a>hexo配合github建站</h2><p>当我们需要远程部署的时候，需要先安装<em>hexo-deployer-git</em>。<br><code>npm install hexo-deployer-git --save</code><br>安装好之后在博客目录配置文件_config.yml最后面添加deploy字段如下：</p><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>:</span><br><span class="line">  <span class="attribute">type</span>: git</span><br><span class="line">  <span class="attribute">repo</span>: git<span class="variable">@github</span>.<span class="attribute">com</span>:UserName/Blog.git</span><br><span class="line">  <span class="attribute">branch</span>: master</span><br></pre></td></tr></table></figure><p>如果git仓库是ssh则需要生成rsa key,添加公钥到github，后续用远程更新代码即可不用输入用户名密码验证。这是git的操作，本文部再赘述。</p><blockquote><p>此外，如果您的 <code>Github Pages</code> 需要使用 <code>CNAME</code> 文件自定义域名，请将 <code>CNAME</code> 文件置于 <code>source</code> 目录下，只有这样 <code>hexo deploy</code> 才能将 <code>CNAME</code> 文件一并推送至部署分支。</p></blockquote><p>关于hexo的工程文件说明如下：</p><blockquote><p>_config.yml ——工程配置文件<br>source/ ——该目录为我们存放markdown文件的地方<br>theme/ ———存放主题的目录<br>public/ ——发布生成的路径，hexo clean可以删除该目录</p></blockquote><h3 id="hexo-创建文章、标签、分类"><a href="#hexo-创建文章、标签、分类" class="headerlink" title="hexo 创建文章、标签、分类"></a>hexo 创建文章、标签、分类</h3><ul><li><p>创建文章<code>hexo new &quot;文章名称&quot;</code></p><pre><code>---title: CentOS7下Tomcat启动慢的原因及解决方案date: 2017-12-02 21:01:24comments: true #是否可评论toc: true #是否显示文章目录categories: &quot;云服务器&quot; #分类tags:   #标签    - centOS    - tomcat---</code></pre></li><li><p>创建标签<code>hexo new page tags</code></p><pre><code>title: tagsdate: 2017-12-02 21:01:24type: &quot;tags&quot;</code></pre></li><li><p>创建分类<code>hexo new page categories</code></p><pre><code>title: categoriesdate: 2017-12-02 21:01:24type: &quot;categories&quot;</code></pre><p>更多hexo详细说明如<code>API，主题，插件</code>等请参阅<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">hexo中文官方文档</a>。<br>注意标签和分类中，title可以为空，但是type:一定要写对，否则网站不能自动关联。</p></li></ul><h2 id="next教程"><a href="#next教程" class="headerlink" title="next教程"></a>next教程</h2><p>在 Hexo 中有两份主要的配置文件，其名称都是 <code>_config.yml</code>。 其中，一份位于站点根目录下，主要包含 Hexo 本身的配置；称为 <code>站点配置文件</code>， 另一份位于主题目录下，称为 <code>主题配置文件</code>。<br><strong>nexT</strong>是一个<a href="https://github.com/iissnan/hexo-theme-next/releases/tag/v5.1.4" target="_blank" rel="noopener">github 上的开源主题</a>。<a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">nexT官网</a>有教程教怎么使用、配置等。</p><h3 id="下载主题"><a href="#下载主题" class="headerlink" title="下载主题"></a>下载主题</h3><ul><li><p>克隆最新版本</p><blockquote><p>在终端窗口下，定位到 Hexo 站点目录下。使用 Git checkout 代码：</p></blockquote><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">cd</span> your-hexo-site</span><br><span class="line">$ git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/iissnan/hexo-theme-<span class="keyword">next</span> themes/<span class="keyword">next</span></span><br></pre></td></tr></table></figure></li><li><p>下载稳定版本</p><blockquote><p>1.前往 NexT 版本 <a href="https://github.com/iissnan/hexo-theme-next/releases" target="_blank" rel="noopener">发布页面</a>。<br>2.选择你所需要的版本，下载 Download 区域下的 Source Code (zip) 到本地。例如，下载 v0.4.0 版本。<br>3.解压所下载的压缩包至站点的 themes 目录下， 并将 解压后的文件夹名称（<code>hexo-theme-next-0.4.0</code>）更改为 next。</p></blockquote></li></ul><h3 id="启用主题"><a href="#启用主题" class="headerlink" title="启用主题"></a>启用主题</h3><p>与所有 Hexo 主题启用的模式一样。 当 <code>克隆/下载</code> 完成后，打开 站点配置文件， 找到 <code>theme</code> 字段，并将其值更改为 <code>next</code>。</p><table><thead><tr><th>启用 NexT 主题</th></tr></thead><tbody><tr><td>theme:<code></code>next</td></tr></tbody></table><p>到此，NexT 主题安装完成。下一步我们将验证主题是否正确启用。在切换主题之后、验证之前， 我们最好使用 hexo clean 来清除 Hexo 的缓存。</p><h3 id="验证主题"><a href="#验证主题" class="headerlink" title="验证主题"></a>验证主题</h3><p>首先启动 Hexo 本地站点，并开启调试模式（即加上 –debug），整个命令是 hexo s –debug。 在服务启动的过程，注意观察命令行输出是否有任何异常信息，如果你碰到问题，这些信息将帮助他人更好的定位错误。 当命令行输出中提示出：<br><code>INFO  Hexo is running at http://0.0.0.0:4000/. Press Ctrl+C to stop.</code><br>此时即可使用浏览器访问 <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> ，检查站点是否正确运行。<br>现在，你已经成功安装并启用了 NexT 主题。下一步我们将要更改一些主题的设定，包括个性化以及集成第三方服务。</p><h3 id="主题设定"><a href="#主题设定" class="headerlink" title="主题设定"></a>主题设定</h3><h4 id="选择-Scheme"><a href="#选择-Scheme" class="headerlink" title="选择 Scheme"></a>选择 Scheme</h4><p>Scheme 是 NexT 提供的一种特性，借助于 Scheme，NexT 为你提供多种不同的外观。同时，几乎所有的配置都可以 在 Scheme 之间共用。目前 NexT 支持三种 Scheme，他们是：</p><blockquote></blockquote><p>Muse - 默认 Scheme，这是 NexT 最初的版本，黑白主调，大量留白<br>Mist - Muse 的紧凑版本，整洁有序的单栏外观<br>Pisces - 双栏 Scheme，小家碧玉似的清新</p><p>Scheme 的切换通过更改 <code>主题配置文件</code>，搜索 scheme 关键字。 你会看到有三行 scheme 的配置，将你需用启用的 scheme 前面注释 # 去除即可。</p><table><thead><tr><th>选择 Pisces Scheme</th></tr></thead><tbody><tr><td>#scheme: Muse</td></tr><tr><td>#scheme: Mist</td></tr><tr><td>scheme: Pisces</td></tr></tbody></table><h4 id="设置-界面语言"><a href="#设置-界面语言" class="headerlink" title="设置 界面语言"></a>设置 界面语言</h4><p>编辑 站点配置文件， 将 <code>language</code> 设置成你所需要的语言。建议明确设置你所需要的语言，例如选用简体中文，配置如下：<br>` language: zh-Hans<br>目前 NexT 支持的语言如以下表格所示：</p><table><thead><tr><th>语言</th><th>代码</th><th>设定示例</th></tr></thead><tbody><tr><td>English</td><td>en</td><td>language: en</td></tr><tr><td>简体中文</td><td>zh-Hans</td><td>language: zh-Hans</td></tr><tr><td>Français</td><td>fr-FR</td><td>language: fr-FR</td></tr><tr><td>Português</td><td>pt</td><td>language: pt or language: pt-BR</td></tr><tr><td>繁體中文</td><td>zh-hk 或者 zh-tw</td><td>language: zh-hk</td></tr><tr><td>Русский язык</td><td>ru</td><td>language: ru</td></tr><tr><td>Deutsch</td><td>de</td><td>language: de</td></tr><tr><td>日本語</td><td>ja</td><td>language: ja</td></tr><tr><td>Indonesian</td><td>id</td><td>language: id</td></tr><tr><td>Korean</td><td>ko</td><td>language: ko</td></tr></tbody></table><h4 id="设置-菜单"><a href="#设置-菜单" class="headerlink" title="设置 菜单"></a>设置 菜单</h4><p>菜单配置包括三个部分，第一是菜单项（名称和链接），第二是菜单项的显示文本，第三是菜单项对应的图标。 NexT 使用的是 <a href="http://fontawesome.io/" target="_blank" rel="noopener">Font Awesome</a> 提供的图标， Font Awesome 提供了 600+ 的图标，可以满足绝大的多数的场景，同时无须担心在 Retina 屏幕下 图标模糊的问题。</p><p>编辑 <code>主题配置文件</code>，修改以下内容：</p><ul><li>设定菜单内容，对应的字段是 menu。 菜单内容的设置格式是：<code>item name: link</code>。其中 <code>item name</code> 是一个名称，这个名称并不直接显示在页面上，她将用于匹配图标以及翻译。<blockquote></blockquote>菜单示例配置<br>menu:<br>home: /<br>archives: /archives<br>#about: /about<br>#categories: /categories<br>tags: /tags<br>#commonweal: /404.html</li></ul><blockquote><p>若你的站点运行在子目录中，请将链接前缀的 <code>/</code> 去掉</p></blockquote><p>NexT 默认的菜单项有（标注  的项表示需要手动创建这个页面）：</p><table><thead><tr><th>键值</th><th>设定值</th><th>显示文本（简体中文）</th></tr></thead><tbody><tr><td>home</td><td>home: /</td><td>主页</td></tr><tr><td>archives</td><td>archives: /archives</td><td>归档页</td></tr><tr><td>categories</td><td>categories: /categories</td><td>分类页</td></tr><tr><td>tags</td><td>tags: /tags</td><td>标签页</td></tr><tr><td>about</td><td>about: /about</td><td>关于页面</td></tr><tr><td>commonweal</td><td>commonweal: /404.html</td><td>公益 404</td></tr></tbody></table><ul><li>设置菜单项的显示文本。在第一步中设置的菜单的名称并不直接用于界面上的展示。Hexo 在生成的时候将使用 这个名称查找对应的语言翻译，并提取显示文本。这些翻译文本放置在 NexT 主题目录下的 <code>languages/{language}.yml</code> （{language} 为你所使用的语言）。</li></ul><p>以简体中文为例，若你需要添加一个菜单项，比如 something。那么就需要修改简体中文对应的翻译文件 <code>languages/zh-Hans.yml</code>，在 <code>menu</code> 字段下添加一项：</p><blockquote></blockquote><p>menu:<br>  home: 首页<br>  archives: 归档<br>  categories: 分类<br>  tags: 标签<br>  about: 关于<br>  search: 搜索<br>  commonweal: 公益404<br>  something: 有料</p><ul><li><p>设定菜单项的图标，对应的字段是 <code>menu_icons</code>。 此设定格式是 <code>item name: icon name</code>，其中 <code>item name</code> 与上一步所配置的菜单名字对应，<code>icon name</code> 是 Font Awesome 图标的 名字。而 <code>enable</code> 可用于控制是否显示图标，你可以设置成 <code>false</code> 来去掉图标。</p><blockquote></blockquote><p>菜单图标配置示例<br>menu_icons:</p><pre><code>enable: true\# Icon Mapping.home: homeabout: usercategories: thtags: tagsarchives: archivecommonweal: heartbeat</code></pre></li><li><p>在菜单图标开启的情况下，如果菜单项与菜单未匹配（没有设置或者无效的 Font Awesome 图标名字） 的情况下，NexT 将会使用 :?  作为图标。</p></li><li><p>请注意键值（如 <code>home</code>）的大小写要严格匹配</p><h4 id="设置-侧栏"><a href="#设置-侧栏" class="headerlink" title="设置 侧栏"></a>设置 侧栏</h4><p>默认情况下，侧栏仅在文章页面（拥有目录列表）时才显示，并放置于右侧位置。 可以通过修改 主题配置文件 中的 sidebar 字段来控制侧栏的行为。侧栏的设置包括两个部分，其一是侧栏的位置， 其二是侧栏显示的时机。</p></li><li><p>设置侧栏的位置，修改 sidebar.position 的值，支持的选项有：</p><blockquote></blockquote><p>left - 靠左放置<br>right - 靠右放置</p></li></ul><p>目前仅 Pisces Scheme 支持 <code>position</code> 配置。影响版本5.0.0及更低版本。</p><blockquote></blockquote><p>sidebar:<br>  position: left</p><ul><li>设置侧栏显示的时机，修改 <code>sidebar.display</code> 的值，支持的选项有：<blockquote></blockquote></li><li>post - 默认行为，在文章页面（拥有目录列表）时显示</li><li>always - 在所有页面中都显示</li><li>hide - 在所有页面中都隐藏（可以手动展开）</li><li>remove - 完全移除</li></ul><blockquote></blockquote><p>sidebar:<br>  display: post</p><ul><li>已知侧栏在 use motion: false 的情况下不会展示。 影响版本5.0.0及更低版本。</li></ul><h4 id="设置-头像"><a href="#设置-头像" class="headerlink" title="设置 头像"></a>设置 头像</h4><p>编辑 主题配置文件， 修改字段 <code>avatar</code>， 值设置成头像的链接地址。其中，头像的链接地址可以是：</p><table><thead><tr><th>地址</th><th>值</th></tr></thead><tbody><tr><td>完整的互联网 URI</td><td><a href="http://example.com/avatar.png" target="_blank" rel="noopener">http://example.com/avatar.png</a></td></tr><tr><td>站点内的地址</td><td>将头像放置主题目录下的 source/uploads/ （新建 uploads 目录若不存在）</td></tr><tr><td></td><td>配置为：avatar: /uploads/avatar.png</td></tr><tr><td></td><td>或者 放置在 source/images/ 目录下</td></tr><tr><td></td><td>配置为：avatar: /images/avatar.png</td></tr></tbody></table><blockquote></blockquote><p>头像设置示例<br>avatar: <a href="http://example.com/avatar.png" target="_blank" rel="noopener">http://example.com/avatar.png</a></p><h4 id="设置-作者昵称"><a href="#设置-作者昵称" class="headerlink" title="设置 作者昵称"></a>设置 作者昵称</h4><p>编辑 <code>站点配置文件</code>， 设置 <code>author</code> 为你的昵称。</p><h4 id="设置-站点描述"><a href="#设置-站点描述" class="headerlink" title="设置 站点描述"></a>设置 站点描述</h4><p>编辑 <code>站点配置文件</code>， 设置 <code>description</code> 字段为你的站点描述。站点描述可以是你喜欢的一句签名:)</p><h3 id="主题配置"><a href="#主题配置" class="headerlink" title="主题配置"></a>主题配置</h3><p>请参考连接<a href="http://theme-next.iissnan.com/theme-settings.html" target="_blank" rel="noopener">主题配置</a></p><h2 id="注意，踩坑记录："><a href="#注意，踩坑记录：" class="headerlink" title=" 注意，踩坑记录："></a><span style=color:red;> 注意，踩坑记录：</span></h2><ol><li><p>正文中表示超链接时，前后应该用空格流出或者用特殊标签标记如:`http:localhost:4000`。原因：md语法问题导致的编译工程报错!</p></li><li><p>正文中输入#等特殊字符应该使用转义，否则也会因为解析失败，不能编译成功。</p></li><li><p>关于定制样式。chrome调配置样式，使用<kbd>F12</kbd>进入调试模式，找到相应的css或者js再去IDE（如：<code>vs code</code>）中打开的工程中搜索并修改即可。</p></li><li><p>表格不显示，前面一定要空一行，且表头不能省略<code>|</code>。</p></li><li><p>404公益是直接将<code>/404/</code>改成<code>/404.html</code>.</p></li><li><p>主题(next)里面访问的资源路径总是根目录，即使站点设置了child目录为根目录也不行（设置upload目录也不会被生成，即使站点打开了asset，目录乱绝对是一个bug。待修复）。<br>似乎现在已经修复了这个bug（待验证）。总之官方的使用方式很麻烦且阅读性烂，<del>推荐 <code>hexo-asset-image</code> 插件，使用方法就是通过 <code>hexo new [layout] &lt;title&gt;</code> 命令创建新文章时自动创建一个同名文件夹</del>（新版本已经不再需要）。修改 <code>_config.yml</code>下的 <code>post_asset_folder: true</code> 将其改成true.用的时候只要 <code>![a](a.jpg)</code> 即可，插件会自动修改具体的路径。完整的目录结构如下:</p><blockquote></blockquote><p>TEST<br>├── a.jpg<br>├── b.jpg<br>└── c.jpg<br>TEST.md</p></li><li><p>关于插件，推荐<br> 1.使用RSS:<code>npm install --save hexo-generator-feed</code><br> 2.博客管理:<code>npm install --save hexo-admin</code><br> 3.<del>Asset管理:<code>npm install --save hexo-asset</code>,也许是新版修复了bug的问题，在新版中使用这个会导致有图片的文章重复解析一遍，害我找了半天，但我更相信这还是一个bug，（不推荐）</del>没试<code>hexo-asset-image</code>这个插件。<br> 4.文章字数统计:<code>npm i --save hexo-wordcount</code><br> 5.文章搜索插件:<code>npm install hexo-generator-searchdb --save</code></p></li></ol>]]></content>
     
     <summary type="html">
     
@@ -83,6 +40,505 @@
       <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
     
       <category term="next" scheme="http://yoursite.com/tags/next/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux内核编译与升级</title>
+    <link href="http://yoursite.com/2020/01/17/linux%E5%86%85%E6%A0%B8%E7%BC%96%E8%AF%91%E4%B8%8E%E5%8D%87%E7%BA%A7/"/>
+    <id>http://yoursite.com/2020/01/17/linux%E5%86%85%E6%A0%B8%E7%BC%96%E8%AF%91%E4%B8%8E%E5%8D%87%E7%BA%A7/</id>
+    <published>2020-01-17T06:50:23.000Z</published>
+    <updated>2020-02-23T03:08:48.955Z</updated>
+    
+    <content type="html"><![CDATA[<p>一，Linux内核源码下载</p><p>在<a href="http://www.kernel.org/" target="_blank" rel="noopener">Linux官网</a>下载对应的内核代码<br><img src="20200117143333282.png" alt=""></p><a id="more"></a><p>建议下载文档版本源码，解压到当前目录。</p><p>二、编译内核</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1.解压</span></span><br><span class="line">xd -d linux_xxx.tar.xd</span><br><span class="line"> </span><br><span class="line">tar -xvf linux_xxx.tar</span><br><span class="line"> </span><br><span class="line"><span class="comment">#2.拷贝配置文件到当前目录</span></span><br><span class="line">cp /boot/config-xxx ./.config</span><br><span class="line"> </span><br><span class="line"><span class="comment">#3.编译图型菜单</span></span><br><span class="line">make menuconfig</span><br></pre></td></tr></table></figure><p><img src="20200117143836562.png" alt=""></p><p> save保存。退出后，即可开始编译内核。建议系统空闲空间在30g以上，因为编译后的系统有十多g。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#编译内核，j后面的数字是cpu总核心数。这样编译速度更快</span></span><br><span class="line">make -j8</span><br><span class="line"><span class="comment">#编译组件</span></span><br><span class="line">make modules</span><br><span class="line"><span class="comment">#安装组件</span></span><br><span class="line">make modules_install</span><br><span class="line"><span class="comment">#生成镜像3</span></span><br><span class="line">make bzImage</span><br></pre></td></tr></table></figure><p>三、安装内核步骤：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cp arch/x86/boot/bzImage /boot/vmlinux-4.xxx</span><br><span class="line">cp .config /boot/config-4.xxx</span><br><span class="line"><span class="built_in">cd</span> /lib/modules/4.xxx/</span><br><span class="line">update-initramfs -c -k 4.xxx</span><br><span class="line">update-grub</span><br></pre></td></tr></table></figure><p>四、依赖库安装</p><p>编译过程出现错误，可能需要安装一下库：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#字符端处理库，显示菜单，需要这个依赖</span></span><br><span class="line">sudo apt-get install libncurses5-dev libncursesw5-dev</span><br><span class="line"><span class="comment">#ssl库</span></span><br><span class="line">sudo apt-get install libssl-dev</span><br><span class="line"><span class="comment">#bc</span></span><br><span class="line">sudo apt-get install bc</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一，Linux内核源码下载&lt;/p&gt;
+&lt;p&gt;在&lt;a href=&quot;http://www.kernel.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Linux官网&lt;/a&gt;下载对应的内核代码&lt;br&gt;&lt;img src=&quot;20200117143333282.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Linux系统" scheme="http://yoursite.com/categories/Linux%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="linux" scheme="http://yoursite.com/tags/linux/"/>
+    
+      <category term="内核" scheme="http://yoursite.com/tags/%E5%86%85%E6%A0%B8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux gdb 调试core dump</title>
+    <link href="http://yoursite.com/2019/10/18/Linux%20gdb%20%E8%B0%83%E8%AF%95core%20dump/"/>
+    <id>http://yoursite.com/2019/10/18/Linux%20gdb%20%E8%B0%83%E8%AF%95core%20dump/</id>
+    <published>2019-10-18T03:27:47.000Z</published>
+    <updated>2020-02-23T02:25:38.579Z</updated>
+    
+    <content type="html"><![CDATA[<p>gdb使用两个推荐链接：<a href="https://www.cnblogs.com/mister-lv/p/6022841.html" target="_blank" rel="noopener">GDB中文手册</a> <a href="https://www.jianshu.com/p/b7896e9afeb7" target="_blank" rel="noopener">GDB常用命令</a></p><a id="more"></a><ol start="0"><li>关于core文件的设置</li></ol><p>两种方式设置core文件名，默认系统是生成名为core的文件，但是当我们为了方便调试，需要生成带pid，time等信息的core文件时候，就需要自己设置一下了。以下命令一般都要root权限。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"1"</span> &gt; /proc/sys/kernel/core_uses_pid</span><br></pre></td></tr></table></figure><p>如果以上命令执行无权限，可以使用下列命令</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -w kernel.core_uses_pid=1</span><br></pre></td></tr></table></figure><p>都是一个意思，设置core文件名带进程id。另外我们也可以修改core文件统一生成到一个自定义默认路径，比如：“<code>/corefile</code>”更详细可以参考下面说明：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#执行如下命令的一条即可</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"/corefile/core-%e-%p-%t"</span> &gt; /proc/sys/kernel/core_pattern</span><br><span class="line"><span class="comment">#标识生成的core文件格式是 core-%e-%p-%t,保存路径为/corefile</span></span><br><span class="line">sysctl -w kernel.core_pattern=/corefile/core-%e-%p-%t</span><br></pre></td></tr></table></figure><blockquote><p>%p - insert pid into filename 添加pid(进程id)<br>%u - insert current uid into filename 添加当前uid(用户id)<br>%g - insert current gid into filename 添加当前gid(用户组id)<br>%s - insert signal that caused the coredump into the filename 添加导致产生core的信号<br>%t - insert UNIX time that the coredump occurred into filename 添加core文件生成时的unix时间<br>%h - insert hostname where the coredump happened into filename 添加主机名<br>%e - insert coredumping executable name into filename 添加导致产生core的命令名</p></blockquote><ol><li><p>在终端使用命令</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ulimit</span> -c</span><br></pre></td></tr></table></figure><p>查看你当前终端是否打开了core dump。系统一半默认输出0，此时我们需要设置一下</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ulimit</span> -c unlimited</span><br></pre></td></tr></table></figure><p>将终端设置成无限dump文件大小。也可以设置成一个值比如1000，dump文件超过1000字节就不会继续生成。所以通常使用无限制大小。</p></li><li><p>编写测试demo,text.cpp文件</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">int</span> *p = <span class="literal">NULL</span>;</span><br><span class="line">*p = <span class="number">5</span>;</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;*p&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><code>g++ -o text text.cpp</code>，生成text可执行文件，然后运行，就会得到<code>core.*</code>文件了。</p></li><li><p>gdb调试</p></li></ol><p>当我们发布程序后，拿到core文件了，怎么调试？答案就是gdb。</p><p>使用源代码，如果是用makefile的话也一样，编译的时候加 -g 参数</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#编译</span></span><br><span class="line">g++ -g -o textd text.cpp</span><br><span class="line"><span class="comment">#调试</span></span><br><span class="line">gdb textd core.*</span><br></pre></td></tr></table></figure><p>此时我们就会发现输出信息很直观了，如下图。<br><img src="20191018112559275.png" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;gdb使用两个推荐链接：&lt;a href=&quot;https://www.cnblogs.com/mister-lv/p/6022841.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;GDB中文手册&lt;/a&gt; &lt;a href=&quot;https://www.jianshu.com/p/b7896e9afeb7&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;GDB常用命令&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="c/c++" scheme="http://yoursite.com/categories/c-c/"/>
+    
+    
+      <category term="linux" scheme="http://yoursite.com/tags/linux/"/>
+    
+      <category term="gdb" scheme="http://yoursite.com/tags/gdb/"/>
+    
+      <category term="core dump" scheme="http://yoursite.com/tags/core-dump/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>用Qt5编写压缩解压缩文件(夹)</title>
+    <link href="http://yoursite.com/2019/08/02/%E7%94%A8Qt5%E7%BC%96%E5%86%99%E5%8E%8B%E7%BC%A9%E8%A7%A3%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6(%E5%A4%B9)/"/>
+    <id>http://yoursite.com/2019/08/02/%E7%94%A8Qt5%E7%BC%96%E5%86%99%E5%8E%8B%E7%BC%A9%E8%A7%A3%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6(%E5%A4%B9)/</id>
+    <published>2019-08-02T07:21:15.000Z</published>
+    <updated>2020-02-22T14:54:58.533Z</updated>
+    
+    <content type="html"><![CDATA[<p>全网居然没找到一个能直接压缩整个文件夹的c/c++库,就算找到了zlib，karchive，archive等开源库，基本也是在Linux下支持的较好，在win下只有zlib还算是编译过了。而且不能全文件夹压缩的，都是buffer或者单文件压缩，这就好奇了，标准zip怎么搞？原来zip是有一个特定archive的，<a href="http://www.fileformat.info/format/zip/corion.htm" target="_blank" rel="noopener">链接在此</a>。</p><p>由此思路，如果自己要压缩文件夹，那就自己遍历，然后自己定义压缩文件的格式就好了，当然不是标准化的压缩格式而已了。但是够自己使用就行。这么理解，实现文件夹的压缩就显得不那么重要了，重要的是压缩算法，而提供压缩算法的库就多了去了，也容易找到。下面就用qt5简单实现一个文件的压缩与解压缩。注意，没有全文件一次读取再压缩，是考虑到文件太大，比如4g，会直接冲爆你的内存。下面测试代码已使用MD5验证通过。show code：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QCoreApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QFile&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDataStream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> READ_BUFFER 10240</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">compress</span><span class="params">(QString ifile, QString ofile)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">QFile <span class="title">file</span><span class="params">(ifile)</span></span>;</span><br><span class="line">    <span class="function">QFile <span class="title">output</span><span class="params">(ofile)</span></span>;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span>(file.<span class="built_in">open</span>(QFile::ReadOnly) &amp;&amp;</span><br><span class="line">            output.<span class="built_in">open</span>(QFile::WriteOnly|QFile::Truncate))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function">QDataStream <span class="title">ds</span><span class="params">(&amp;output)</span></span>;</span><br><span class="line">        <span class="keyword">while</span>(!file.atEnd())</span><br><span class="line">        &#123;</span><br><span class="line">            QByteArray <span class="built_in">read</span> = file.<span class="built_in">read</span>(READ_BUFFER);</span><br><span class="line">            QByteArray comp = qCompress(<span class="built_in">read</span>);</span><br><span class="line">            <span class="keyword">int</span> nsize = comp.<span class="built_in">size</span>();</span><br><span class="line">            ds&lt;&lt;nsize&lt;&lt;comp;</span><br><span class="line">            qDebug()&lt;&lt;<span class="string">"Input:"</span>&lt;&lt;nsize;</span><br><span class="line">        &#125;</span><br><span class="line">        output.<span class="built_in">close</span>();</span><br><span class="line">        file.<span class="built_in">close</span>();</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">uncompress</span><span class="params">(QString ifile, QString ofile)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">QFile <span class="title">file</span><span class="params">(ifile)</span></span>;</span><br><span class="line">    <span class="function">QFile <span class="title">output</span><span class="params">(ofile)</span></span>;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span>(file.<span class="built_in">open</span>(QFile::ReadOnly) &amp;&amp;</span><br><span class="line">            output.<span class="built_in">open</span>(QFile::WriteOnly|QFile::Truncate))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function">QDataStream <span class="title">ds</span><span class="params">(&amp;file)</span></span>;</span><br><span class="line">        QByteArray <span class="built_in">read</span>;</span><br><span class="line">        <span class="keyword">while</span>(!file.atEnd())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> <span class="built_in">size</span>;</span><br><span class="line">            ds&gt;&gt;<span class="built_in">size</span>&gt;&gt;<span class="built_in">read</span>;</span><br><span class="line">            qDebug()&lt;&lt;<span class="string">"out:"</span>&lt;&lt;<span class="built_in">size</span>;</span><br><span class="line">            QByteArray comp = qUncompress(<span class="built_in">read</span>);</span><br><span class="line">            output.<span class="built_in">write</span>(comp);</span><br><span class="line">        &#125;</span><br><span class="line">        output.<span class="built_in">close</span>();</span><br><span class="line">        file.<span class="built_in">close</span>();</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">QCoreApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line">    qDebug()&lt;&lt;<span class="string">"compress...."</span>;</span><br><span class="line">    compress(<span class="string">"data.db"</span>, <span class="string">"data.zip"</span>);</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    qDebug()&lt;&lt;<span class="string">"uncompress...."</span>;</span><br><span class="line">    uncompress(<span class="string">"data.zip"</span>, <span class="string">"dt.db"</span>);</span><br><span class="line">    <span class="keyword">return</span> a.exec();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;全网居然没找到一个能直接压缩整个文件夹的c/c++库,就算找到了zlib，karchive，archive等开源库，基本也是在Linux下支持的较好，在win下只有zlib还算是编译过了。而且不能全文件夹压缩的，都是buffer或者单文件压缩，这就好奇了，标准zip怎么搞？
+      
+    
+    </summary>
+    
+    
+      <category term="Qt" scheme="http://yoursite.com/categories/Qt/"/>
+    
+    
+      <category term="qt" scheme="http://yoursite.com/tags/qt/"/>
+    
+      <category term="压缩" scheme="http://yoursite.com/tags/%E5%8E%8B%E7%BC%A9/"/>
+    
+      <category term="解压缩" scheme="http://yoursite.com/tags/%E8%A7%A3%E5%8E%8B%E7%BC%A9/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用windeployqt打包</title>
+    <link href="http://yoursite.com/2019/06/11/%E4%BD%BF%E7%94%A8windeployqt%E6%89%93%E5%8C%85/"/>
+    <id>http://yoursite.com/2019/06/11/%E4%BD%BF%E7%94%A8windeployqt%E6%89%93%E5%8C%85/</id>
+    <published>2019-06-11T05:36:48.000Z</published>
+    <updated>2020-02-22T14:44:23.753Z</updated>
+    
+    <content type="html"><![CDATA[<p>使用QT5自带的windeployqt打包程序</p><a id="more"></a><ol><li>从开始菜单找到qt程序目录如下图，我安装了vs版和mingw版本，根据需要选择即可。<br><img src="20190611132725707.png" alt=""></li></ol><ol start="2"><li>执行两条关键命令</li></ol><p>cd 到exe所在的目录</p><p>执行<code>windeployqt *.exe</code></p><p>会在当前目录生成exe依赖的所有文件（含库，语言包，插件等信息，部分非必须文件也会被拷贝过来）。<br>此时程序即可打包了。</p><p><img src="20190611133144365.png" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;使用QT5自带的windeployqt打包程序&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Qt" scheme="http://yoursite.com/categories/Qt/"/>
+    
+    
+      <category term="打包" scheme="http://yoursite.com/tags/%E6%89%93%E5%8C%85/"/>
+    
+      <category term="qt" scheme="http://yoursite.com/tags/qt/"/>
+    
+      <category term="windeployqt" scheme="http://yoursite.com/tags/windeployqt/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Qt5 Linux远程调试</title>
+    <link href="http://yoursite.com/2019/02/27/Qt5%20Linux%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/"/>
+    <id>http://yoursite.com/2019/02/27/Qt5%20Linux%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/</id>
+    <published>2019-02-27T04:58:52.000Z</published>
+    <updated>2020-02-22T14:40:22.599Z</updated>
+    
+    <content type="html"><![CDATA[<p>当我们程序发布到新机时,难免会遇到意料之外的情况,在目标机安装编译环境虽不失为一种方式,但安装环境耗时耗力,远程调试一定会让你觉得神清气爽.</p><a id="more"></a><ol><li>目标机需要有<code>gdb gdbserver</code>.</li></ol><p>没有就安装,Ubuntu是自带有,</p><blockquote><p><code>gdbserver --version</code>可以查看版本信息</p></blockquote><ol start="2"><li><p>目标机执行debug版本</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdbserver 127.0.0.1:1234 myApp</span><br></pre></td></tr></table></figure><p>ip:port说明:ip地址本机可以使用环路地址,或者本机ip,端口是自定义的,该命令是建立一个可供连接的服务器.</p></li><li><p>开发环境配置</p></li></ol><p>打开qtcreate ,选择debug菜单中的start debug选远程调试</p><blockquote><p>Override server channel:<strong>目标机ip:端口1234</strong></p></blockquote><blockquote><p>Local executable:<strong>myApp的输出路径</strong></p></blockquote><p><strong>点击ok,此时你会发现目标机的终端开始出现输出信息,软件正常启动了,在开发环境打断点试试,完美执行中断.</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;当我们程序发布到新机时,难免会遇到意料之外的情况,在目标机安装编译环境虽不失为一种方式,但安装环境耗时耗力,远程调试一定会让你觉得神清气爽.&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Qt" scheme="http://yoursite.com/categories/Qt/"/>
+    
+    
+      <category term="qt" scheme="http://yoursite.com/tags/qt/"/>
+    
+      <category term="远程调试" scheme="http://yoursite.com/tags/%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>虚拟机Ubuntu局域网联网问题</title>
+    <link href="http://yoursite.com/2019/01/25/%E8%99%9A%E6%8B%9F%E6%9C%BAUbuntu%E5%B1%80%E5%9F%9F%E7%BD%91%E8%81%94%E7%BD%91%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2019/01/25/%E8%99%9A%E6%8B%9F%E6%9C%BAUbuntu%E5%B1%80%E5%9F%9F%E7%BD%91%E8%81%94%E7%BD%91%E9%97%AE%E9%A2%98/</id>
+    <published>2019-01-25T10:36:15.000Z</published>
+    <updated>2020-02-22T14:36:03.382Z</updated>
+    
+    <content type="html"><![CDATA[<p>对于虚拟机的网络有多种模式：</p><a id="more"></a><ol><li><p><strong>桥接模式</strong>，该模式直接使虚拟机连接物理网卡，与主机保持同一局域网。但与主机ip地址不同。该模式下，<span style=color:red>局域网内的其它主机可以与该虚拟机相互ping通</span>。可以使用外网。</p></li><li><p><strong>nat模式</strong>，默认模式，该模式是与主机共用一个ip，但虚拟了一个新的子网，故<span style=color:red>局域网内的其它主机不能ping该虚拟机，但该虚拟机可以ping通其它的主机</span>，可以使用外网。</p></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;对于虚拟机的网络有多种模式：&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="防坑笔记" scheme="http://yoursite.com/categories/%E9%98%B2%E5%9D%91%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="ubuntu" scheme="http://yoursite.com/tags/ubuntu/"/>
+    
+      <category term="vm" scheme="http://yoursite.com/tags/vm/"/>
+    
+      <category term="联网" scheme="http://yoursite.com/tags/%E8%81%94%E7%BD%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>再谈qt5程序发布时依赖库问题追踪</title>
+    <link href="http://yoursite.com/2018/12/24/%E5%86%8D%E8%B0%88qt5%E7%A8%8B%E5%BA%8F%E5%8F%91%E5%B8%83%E6%97%B6%E4%BE%9D%E8%B5%96%E5%BA%93%E9%97%AE%E9%A2%98%E8%BF%BD%E8%B8%AA/"/>
+    <id>http://yoursite.com/2018/12/24/%E5%86%8D%E8%B0%88qt5%E7%A8%8B%E5%BA%8F%E5%8F%91%E5%B8%83%E6%97%B6%E4%BE%9D%E8%B5%96%E5%BA%93%E9%97%AE%E9%A2%98%E8%BF%BD%E8%B8%AA/</id>
+    <published>2018-12-24T09:52:50.000Z</published>
+    <updated>2020-02-22T14:31:07.344Z</updated>
+    
+    <content type="html"><![CDATA[<p>程序打包后，发布到新的Ubuntu18，又出现了依赖库的问题。</p><a id="more"></a><p>使用<code>ldd</code>显示的所有依赖库都已经存在了，一切正常，然而一运行就发现<code>qxcb no found</code>，这。。。。难道plugins路径不对？之前在其他环境都布了完全能运行啊，怎么可能plugins会不起效呢？设置一下环境变量/拷贝qxcb库到应用程序路径，还是不起效，所以路径不对也基本可以排除了。</p><p>这时，使用qt自带的一个调试插件的宏就起到了至关重要的角色，它能报软件运行时，插件加载的错误。</p><p>设置Ubuntu环境变量,添加这行代码</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> <span class="built_in">export</span> QT_DEBUG_PLUGINS=1</span><br></pre></td></tr></table></figure><p>在<code>~/.profile</code>或者<code>/etc/profile</code>都行。</p><p>别忘了</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> .profile</span><br></pre></td></tr></table></figure><p>然后直接运行程序就会打印相关的加载错误信息了，发现qxcb库依赖的<code>libQt5Dbus</code> <code>libQt5Xcb</code> 库加载失败，于是又去之前的编译环境拷贝一下，替换，果然可以了。那问题就很明显了，不是程序找不到qxcb，而是qxcb的依赖库加载失败！！！</p><p>吐槽一下qt这个错误提示是真的。。。。恶心。。。定位也太不准了。又想起了windows开发的舒服了。唉!</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;程序打包后，发布到新的Ubuntu18，又出现了依赖库的问题。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Qt" scheme="http://yoursite.com/categories/Qt/"/>
+    
+    
+      <category term="qt" scheme="http://yoursite.com/tags/qt/"/>
+    
+      <category term="qxcb" scheme="http://yoursite.com/tags/qxcb/"/>
+    
+      <category term="发布" scheme="http://yoursite.com/tags/%E5%8F%91%E5%B8%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>centOS7升级python3.7</title>
+    <link href="http://yoursite.com/2018/12/08/centOS7%E5%8D%87%E7%BA%A7python3.7/"/>
+    <id>http://yoursite.com/2018/12/08/centOS7%E5%8D%87%E7%BA%A7python3.7/</id>
+    <published>2018-12-08T07:37:21.000Z</published>
+    <updated>2020-02-22T14:31:50.463Z</updated>
+    
+    <content type="html"><![CDATA[<p>1.python2不要卸载，因为yum依赖python2，谁叫Google不向下兼容</p><a id="more"></a><p>2.保留2，安装python3.7依赖的第三方库，</p><p>  wget 下载地址</p><p>  <del>./configure prefix=/usr/local/python3</del></p><p>  （请使用此命令代替上述命令./configure –with-ssl如果不带ssl安装会导致后面pip链接网络失败，也就安装不了python的其他的包了。而使用ssl之前一定要先安装openssl-devel，不设置prefix，默认安装路径是/usr/local/bin）</p><p>  make</p><p>  必须在make install之前用yum安装好</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum -y install zlib-devel ncurses-devel libffi-devel openssl-devel</span><br></pre></td></tr></table></figure><p>3.安装成功是没有任何报错的而且会安装pip如下图</p><p>4.<code>sudo make install</code></p><p><img src="20181208152331367.png" alt="img"></p><p>5.安装成功后，在<code>/usr/local/python3</code>目录下会有相应的安装文件</p><p>  配置环境变量即可：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /usr/<span class="built_in">local</span>/bin/python3 /usr/bin/python</span><br><span class="line"></span><br><span class="line">sudo ln -s /usr/<span class="built_in">local</span>/bin/pip3 /usr/bin/pip（方便pip升级需要sudo，还是建议添加改行代码）</span><br></pre></td></tr></table></figure><p>  记得修改yum的python依赖版本为python2.看下图：</p><p><img src="20181208153114446.png" alt=""></p><p>yum如果不能用，报错如下</p><blockquote><p>  File “/usr/bin/yum”, line 30<br>    except KeyboardInterrupt, e:</p><p>SyntaxError: invalid syntax<br>  File “/usr/libexec/urlgrabber-ext-down”, line 28<br>    except OSError, e:</p></blockquote><p>解决办法：<code>vim /usr/bin/yum</code> 将第一行的 <code>#!/usr/bin/python</code> ————-&gt;改成 <code>#!/usr/bin/python2</code>即可，其他文件同理！</p><p>6.python3安装成功了，但是当时有pip安装python库的时候又有问题</p><p>要安装scrapy，Django时报错，Twisted&gt;=13.原因是没安装Twisted，去官网下载版本链接如下：</p><p><a href="https://twistedmatrix.com/Releases/Twisted/" target="_blank" rel="noopener">https://twistedmatrix.com/Releases/Twisted/</a></p><p>至此，centos7终于能顺利完成python3的配置操作了。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;1.python2不要卸载，因为yum依赖python2，谁叫Google不向下兼容&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Linux系统" scheme="http://yoursite.com/categories/Linux%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="centOS7" scheme="http://yoursite.com/tags/centOS7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>QT将事件执行moveToThread槽函数不响应问题</title>
+    <link href="http://yoursite.com/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/</id>
+    <published>2018-11-27T09:59:50.000Z</published>
+    <updated>2020-02-18T03:15:12.270Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近遇到这么个问题，想将写日志信息放到一个单独的线程中去执行，然而添加<code>movetothread</code>后程序就不进入槽函数了，</p><a id="more"></a>代码如下图：<p><img src="2018112717484772.png" alt=""><br>第一想到的就是检查语法规范，然而，注释图中第三行代码发现，可以执行，显然，语法是没任何问题的了。这就有点奇怪了，于是单步调试发现如下图<br><img src="20181127175317582.png" alt=""><br>这个提示就很明显了，原来是参数未注册元对象的问题。那好注册一下试试呗，成功了，打印下线程信息安心呗，果然意料之中。<br><img src="20181127175559889.png" alt=""><br><img src="20181127175633539.png" alt=""><br><strong>总结</strong><br>qt的这个信号槽，坑还是有的，要想避免还是得多调试，不怕编译错误就怕运行错误啊。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近遇到这么个问题，想将写日志信息放到一个单独的线程中去执行，然而添加&lt;code&gt;movetothread&lt;/code&gt;后程序就不进入槽函数了，&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Qt" scheme="http://yoursite.com/categories/Qt/"/>
+    
+    
+      <category term="qt" scheme="http://yoursite.com/tags/qt/"/>
+    
+      <category term="moveToThread" scheme="http://yoursite.com/tags/moveToThread/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux的ssh免密登录</title>
+    <link href="http://yoursite.com/2018/11/21/linux%E7%9A%84ssh%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/"/>
+    <id>http://yoursite.com/2018/11/21/linux%E7%9A%84ssh%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/</id>
+    <published>2018-11-21T11:08:07.000Z</published>
+    <updated>2020-02-18T02:52:24.396Z</updated>
+    
+    <content type="html"><![CDATA[<p>ssh免密登录在很多运维环境都需要用到<br>FTP,SCP,SSH远程登录等。。。</p><a id="more"></a><p>暂且假想客户端为B，服务器为S。我们需要从B远程登录S的时候，总是需要登录S端的用户密码，很麻烦。那么如何利用ssh免密登录？以rsa加密为例，本质是利用rsa加密算法对登录密码做了加密处理，来使得服务器自动接受客户机的认证。1.公钥 2.私钥，本文不做赘述。<br>直接上代码，首先确保B-S联通，且S启动了ssh服务。进入主题，在B机上，打开终端，执行<br><code>ssh-keygen</code><br>此时会提示你输入生成文件名称，直接回车，生成默认id_rsa*文件<br>然后提示输入密码，确认，一直回车即可。<br>此时，~/.ssh/目录下会生成id_rsa及id_rsa.pub两个文件，前者为私钥，后者为公钥。<br>接下来就是将密钥推送到S机<br><code>ssh-copy-id -i ~/.ssh/id_rsa username@remoteIP</code><br><code>username@remoteIP</code>格式如：<code>zhangsan@192.168.1.110</code></p><p>成功后，后续在B端执行ssh相关登录S操作无需再认证了。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;ssh免密登录在很多运维环境都需要用到&lt;br&gt;FTP,SCP,SSH远程登录等。。。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Linux系统" scheme="http://yoursite.com/categories/Linux%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="linux" scheme="http://yoursite.com/tags/linux/"/>
+    
+      <category term="ssh" scheme="http://yoursite.com/tags/ssh/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>老毛桃制作LinuxU盘启动盘</title>
+    <link href="http://yoursite.com/2018/11/19/%E8%80%81%E6%AF%9B%E6%A1%83%E5%88%B6%E4%BD%9CLinuxU%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9B%98/"/>
+    <id>http://yoursite.com/2018/11/19/%E8%80%81%E6%AF%9B%E6%A1%83%E5%88%B6%E4%BD%9CLinuxU%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9B%98/</id>
+    <published>2018-11-19T02:13:59.000Z</published>
+    <updated>2020-02-18T02:47:07.080Z</updated>
+    
+    <content type="html"><![CDATA[<p>如果usb-hdd+的写入方式，系统制作完后，启动失败，所以需要在“便捷启动”中手动写入引导扇区即可，选择syslinux。<a id="more"></a><br><img src="20181119095951146.png" alt=""><br>如果写引导总是提示u盘被占用，实际并未被占用，改用RAW方式重做即可<br><img src="20181119101633157.png" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;如果usb-hdd+的写入方式，系统制作完后，启动失败，所以需要在“便捷启动”中手动写入引导扇区即可，选择syslinux。
+    
+    </summary>
+    
+    
+      <category term="防坑笔记" scheme="http://yoursite.com/categories/%E9%98%B2%E5%9D%91%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+      <category term="U盘启动盘" scheme="http://yoursite.com/tags/U%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9B%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux修改因软件版本升级不能使用的命令</title>
+    <link href="http://yoursite.com/2018/11/14/linux%E4%BF%AE%E6%94%B9%E5%9B%A0%E8%BD%AF%E4%BB%B6%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4/"/>
+    <id>http://yoursite.com/2018/11/14/linux%E4%BF%AE%E6%94%B9%E5%9B%A0%E8%BD%AF%E4%BB%B6%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4/</id>
+    <published>2018-11-14T02:48:05.000Z</published>
+    <updated>2020-02-23T01:33:30.239Z</updated>
+    
+    <content type="html"><![CDATA[<p>linux部分版本会内置一些常用软件命令，如python /qt等。</p><a id="more"></a><p>Ubuntu自带python2，qt4，如果我们安装了python3 ，qt5</p><p>发现python命令调的还是python2，而qt命令还是调用的qt4，这时候我们需要找到该命令链接点，从新链接即可</p><p>而当前用户的命令通常所在目录是<code>/usr/bin</code></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#进入用户命令所在目录</span></span><br><span class="line"><span class="built_in">cd</span> /usr/bin</span><br><span class="line"><span class="comment">#查看python命令</span></span><br><span class="line">ls -l python</span><br><span class="line"><span class="comment">#查看qt的翻译器</span></span><br><span class="line">ls -l linguist</span><br><span class="line"><span class="comment">#删除</span></span><br><span class="line">sudo rm -rf python</span><br><span class="line"><span class="comment">#重新建立软链接</span></span><br><span class="line">sudo ln -s /opt/python3/bin/python3 ./python</span><br><span class="line"> </span><br><span class="line">sudo ln -s /opt/Qt5.9.4/5.9.4/gcc_64/bin/linguist ./linguist</span><br><span class="line">或者</span><br><span class="line">sudo ln -snf /opt/Qt5.9.4/5.9.4/gcc_64/bin/linguist ./linguist</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;linux部分版本会内置一些常用软件命令，如python /qt等。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Linux系统" scheme="http://yoursite.com/categories/Linux%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="软连接" scheme="http://yoursite.com/tags/%E8%BD%AF%E8%BF%9E%E6%8E%A5/"/>
+    
+      <category term="系统命令" scheme="http://yoursite.com/tags/%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Gnome隐藏上边栏，Ubuntu18 hide top bar</title>
+    <link href="http://yoursite.com/2018/10/30/Gnome%E9%9A%90%E8%97%8F%E4%B8%8A%E8%BE%B9%E6%A0%8F%EF%BC%8CUbuntu18%20hide%20top%20bar/"/>
+    <id>http://yoursite.com/2018/10/30/Gnome%E9%9A%90%E8%97%8F%E4%B8%8A%E8%BE%B9%E6%A0%8F%EF%BC%8CUbuntu18%20hide%20top%20bar/</id>
+    <published>2018-10-30T07:44:13.000Z</published>
+    <updated>2020-02-22T14:31:29.231Z</updated>
+    
+    <content type="html"><![CDATA[<p>Ubuntu18LTS，UI已经回归gnome了。Unity被弃！</p><p>那么本文就将已Ubuntu18为例讲解怎么隐藏顶部状态栏及任务栏。</p><a id="more"></a><p>任务栏其实没啥讲的Ubuntu18/16都是在系统设置里面就支持自动隐藏了，还有停靠位置（左，右，下）。但是自动隐藏18与16不同的是，18只有软件界面与dock界面有交汇碰撞，dock才隐藏，否则，dock是一直显示的，可以参考本文最后效果图。而16的隐藏是只有光标覆盖才激活显示。</p><p>1.css修改</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /usr/share/gnome-shell/theme/ubuntu.css</span><br></pre></td></tr></table></figure><p>在文件末尾添加</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#panel</span>,<span class="selector-id">#panel</span> *&#123;</span><br><span class="line"><span class="attribute">height</span>: <span class="number">0px</span>;</span><br><span class="line"><span class="attribute">color</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>有人说可以，但是本人的现象是：状态栏透明了，但是如果软件最大化，或者拖动到状态栏边缘，状态栏会变成标题栏的黑色。还是隐藏不了。（后来发现需要重启系统才能看出效果！）</p><p>2.使用<code>gnome</code>的<code>hide top bar</code>插件</p><p>这是一个浏览器插件，chrome/firefox都是可以用的。</p><p>首先，使用firefox打开<a href="https://extensions.gnome.org/extension/545/hide-top-bar/" target="_blank" rel="noopener">gnome插件地址</a>，<br><img src="20181030152556379.png" alt=""><br>根据提示，单击蓝色链接，安装gnome-shell插件。 安装完之后，浏览器菜单栏有一个gnome图标<br><img src="20181030152740399.png" alt=""><br>点击这个图标，就会跳转到gnome插件管理界面 ，插件安装完了，我们可以刷新以上hide-top-bar链接，还有一个错误提示，这是系统本地与插件通信失败，系统还需要安装一个库，chrome-gnome-shell.</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install chrome-gnome-shell</span><br></pre></td></tr></table></figure><p>安装成功后，再刷新地址即可，若错误消失，即为成功。<br><img src="20181030154031787.png" alt=""><br>这就是成功的了。讲off切成on即可。旁边的设置图标，会有更详细的设置信息。最后上一张Gnome效果图。<br><img src="20181030154046179.png" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Ubuntu18LTS，UI已经回归gnome了。Unity被弃！&lt;/p&gt;
+&lt;p&gt;那么本文就将已Ubuntu18为例讲解怎么隐藏顶部状态栏及任务栏。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Linux系统" scheme="http://yoursite.com/categories/Linux%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="gnome" scheme="http://yoursite.com/tags/gnome/"/>
+    
+      <category term="hide top bar" scheme="http://yoursite.com/tags/hide-top-bar/"/>
+    
+      <category term="ubuntu18" scheme="http://yoursite.com/tags/ubuntu18/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>vm14卡顿及安装linux黑屏问题</title>
+    <link href="http://yoursite.com/2018/10/30/vm14%E5%8D%A1%E9%A1%BF%E5%8F%8A%E5%AE%89%E8%A3%85linux%E9%BB%91%E5%B1%8F%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2018/10/30/vm14%E5%8D%A1%E9%A1%BF%E5%8F%8A%E5%AE%89%E8%A3%85linux%E9%BB%91%E5%B1%8F%E9%97%AE%E9%A2%98/</id>
+    <published>2018-10-30T07:05:43.000Z</published>
+    <updated>2020-02-18T03:04:33.320Z</updated>
+    
+    <content type="html"><![CDATA[<p>因工作需要按照了vm运行Linux，当然按照64位系统了，vm14+Ubuntu18/16LTS都有，安装很简单默认点击下一步就完了，也很顺利。但是发现奇慢无比，我将系统移到C盘固态硬盘会好很多。<a id="more"></a></p><p>我就纳闷了，vm又不是第一次用，怎么会如此慢，单击系统任何地方都得等几秒钟才勉强响应，硬件配置是完全够的4核CPU+8G内存+128g固态+500g机械硬盘等。好过以前的电脑配置太多了。所以直接排除”带不动“的原因！</p><p>于是b度，呵呵，果然没什么卵用，改vm配置什么的都是耍流氓，都是默认安装的需要改啥？？？</p><p>那就自己另找原因，一边打开任务管理器，一边操作linux，cpu/内存占比没毛病，开始还没发现硬盘读写那么频繁，在此一定要表扬一下win10，监控的很完美，比win7更细更直观。虽然硬盘没显示跑满的速度，但是看到vm的io读写都是10m/s左右，最低都是4m/s显然是不正常的，如此频繁的io，肯定是拖累系统的直接原因了。</p><p>后来查看虚拟机的配置信息，默认就是1cpu+1g内存，感觉我cpu，内存一直空闲着呢，那我就手动修改一下2cpu+2g内存重启系统，果然soso的了。任务管理器io速度也下来了</p><p><strong>总结：加内存（其他都是废话）</strong></p><p>现在的64位系统，还用以前的老配置1cpu+1g内存是不够的了，尤其内存太低导致虚拟机为满足系统内存需求一直在做内存映射，才导致硬盘io速度上升。如此带来严重卡顿效果。另1cpu+2g内存笔者也试了，简单操作还是很流畅的。至于vm为啥没将内存2g作为默认配置，这个就不知道了，可能是为了尽量不浪费用户资源的前提下对老32位系统支持吧，只能这样想了。</p><h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a><strong>补充</strong></h2><p>vm14安装centos，Ubuntu等Linux出现黑屏，但是缩略图中有时能看到系统安装界面。</p><p><strong>原因</strong>：安装系统的时候安装tools</p><p><strong>解决方式</strong>：以管理员身份运行“命令提示符”， 输入命令：<code>netsh winsock reset</code> </p><p>重置Windowssock网络即可，重新安装linux的过程中还会提示安装tools，别点，点就黑屏，又得重来，也正是因为如此，我才判断的是tools引起的网络更改出错，导致安装不了。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;因工作需要按照了vm运行Linux，当然按照64位系统了，vm14+Ubuntu18/16LTS都有，安装很简单默认点击下一步就完了，也很顺利。但是发现奇慢无比，我将系统移到C盘固态硬盘会好很多。
+    
+    </summary>
+    
+    
+      <category term="防坑笔记" scheme="http://yoursite.com/categories/%E9%98%B2%E5%9D%91%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+      <category term="vm" scheme="http://yoursite.com/tags/vm/"/>
+    
+      <category term="黑屏" scheme="http://yoursite.com/tags/%E9%BB%91%E5%B1%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux修改因软件版本升级不能使用的命令</title>
+    <link href="http://yoursite.com/2018/10/26/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E8%A7%A3%E6%9E%90/"/>
+    <id>http://yoursite.com/2018/10/26/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E8%A7%A3%E6%9E%90/</id>
+    <published>2018-10-26T09:57:08.000Z</published>
+    <updated>2020-02-23T02:14:38.629Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文是基于<a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">原教程地址</a>学习后的一个笔记记录，感谢原作者的无私分享！github遵守开源协议，fork后的仓库代码可以读写，甚至可以pull request给官方仓库来贡献代码。 </p><a id="more"></a><ol><li><p><code>git config</code>命令的–global参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"Your Name"</span></span><br><span class="line"> </span><br><span class="line">git config --global user.email <span class="string">"email@example.com"</span></span><br></pre></td></tr></table></figure></li><li><p>初始化一个Git仓库，</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure></li><li><p>添加文件，并提交，与svn不一样每次修改都要add，</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git add &lt;file&gt;</span><br><span class="line"> </span><br><span class="line">git commit -m &lt;message&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">#下面一行相当于上面两行</span></span><br><span class="line">git commit -a -m &lt;message&gt;</span><br></pre></td></tr></table></figure></li><li><p>查看文件状态</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure></li><li><p>比较文件不同</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure></li><li><p>查看提交日志</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span></span><br></pre></td></tr></table></figure></li><li><p>版本重置/及跳转</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard commit_id</span><br></pre></td></tr></table></figure></li><li><p>查看历史命令</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reflog</span><br></pre></td></tr></table></figure></li><li><p>用版本库文件替换工作区文件（撤销修改）</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -- file</span><br></pre></td></tr></table></figure></li><li><p>删除文件</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm</span><br></pre></td></tr></table></figure></li><li><p>关联远程库（注意：与github交互需要ssh支持，rsa加密的）</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@server-name:path/repo-name.git</span><br><span class="line">origin是一个默认用户名 </span><br><span class="line"></span><br><span class="line">另：当远程库路径（如：ip）更改后，可通过下面命令重新设置路径，或者直接更改当前目录./.git/config文件中的ip地址。</span><br><span class="line"></span><br><span class="line"><span class="comment">#本地库不需要用.git，路径必须是绝对路径</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin ssh://zhum@ip:/home/zhum/gitpath</span><br></pre></td></tr></table></figure></li><li><p>push到远程库</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master</span><br><span class="line">由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。</span><br><span class="line"></span><br><span class="line">注意：服务器要设置变量，默认是拒绝接收push的。在服务器执行：</span><br><span class="line"></span><br><span class="line">git config receive.denyCurrentBranch ignore</span><br><span class="line">另外，客户端push成功了，服务器也有了日志，但是服务器文件是不会自动更新的，被修改的文件显示modify状态。发现用checkout切换分支可以自动更新（?）。</span><br></pre></td></tr></table></figure></li><li><p>克隆</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> &lt;project-address&gt;</span><br><span class="line">GitHub给出的地址不止一个，还可以用https://github.com/michaelliao/gitskills.git这样的地址。实际上，Git支持多种协议，默认的git://使用ssh，但也可以使用https等其他协议。</span><br><span class="line"></span><br><span class="line">使用https除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令，但是在某些只开放http端口的公司内部就无法使用ssh协议而只能用https。</span><br></pre></td></tr></table></figure></li><li><p>分支</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Git鼓励大量使用分支：</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看分支：</span></span><br><span class="line">git branch</span><br><span class="line"> </span><br><span class="line"><span class="comment">#创建分支：</span></span><br><span class="line">git branch &lt;name&gt;</span><br><span class="line"> </span><br><span class="line"><span class="comment">#切换分支：</span></span><br><span class="line">git checkout &lt;name&gt;</span><br><span class="line"> </span><br><span class="line"><span class="comment">#创建+切换分支：</span></span><br><span class="line">git checkout -b &lt;name&gt;</span><br><span class="line"> </span><br><span class="line"><span class="comment">#合并某分支到当前分支：</span></span><br><span class="line">git merge &lt;name&gt;</span><br><span class="line"> </span><br><span class="line"><span class="comment">#删除分支：</span></span><br><span class="line">git branch -d &lt;name&gt;</span><br><span class="line"><span class="comment">#强制删除：</span></span><br><span class="line">git branch -D &lt;name&gt;</span><br></pre></td></tr></table></figure></li><li><p>查看分支合并图</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> --graph</span><br></pre></td></tr></table></figure></li><li><p>bug分支处理</p></li></ol><p>修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；</p><p>当手头工作没有完成时，先把工作现场git stash一下，然后去修复bug，修复后，再git stash pop，回到工作现场</p><ol start="17"><li>新模块/特征分支处理</li></ol><p>开发一个新feature，最好新建一个分支；</p><p>如果要丢弃一个没有被合并过的分支，可以通过<code>git branch -D &lt;name&gt;</code>强行删除。</p><ol start="18"><li>多人开发注意项</li></ol><p>查看远程库信息，使用<code>git remote -v</code>；</p><p>本地新建的分支如果不推送到远程，对其他人就是不可见的；</p><p>从本地推送分支，使用<code>git push origin branch-name</code>，如果推送失败，先用git pull抓取远程的新提交；</p><p>在本地创建和远程分支对应的分支，使用<code>git checkout -b branch-name origin/branch-name</code>，本地和远程分支的名称最好一致；</p><p>建立本地分支和远程分支的关联，使用<code>git branch --set-upstream branch-name origin/branch-name</code>；</p><p>从远程抓取分支，使用<code>git pull</code>，如果有冲突，要先处理冲突。</p><ol start="19"><li>变基<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase</span><br></pre></td></tr></table></figure>rebase操作可以把本地未push的分叉提交历史整理成直线；</li></ol><p>rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。</p><ol start="20"><li>标签管理</li></ol><p>发布一个版本时，我们通常先在版本库中打一个标签（tag），这样，就唯一确定了打标签时刻的版本。将来无论什么时候，取某个标签的版本，就是把那个打标签的时刻的历史版本取出来。所以，标签也是版本库的一个快照。</p><p>Git的标签虽然是版本库的快照，但其实它就是指向某个commit的指针（跟分支很像对不对？但是分支可以移动，标签不能移动），所以，创建和删除标签都是瞬间完成的。</p><p><strong>Git有commit，为什么还要引入tag？</strong></p><p>tag就是一个让人容易记住的有意义的名字，它跟某个commit绑在一起。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">git tag &lt;tagname&gt;<span class="comment">#用于新建一个标签，默认为HEAD，也可以指定一个commit id；</span></span><br><span class="line"> </span><br><span class="line">git tag -a &lt;tagname&gt; -m <span class="string">"blablabla..."</span><span class="comment">#可以指定标签信息；</span></span><br><span class="line"> </span><br><span class="line">git tag<span class="comment">#可以查看所有标签。</span></span><br><span class="line"> </span><br><span class="line">git push origin &lt;tagname&gt;<span class="comment">#可以推送一个本地标签；</span></span><br><span class="line"> </span><br><span class="line">git push origin --tags<span class="comment">#可以推送全部未推送过的本地标签；</span></span><br><span class="line"> </span><br><span class="line">git tag -d &lt;tagname&gt;<span class="comment">#可以删除一个本地标签；</span></span><br><span class="line"> </span><br><span class="line">git push origin :refs/tags/&lt;tagname&gt;<span class="comment">#可以删除一个远程标签。</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文是基于&lt;a href=&quot;https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;原教程地址&lt;/a&gt;学习后的一个笔记记录，感谢原作者的无私分享！github遵守开源协议，fork后的仓库代码可以读写，甚至可以pull request给官方仓库来贡献代码。 &lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Linux系统" scheme="http://yoursite.com/categories/Linux%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="git" scheme="http://yoursite.com/tags/git/"/>
+    
+      <category term="github" scheme="http://yoursite.com/tags/github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Qt自己编写keyboad虚拟键盘</title>
+    <link href="http://yoursite.com/2018/10/24/Qt%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99keyboad%E8%99%9A%E6%8B%9F%E9%94%AE%E7%9B%98/"/>
+    <id>http://yoursite.com/2018/10/24/Qt%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99keyboad%E8%99%9A%E6%8B%9F%E9%94%AE%E7%9B%98/</id>
+    <published>2018-10-24T10:53:32.000Z</published>
+    <updated>2020-02-18T02:41:23.565Z</updated>
+    
+    <content type="html"><![CDATA[<p>由于项目中有需要用到虚拟键盘，首先想到的是系统自带的，笔者是Ubuntu16 + Qt5.9。</p><a id="more"></a><ol><li>系统虚拟键盘的优缺点：</li></ol><p><strong>优点</strong>：直接可以脚本调起，功能完善，稳定。外观完美。</p><p><strong>缺点</strong>：定制麻烦（详情看onboard帮助文档，英文），要想像手机那样用时自动显示，不用时自动隐藏，需要先设置系统的输入法，而且需要GNome的辅助功能支持。<br><img src="20181024180737982.png" alt=""><br>2. Qt5已经有自带输入法了。Qt安装的时候就有一个virtualkeyboard选项，安装即可，编译生成完了，会在安装目录的plugins/plaforminputcontexts目录下。</p><p><strong>优点</strong>：美观，方便，功能完善，跨平台，支持中文</p><p><strong>缺点</strong>：定制的话在于改源代码的能力了，这是一个基于qml开发的插件，所以如果是widget使用的话需要用qquickwidget组件包装才能正常调出键盘。<br><img src="20181024181912328.png" alt=""></p><ol start="3"><li>自己写一个plaforminputcontextsplugin</li></ol><p>这个呢，非常感谢下面两篇连接的作者，链接如下：</p><p><a href="https://blog.csdn.net/tracing/article/details/50617571" target="_blank" rel="noopener">QT5的软键盘实现</a>…</p><p><a href="https://blog.csdn.net/wzs250969969/article/details/78418725" target="_blank" rel="noopener">QT之全平台虚拟键盘</a>…</p><p><strong>优点</strong>：能实现简单定制键盘，可以了解并学习Qt插件开发规则</p><p><strong>缺点</strong>：该input插件依赖DBus通信，而windows对DBus支持有很多问题要解决，<br>所幸Ubuntu是没问题的（好像搜狗的拼音，也是有开发Qt插件的，在linux平台的Qtcreator支持上，否则搜狗也是不能用于QtCreator的中文输入）<a href="https://download.csdn.net/download/evil_119/10742059" target="_blank" rel="noopener">源代码链接</a><br><img src="20181024184023154.png" alt=""></p><ol start="4"><li>在3的基础上自己封装定制dll</li></ol><p>在应用程序中添加本地库到当前工程，在pro文件中加以下类似代码：</p><p><code>LIBS += -L$$OUT_PWD/../keyboard/debug/ -lkeyboard</code><br>然后在主程序中调用即可</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">Keyboard</span> objKeyboard;<span class="comment">//创建对象</span></span><br><span class="line">    objKeyboard.showDigital();<span class="comment">//显示数字键盘</span></span><br><span class="line"> </span><br><span class="line">    MainWindow w;</span><br><span class="line">    w.show();</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> a.exec();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>优点</strong>：自由定制，重复利用，跨平台。最后上个效果图。<br><img src="20181024184526544.png" alt=""><br>美化一下也是可以的：<br><img src="20200218103458.png" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;由于项目中有需要用到虚拟键盘，首先想到的是系统自带的，笔者是Ubuntu16 + Qt5.9。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Qt" scheme="http://yoursite.com/categories/Qt/"/>
+    
+    
+      <category term="Qt" scheme="http://yoursite.com/tags/Qt/"/>
+    
+      <category term="keyboad" scheme="http://yoursite.com/tags/keyboad/"/>
+    
+      <category term="虚拟键盘" scheme="http://yoursite.com/tags/%E8%99%9A%E6%8B%9F%E9%94%AE%E7%9B%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Qt想用QLibrary动态加载库</title>
+    <link href="http://yoursite.com/2018/10/24/Qt%E6%83%B3%E7%94%A8QLibrary%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E5%BA%93/"/>
+    <id>http://yoursite.com/2018/10/24/Qt%E6%83%B3%E7%94%A8QLibrary%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E5%BA%93/</id>
+    <published>2018-10-24T09:56:04.000Z</published>
+    <updated>2020-02-18T02:27:57.267Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近写了一个小组件没错就是虚拟键盘，打包成动态库了，但发现一个小问题，就是QLibrary动态加载总有问题当然，在做下面测试的之前，肯定是需要保证自己的dll是ok的，右击工程添加本地库是正常执行了的。</p><a id="more"></a><p>首先在pro文件中即使添加库路径如下</p><p><code>LIBS += -L$$OUT_PWD/../keyboard/debug/</code><br>当然我删除了<code>-lkeyboard</code>，因为我要用<code>QLibrary::load()</code>,然而还是如下图：<br><img src="20181024174727161.png" alt=""><br>但这是一个编译中的link错误，显然包含.h文件是成功了的，目前猜测应该是解析lib*.a失败的原因吧，解析函数接口失败。</p><p>load是一个运行态的，所以在此还看不到效果，但是如果要是在pro中加上 -lkeyboard 静态加载了那我还load干啥，不是？</p><p>有点懵逼，以后有时间再研究了，可能与我的库导出的类也有一定关系吧，我的导出类是一个继承自QObject的子类。</p><p>最后：<br>后面用resolve()配合load()可以解决，但是麻烦。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近写了一个小组件没错就是虚拟键盘，打包成动态库了，但发现一个小问题，就是QLibrary动态加载总有问题当然，在做下面测试的之前，肯定是需要保证自己的dll是ok的，右击工程添加本地库是正常执行了的。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="防坑笔记" scheme="http://yoursite.com/categories/%E9%98%B2%E5%9D%91%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Qt" scheme="http://yoursite.com/tags/Qt/"/>
+    
+      <category term="动态库" scheme="http://yoursite.com/tags/%E5%8A%A8%E6%80%81%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ubuntu 16.04 关闭开启图形界面之systemctl命令</title>
+    <link href="http://yoursite.com/2018/10/23/ubuntu%2016.04%20%E5%85%B3%E9%97%AD%E5%BC%80%E5%90%AF%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E4%B9%8Bsystemctl%E5%91%BD%E4%BB%A4/"/>
+    <id>http://yoursite.com/2018/10/23/ubuntu%2016.04%20%E5%85%B3%E9%97%AD%E5%BC%80%E5%90%AF%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E4%B9%8Bsystemctl%E5%91%BD%E4%BB%A4/</id>
+    <published>2018-10-23T08:38:53.000Z</published>
+    <updated>2020-02-18T02:28:48.476Z</updated>
+    
+    <content type="html"><![CDATA[<p>ubuntu16.04关掉图形界面启动，命令：<code>systemctl disable lightdm.service</code></p><p>确实生效了，但是由于不能显示笔者的应用程序（QT界面程序），系统一直卡死在启动界面，还不如进gnome界面了，故又想恢复，发现恢复之路坑太多了。</p><a id="more"></a><ol><li><p>因为界面卡死，是不能用输命令的，所以只能且系统模式，好在ctrl+alt+f1还是能用的，进入文本模式。</p></li><li><p>百度systemctl enable lightdm.service之后reboot你以为有用？</p></li><li><p>没用，那再加一行：<code>sudo service lightdm start</code> ，reboot还是无用</p></li><li><p>但是发现从文本模式能使用startx进入图形界面，reboot，呵呵空欢喜</p></li><li><p>还有人进入图形界面后查看service status lightdm，当然正常了。不然怎么可能进入图形界面？所以最后猜测是系统启动程序没有调用lightdm，</p></li></ol><p>很有幸猜对了，只剩最后一个问题，因为Ubuntu系统启动有多种方式，我们要如何处理</p><p>跳过以上看重点：</p><p>正确的开启图形界面命令：<br><code>sudo ln -s /lib/systemd/system/lightdm.service /etc/systemd/system/display-manager.service</code></p><p>之后执行 : <code>reboot</code><br>即可恢复界面显示。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;ubuntu16.04关掉图形界面启动，命令：&lt;code&gt;systemctl disable lightdm.service&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;确实生效了，但是由于不能显示笔者的应用程序（QT界面程序），系统一直卡死在启动界面，还不如进gnome界面了，故又想恢复，发现恢复之路坑太多了。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="防坑笔记" scheme="http://yoursite.com/categories/%E9%98%B2%E5%9D%91%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="systemctl" scheme="http://yoursite.com/tags/systemctl/"/>
+    
+      <category term="Ubuntu" scheme="http://yoursite.com/tags/Ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>QT5中Model,View模型的使用</title>
+    <link href="http://yoursite.com/2018/09/30/QT5%E4%B8%ADModel,View%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+    <id>http://yoursite.com/2018/09/30/QT5%E4%B8%ADModel,View%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8/</id>
+    <published>2018-09-30T06:50:31.000Z</published>
+    <updated>2020-02-23T02:34:44.728Z</updated>
+    
+    <content type="html"><![CDATA[<p>该文章不对model/view的初级使用做解释。qt引入Model/view结构，目的是为了提高传统QTabelWidget等的大数据刷新的效率。既然是为高效率显示而设计的，我们使用时就需要对其设计思路做了解。</p><a id="more"></a><p>view的继承模型如下图：<br><img src="QT5%E4%B8%ADModel,View%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8/20180930140558515.png" alt=""></p><p>model继承模型如下图：<br><img src="QT5%E4%B8%ADModel,View%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8/2018093016103156.png" alt=""></p><p>结合两个类继承图，我们可以看出<code>Model/view</code>是完全分开设计的，目的就是解耦合，Model只做数据管理，view只做显示，view与model之间的通信，就是一个重要函数了<code>setModel</code>,大可猜出该函数建立起了<code>model/view</code>之间的信号槽连接（因为笔者是win系统，没有下载源码，从严谨性来说只能说是猜测了，里面肯定有一堆connect()….），选择什么view，及view的使用其实比较简单（通过继承关系图也可以看出来），我们重点说Model，常用的Model大体可分为两类：一类是抽象接口分支下的常用数据模型，二类是数据委托，Delegate结尾的，这一类主要解决的是我们在view中显示的方式的问题，如：</p><p><img src="QT5%E4%B8%ADModel,View%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8/20180930142909340.png" alt=""></p><p>这类型列表，通常结合数据编辑器使用以达到较优的用户体验。</p><p>最后说一下数据代理模型，qt原生提供的就两个实例（<code>QIdenityProxyModel/QSortFilterProxyModel</code>)，前者是唯一索引代理，后者是排序筛选代理，前者可能sqlModel用的较多一点，后者其实更普遍，当表格需要排序时，筛选部分数据显示时即可使用后者，另，如果两者皆不满足需求，我们可以直接继承<code>QAbstractProxyModel</code>实现自己的<code>proxyModel</code>。</p><p>笔者最近就是有一个多view使用同一个Model的情景。使用ProxyModel即可优雅的解决。各个view通过设置各自的QSortFilterProxyModel即可，而各ProxyModel只需setSourceModel成同一个Model即可。某个view对model数据更改后，只需</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">emit m_model-&gt;dataChanged(index,index);</span><br></pre></td></tr></table></figure><p>即可同步所有的view更新。注意，更新时，如果有selectionModel该selectionModel是不会立马更新的，通过继承图可以看到selectionModel也是独立的。所以如果我们需要更新view的选择项，可以执行这句：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">view-&gt;selectionModel()-&gt;<span class="built_in">clear</span>();<span class="comment">//清除选中项</span></span><br></pre></td></tr></table></figure><p>这样就间接的更新了选中项了，qt的选中项作为一个独立模块，当我们需要遍历列表中所有选中项的时候也是需要先拿到selectionModel对象的，代码是：<code>view-&gt;selectionModel()</code>.然后就可以用该对象获取<code>selectedRows()/selectionIndexs()</code>等函数了。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;该文章不对model/view的初级使用做解释。qt引入Model/view结构，目的是为了提高传统QTabelWidget等的大数据刷新的效率。既然是为高效率显示而设计的，我们使用时就需要对其设计思路做了解。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Qt" scheme="http://yoursite.com/categories/Qt/"/>
+    
+    
+      <category term="qt" scheme="http://yoursite.com/tags/qt/"/>
+    
+      <category term="model" scheme="http://yoursite.com/tags/model/"/>
+    
+      <category term="view" scheme="http://yoursite.com/tags/view/"/>
     
   </entry>
   

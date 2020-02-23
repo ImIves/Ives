@@ -1,52 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Test</title>
-    <url>/2020/02/13/Test/</url>
-    <content><![CDATA[<h2 id="这是一个用Admin生成的一个文件，牛逼么？"><a href="#这是一个用Admin生成的一个文件，牛逼么？" class="headerlink" title="这是一个用Admin生成的一个文件，牛逼么？"></a>这是一个用Admin生成的一个文件，牛逼么？</h2><p><a href="http://www.tencent.com" target="_blank" rel="noopener">腾讯</a></p>
-<p><a href="http://www.baidu.com" target="_blank" rel="noopener">百度</a></p>
-<a id="more"></a>
-<p>集群：多台机器处理同样的任务<br>分布式：多台机器可以处理不同的任务<br>负载均衡：应用层针对网络协议做的转发，从而实现均衡。集群不一定需要负载均衡的存在如mysql的主从同步。<br><span style=color:red>能显示红色么？</span></p>
-<ul>
-<li><p>牛逼1</p>
-</li>
-<li><p>牛逼2</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>C/C++</category>
-      </categories>
-      <tags>
-        <tag>C/C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2020/02/12/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<a id="more"></a>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>使用github,hexo,next搭建个人博客</title>
     <url>/2020/02/11/%E4%BD%BF%E7%94%A8github-hexo-next%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<p>本文将介绍如何使用GitHub pages和hexo来搭建一个个人博客。github pages 是一个静态网页博客平台。建立好git仓库之后，可以直接在github上配置生成一个简单的首页index.html <strong>(没错还是hello world)</strong>，另外还支持域名配置。hexo是一个基于nodeJS实现的博客框架。它的最大的作用就是能将 <strong>markdown文档</strong>自动转化成 <strong>html文档</strong>。再搭配一些主题（比如：<strong>next主题</strong>）,将显示的非常美观，而且next主题是一个开源的可以自由定制的主题。</p>
 <a id="more"></a>
 
-<h2 id="关于hexo的安装及使用"><a href="#关于hexo的安装及使用" class="headerlink" title="关于hexo的安装及使用"></a>关于hexo的安装及使用</h2><p>先安装nodejs，官网下载安装即可。Linux 安装npm即可。</p>
+<h2 id="关于hexo的安装及使用"><a href="#关于hexo的安装及使用" class="headerlink" title="关于hexo的安装及使用"></a>关于hexo的安装及使用</h2><p>先安装nodejs，<a href="https://nodejs.org/en/" target="_blank" rel="noopener">nodejs官网</a>下载安装即可。Linux 安装npm即可。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt install npm</span><br></pre></td></tr></table></figure>
 <p>输入 <code>npm -v</code> ，如果出现版本号，那说明安装成功了并且环境变量也配置好了，如果是未知命令那就要配置一下环境变量。</p>
 <p><strong>windows的安装</strong><br>如果已经安装了<em>git bash</em>,可以在<em>git bash</em>中使用以下安装命令（网上有人反应过失败，用cmd能成功，但应该是个例），否则使用<em>cmd</em>（快捷键<kbd>Win</kbd>+<kbd>R</kbd>然后输入cmd）窗口也是一样。后面的就和命令行安装一摸一样了。<br><strong>命令行安装</strong></p>
@@ -356,6 +316,1238 @@ commonweal: heartbeat</code></pre></li>
         <tag>github page</tag>
         <tag>hexo</tag>
         <tag>next</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux内核编译与升级</title>
+    <url>/2020/01/17/linux%E5%86%85%E6%A0%B8%E7%BC%96%E8%AF%91%E4%B8%8E%E5%8D%87%E7%BA%A7/</url>
+    <content><![CDATA[<p>一，Linux内核源码下载</p>
+<p>在<a href="http://www.kernel.org/" target="_blank" rel="noopener">Linux官网</a>下载对应的内核代码<br><img src="20200117143333282.png" alt=""></p>
+<a id="more"></a>
+<p>建议下载文档版本源码，解压到当前目录。</p>
+<p>二、编译内核</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#1.解压</span></span><br><span class="line">xd -d linux_xxx.tar.xd</span><br><span class="line"> </span><br><span class="line">tar -xvf linux_xxx.tar</span><br><span class="line"> </span><br><span class="line"><span class="comment">#2.拷贝配置文件到当前目录</span></span><br><span class="line">cp /boot/config-xxx ./.config</span><br><span class="line"> </span><br><span class="line"><span class="comment">#3.编译图型菜单</span></span><br><span class="line">make menuconfig</span><br></pre></td></tr></table></figure>
+<p><img src="20200117143836562.png" alt=""></p>
+<p> save保存。退出后，即可开始编译内核。建议系统空闲空间在30g以上，因为编译后的系统有十多g。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#编译内核，j后面的数字是cpu总核心数。这样编译速度更快</span></span><br><span class="line">make -j8</span><br><span class="line"><span class="comment">#编译组件</span></span><br><span class="line">make modules</span><br><span class="line"><span class="comment">#安装组件</span></span><br><span class="line">make modules_install</span><br><span class="line"><span class="comment">#生成镜像3</span></span><br><span class="line">make bzImage</span><br></pre></td></tr></table></figure>
+<p>三、安装内核步骤：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cp arch/x86/boot/bzImage /boot/vmlinux-4.xxx</span><br><span class="line">cp .config /boot/config-4.xxx</span><br><span class="line"><span class="built_in">cd</span> /lib/modules/4.xxx/</span><br><span class="line">update-initramfs -c -k 4.xxx</span><br><span class="line">update-grub</span><br></pre></td></tr></table></figure>
+<p>四、依赖库安装</p>
+<p>编译过程出现错误，可能需要安装一下库：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#字符端处理库，显示菜单，需要这个依赖</span></span><br><span class="line">sudo apt-get install libncurses5-dev libncursesw5-dev</span><br><span class="line"><span class="comment">#ssl库</span></span><br><span class="line">sudo apt-get install libssl-dev</span><br><span class="line"><span class="comment">#bc</span></span><br><span class="line">sudo apt-get install bc</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Linux系统</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>内核</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux gdb 调试core dump</title>
+    <url>/2019/10/18/Linux%20gdb%20%E8%B0%83%E8%AF%95core%20dump/</url>
+    <content><![CDATA[<p>gdb使用两个推荐链接：<a href="https://www.cnblogs.com/mister-lv/p/6022841.html" target="_blank" rel="noopener">GDB中文手册</a> <a href="https://www.jianshu.com/p/b7896e9afeb7" target="_blank" rel="noopener">GDB常用命令</a></p>
+<a id="more"></a>
+<ol start="0">
+<li>关于core文件的设置</li>
+</ol>
+<p>两种方式设置core文件名，默认系统是生成名为core的文件，但是当我们为了方便调试，需要生成带pid，time等信息的core文件时候，就需要自己设置一下了。以下命令一般都要root权限。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"1"</span> &gt; /proc/sys/kernel/core_uses_pid</span><br></pre></td></tr></table></figure>
+<p>如果以上命令执行无权限，可以使用下列命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sysctl -w kernel.core_uses_pid=1</span><br></pre></td></tr></table></figure>
+<p>都是一个意思，设置core文件名带进程id。另外我们也可以修改core文件统一生成到一个自定义默认路径，比如：“<code>/corefile</code>”更详细可以参考下面说明：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#执行如下命令的一条即可</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"/corefile/core-%e-%p-%t"</span> &gt; /proc/sys/kernel/core_pattern</span><br><span class="line"><span class="comment">#标识生成的core文件格式是 core-%e-%p-%t,保存路径为/corefile</span></span><br><span class="line">sysctl -w kernel.core_pattern=/corefile/core-%e-%p-%t</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>%p - insert pid into filename 添加pid(进程id)<br>%u - insert current uid into filename 添加当前uid(用户id)<br>%g - insert current gid into filename 添加当前gid(用户组id)<br>%s - insert signal that caused the coredump into the filename 添加导致产生core的信号<br>%t - insert UNIX time that the coredump occurred into filename 添加core文件生成时的unix时间<br>%h - insert hostname where the coredump happened into filename 添加主机名<br>%e - insert coredumping executable name into filename 添加导致产生core的命令名</p>
+</blockquote>
+<ol>
+<li><p>在终端使用命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ulimit</span> -c</span><br></pre></td></tr></table></figure>
+<p>查看你当前终端是否打开了core dump。系统一半默认输出0，此时我们需要设置一下</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ulimit</span> -c unlimited</span><br></pre></td></tr></table></figure>
+<p>将终端设置成无限dump文件大小。也可以设置成一个值比如1000，dump文件超过1000字节就不会继续生成。所以通常使用无限制大小。</p>
+</li>
+<li><p>编写测试demo,text.cpp文件</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> *p = <span class="literal">NULL</span>;</span><br><span class="line">	*p = <span class="number">5</span>;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;*p&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>g++ -o text text.cpp</code>，生成text可执行文件，然后运行，就会得到<code>core.*</code>文件了。</p>
+</li>
+<li><p>gdb调试</p>
+</li>
+</ol>
+<p>当我们发布程序后，拿到core文件了，怎么调试？答案就是gdb。</p>
+<p>使用源代码，如果是用makefile的话也一样，编译的时候加 -g 参数</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#编译</span></span><br><span class="line">g++ -g -o textd text.cpp</span><br><span class="line"><span class="comment">#调试</span></span><br><span class="line">gdb textd core.*</span><br></pre></td></tr></table></figure>
+<p>此时我们就会发现输出信息很直观了，如下图。<br><img src="20191018112559275.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>c/c++</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>gdb</tag>
+        <tag>core dump</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>用Qt5编写压缩解压缩文件(夹)</title>
+    <url>/2019/08/02/%E7%94%A8Qt5%E7%BC%96%E5%86%99%E5%8E%8B%E7%BC%A9%E8%A7%A3%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6(%E5%A4%B9)/</url>
+    <content><![CDATA[<p>全网居然没找到一个能直接压缩整个文件夹的c/c++库,就算找到了zlib，karchive，archive等开源库，基本也是在Linux下支持的较好，在win下只有zlib还算是编译过了。而且不能全文件夹压缩的，都是buffer或者单文件压缩，这就好奇了，标准zip怎么搞？原来zip是有一个特定archive的，<a href="http://www.fileformat.info/format/zip/corion.htm" target="_blank" rel="noopener">链接在此</a>。</p>
+<p>由此思路，如果自己要压缩文件夹，那就自己遍历，然后自己定义压缩文件的格式就好了，当然不是标准化的压缩格式而已了。但是够自己使用就行。这么理解，实现文件夹的压缩就显得不那么重要了，重要的是压缩算法，而提供压缩算法的库就多了去了，也容易找到。下面就用qt5简单实现一个文件的压缩与解压缩。注意，没有全文件一次读取再压缩，是考虑到文件太大，比如4g，会直接冲爆你的内存。下面测试代码已使用MD5验证通过。show code：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QCoreApplication&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QFile&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDataStream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDebug&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> READ_BUFFER 10240</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">compress</span><span class="params">(QString ifile, QString ofile)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">QFile <span class="title">file</span><span class="params">(ifile)</span></span>;</span><br><span class="line">    <span class="function">QFile <span class="title">output</span><span class="params">(ofile)</span></span>;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span>(file.<span class="built_in">open</span>(QFile::ReadOnly) &amp;&amp;</span><br><span class="line">            output.<span class="built_in">open</span>(QFile::WriteOnly|QFile::Truncate))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function">QDataStream <span class="title">ds</span><span class="params">(&amp;output)</span></span>;</span><br><span class="line">        <span class="keyword">while</span>(!file.atEnd())</span><br><span class="line">        &#123;</span><br><span class="line">            QByteArray <span class="built_in">read</span> = file.<span class="built_in">read</span>(READ_BUFFER);</span><br><span class="line">            QByteArray comp = qCompress(<span class="built_in">read</span>);</span><br><span class="line">            <span class="keyword">int</span> nsize = comp.<span class="built_in">size</span>();</span><br><span class="line">            ds&lt;&lt;nsize&lt;&lt;comp;</span><br><span class="line">            qDebug()&lt;&lt;<span class="string">"Input:"</span>&lt;&lt;nsize;</span><br><span class="line">        &#125;</span><br><span class="line">        output.<span class="built_in">close</span>();</span><br><span class="line">        file.<span class="built_in">close</span>();</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">uncompress</span><span class="params">(QString ifile, QString ofile)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">QFile <span class="title">file</span><span class="params">(ifile)</span></span>;</span><br><span class="line">    <span class="function">QFile <span class="title">output</span><span class="params">(ofile)</span></span>;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span>(file.<span class="built_in">open</span>(QFile::ReadOnly) &amp;&amp;</span><br><span class="line">            output.<span class="built_in">open</span>(QFile::WriteOnly|QFile::Truncate))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function">QDataStream <span class="title">ds</span><span class="params">(&amp;file)</span></span>;</span><br><span class="line">        QByteArray <span class="built_in">read</span>;</span><br><span class="line">        <span class="keyword">while</span>(!file.atEnd())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> <span class="built_in">size</span>;</span><br><span class="line">            ds&gt;&gt;<span class="built_in">size</span>&gt;&gt;<span class="built_in">read</span>;</span><br><span class="line">            qDebug()&lt;&lt;<span class="string">"out:"</span>&lt;&lt;<span class="built_in">size</span>;</span><br><span class="line">            QByteArray comp = qUncompress(<span class="built_in">read</span>);</span><br><span class="line">            output.<span class="built_in">write</span>(comp);</span><br><span class="line">        &#125;</span><br><span class="line">        output.<span class="built_in">close</span>();</span><br><span class="line">        file.<span class="built_in">close</span>();</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">QCoreApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line">    qDebug()&lt;&lt;<span class="string">"compress...."</span>;</span><br><span class="line">    compress(<span class="string">"data.db"</span>, <span class="string">"data.zip"</span>);</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    qDebug()&lt;&lt;<span class="string">"uncompress...."</span>;</span><br><span class="line">    uncompress(<span class="string">"data.zip"</span>, <span class="string">"dt.db"</span>);</span><br><span class="line">    <span class="keyword">return</span> a.exec();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Qt</category>
+      </categories>
+      <tags>
+        <tag>qt</tag>
+        <tag>压缩</tag>
+        <tag>解压缩</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用windeployqt打包</title>
+    <url>/2019/06/11/%E4%BD%BF%E7%94%A8windeployqt%E6%89%93%E5%8C%85/</url>
+    <content><![CDATA[<p>使用QT5自带的windeployqt打包程序</p>
+<a id="more"></a>
+<ol>
+<li>从开始菜单找到qt程序目录如下图，我安装了vs版和mingw版本，根据需要选择即可。<br><img src="20190611132725707.png" alt=""></li>
+</ol>
+<ol start="2">
+<li>执行两条关键命令</li>
+</ol>
+<p>cd 到exe所在的目录</p>
+<p>执行<code>windeployqt *.exe</code></p>
+<p>会在当前目录生成exe依赖的所有文件（含库，语言包，插件等信息，部分非必须文件也会被拷贝过来）。<br>此时程序即可打包了。</p>
+<p><img src="20190611133144365.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>Qt</category>
+      </categories>
+      <tags>
+        <tag>打包</tag>
+        <tag>qt</tag>
+        <tag>windeployqt</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Qt5 Linux远程调试</title>
+    <url>/2019/02/27/Qt5%20Linux%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/</url>
+    <content><![CDATA[<p>当我们程序发布到新机时,难免会遇到意料之外的情况,在目标机安装编译环境虽不失为一种方式,但安装环境耗时耗力,远程调试一定会让你觉得神清气爽.</p>
+<a id="more"></a>
+<ol>
+<li>目标机需要有<code>gdb gdbserver</code>.</li>
+</ol>
+<p>没有就安装,Ubuntu是自带有,</p>
+<blockquote>
+<p><code>gdbserver --version</code>可以查看版本信息</p>
+</blockquote>
+<ol start="2">
+<li><p>目标机执行debug版本</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gdbserver 127.0.0.1:1234 myApp</span><br></pre></td></tr></table></figure>
+<p>ip:port说明:ip地址本机可以使用环路地址,或者本机ip,端口是自定义的,该命令是建立一个可供连接的服务器.</p>
+</li>
+<li><p>开发环境配置</p>
+</li>
+</ol>
+<p>打开qtcreate ,选择debug菜单中的start debug选远程调试</p>
+<blockquote>
+<p>Override server channel:<strong>目标机ip:端口1234</strong></p>
+</blockquote>
+<blockquote>
+<p>Local executable:<strong>myApp的输出路径</strong></p>
+</blockquote>
+<p><strong>点击ok,此时你会发现目标机的终端开始出现输出信息,软件正常启动了,在开发环境打断点试试,完美执行中断.</strong></p>
+]]></content>
+      <categories>
+        <category>Qt</category>
+      </categories>
+      <tags>
+        <tag>qt</tag>
+        <tag>远程调试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>虚拟机Ubuntu局域网联网问题</title>
+    <url>/2019/01/25/%E8%99%9A%E6%8B%9F%E6%9C%BAUbuntu%E5%B1%80%E5%9F%9F%E7%BD%91%E8%81%94%E7%BD%91%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>对于虚拟机的网络有多种模式：</p>
+<a id="more"></a>
+<ol>
+<li><p><strong>桥接模式</strong>，该模式直接使虚拟机连接物理网卡，与主机保持同一局域网。但与主机ip地址不同。该模式下，<span style=color:red>局域网内的其它主机可以与该虚拟机相互ping通</span>。可以使用外网。</p>
+</li>
+<li><p><strong>nat模式</strong>，默认模式，该模式是与主机共用一个ip，但虚拟了一个新的子网，故<span style=color:red>局域网内的其它主机不能ping该虚拟机，但该虚拟机可以ping通其它的主机</span>，可以使用外网。</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>防坑笔记</category>
+      </categories>
+      <tags>
+        <tag>ubuntu</tag>
+        <tag>vm</tag>
+        <tag>联网</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>再谈qt5程序发布时依赖库问题追踪</title>
+    <url>/2018/12/24/%E5%86%8D%E8%B0%88qt5%E7%A8%8B%E5%BA%8F%E5%8F%91%E5%B8%83%E6%97%B6%E4%BE%9D%E8%B5%96%E5%BA%93%E9%97%AE%E9%A2%98%E8%BF%BD%E8%B8%AA/</url>
+    <content><![CDATA[<p>程序打包后，发布到新的Ubuntu18，又出现了依赖库的问题。</p>
+<a id="more"></a>
+<p>使用<code>ldd</code>显示的所有依赖库都已经存在了，一切正常，然而一运行就发现<code>qxcb no found</code>，这。。。。难道plugins路径不对？之前在其他环境都布了完全能运行啊，怎么可能plugins会不起效呢？设置一下环境变量/拷贝qxcb库到应用程序路径，还是不起效，所以路径不对也基本可以排除了。</p>
+<p>这时，使用qt自带的一个调试插件的宏就起到了至关重要的角色，它能报软件运行时，插件加载的错误。</p>
+<p>设置Ubuntu环境变量,添加这行代码</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> <span class="built_in">export</span> QT_DEBUG_PLUGINS=1</span><br></pre></td></tr></table></figure>
+<p>在<code>~/.profile</code>或者<code>/etc/profile</code>都行。</p>
+<p>别忘了</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> .profile</span><br></pre></td></tr></table></figure>
+<p>然后直接运行程序就会打印相关的加载错误信息了，发现qxcb库依赖的<code>libQt5Dbus</code> <code>libQt5Xcb</code> 库加载失败，于是又去之前的编译环境拷贝一下，替换，果然可以了。那问题就很明显了，不是程序找不到qxcb，而是qxcb的依赖库加载失败！！！</p>
+<p>吐槽一下qt这个错误提示是真的。。。。恶心。。。定位也太不准了。又想起了windows开发的舒服了。唉!</p>
+]]></content>
+      <categories>
+        <category>Qt</category>
+      </categories>
+      <tags>
+        <tag>qt</tag>
+        <tag>qxcb</tag>
+        <tag>发布</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>centOS7升级python3.7</title>
+    <url>/2018/12/08/centOS7%E5%8D%87%E7%BA%A7python3.7/</url>
+    <content><![CDATA[<p>1.python2不要卸载，因为yum依赖python2，谁叫Google不向下兼容</p>
+<a id="more"></a>
+<p>2.保留2，安装python3.7依赖的第三方库，</p>
+<p>  wget 下载地址</p>
+<p>  <del>./configure prefix=/usr/local/python3</del></p>
+<p>  （请使用此命令代替上述命令./configure –with-ssl如果不带ssl安装会导致后面pip链接网络失败，也就安装不了python的其他的包了。而使用ssl之前一定要先安装openssl-devel，不设置prefix，默认安装路径是/usr/local/bin）</p>
+<p>  make</p>
+<p>  必须在make install之前用yum安装好</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo yum -y install zlib-devel ncurses-devel libffi-devel openssl-devel</span><br></pre></td></tr></table></figure>
+
+<p>3.安装成功是没有任何报错的而且会安装pip如下图</p>
+<p>4.<code>sudo make install</code></p>
+<p><img src="20181208152331367.png" alt="img"></p>
+<p>5.安装成功后，在<code>/usr/local/python3</code>目录下会有相应的安装文件</p>
+<p>  配置环境变量即可：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo ln -s /usr/<span class="built_in">local</span>/bin/python3 /usr/bin/python</span><br><span class="line"></span><br><span class="line">sudo ln -s /usr/<span class="built_in">local</span>/bin/pip3 /usr/bin/pip（方便pip升级需要sudo，还是建议添加改行代码）</span><br></pre></td></tr></table></figure>
+
+<p>  记得修改yum的python依赖版本为python2.看下图：</p>
+<p><img src="20181208153114446.png" alt=""></p>
+<p>yum如果不能用，报错如下</p>
+<blockquote>
+<p>  File “/usr/bin/yum”, line 30<br>    except KeyboardInterrupt, e:</p>
+<p>SyntaxError: invalid syntax<br>  File “/usr/libexec/urlgrabber-ext-down”, line 28<br>    except OSError, e:</p>
+</blockquote>
+<p>解决办法：<code>vim /usr/bin/yum</code> 将第一行的 <code>#!/usr/bin/python</code> ————-&gt;改成 <code>#!/usr/bin/python2</code>即可，其他文件同理！</p>
+<p>6.python3安装成功了，但是当时有pip安装python库的时候又有问题</p>
+<p>要安装scrapy，Django时报错，Twisted&gt;=13.原因是没安装Twisted，去官网下载版本链接如下：</p>
+<p><a href="https://twistedmatrix.com/Releases/Twisted/" target="_blank" rel="noopener">https://twistedmatrix.com/Releases/Twisted/</a></p>
+<p>至此，centos7终于能顺利完成python3的配置操作了。</p>
+]]></content>
+      <categories>
+        <category>Linux系统</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>centOS7</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>QT将事件执行moveToThread槽函数不响应问题</title>
+    <url>/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>最近遇到这么个问题，想将写日志信息放到一个单独的线程中去执行，然而添加<code>movetothread</code>后程序就不进入槽函数了，</p>
+<a id="more"></a>代码如下图：
+<p><img src="2018112717484772.png" alt=""><br>第一想到的就是检查语法规范，然而，注释图中第三行代码发现，可以执行，显然，语法是没任何问题的了。这就有点奇怪了，于是单步调试发现如下图<br><img src="20181127175317582.png" alt=""><br>这个提示就很明显了，原来是参数未注册元对象的问题。那好注册一下试试呗，成功了，打印下线程信息安心呗，果然意料之中。<br><img src="20181127175559889.png" alt=""><br><img src="20181127175633539.png" alt=""><br><strong>总结</strong><br>qt的这个信号槽，坑还是有的，要想避免还是得多调试，不怕编译错误就怕运行错误啊。</p>
+]]></content>
+      <categories>
+        <category>Qt</category>
+      </categories>
+      <tags>
+        <tag>qt</tag>
+        <tag>moveToThread</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux的ssh免密登录</title>
+    <url>/2018/11/21/linux%E7%9A%84ssh%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/</url>
+    <content><![CDATA[<p>ssh免密登录在很多运维环境都需要用到<br>FTP,SCP,SSH远程登录等。。。</p>
+<a id="more"></a>
+<p>暂且假想客户端为B，服务器为S。我们需要从B远程登录S的时候，总是需要登录S端的用户密码，很麻烦。那么如何利用ssh免密登录？以rsa加密为例，本质是利用rsa加密算法对登录密码做了加密处理，来使得服务器自动接受客户机的认证。1.公钥 2.私钥，本文不做赘述。<br>直接上代码，首先确保B-S联通，且S启动了ssh服务。进入主题，在B机上，打开终端，执行<br><code>ssh-keygen</code><br>此时会提示你输入生成文件名称，直接回车，生成默认id_rsa*文件<br>然后提示输入密码，确认，一直回车即可。<br>此时，~/.ssh/目录下会生成id_rsa及id_rsa.pub两个文件，前者为私钥，后者为公钥。<br>接下来就是将密钥推送到S机<br><code>ssh-copy-id -i ~/.ssh/id_rsa username@remoteIP</code><br><code>username@remoteIP</code>格式如：<code>zhangsan@192.168.1.110</code></p>
+<p>成功后，后续在B端执行ssh相关登录S操作无需再认证了。</p>
+]]></content>
+      <categories>
+        <category>Linux系统</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>ssh</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>老毛桃制作LinuxU盘启动盘</title>
+    <url>/2018/11/19/%E8%80%81%E6%AF%9B%E6%A1%83%E5%88%B6%E4%BD%9CLinuxU%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9B%98/</url>
+    <content><![CDATA[<p>如果usb-hdd+的写入方式，系统制作完后，启动失败，所以需要在“便捷启动”中手动写入引导扇区即可，选择syslinux。<a id="more"></a><br><img src="20181119095951146.png" alt=""><br>如果写引导总是提示u盘被占用，实际并未被占用，改用RAW方式重做即可<br><img src="20181119101633157.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>防坑笔记</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>U盘启动盘</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux修改因软件版本升级不能使用的命令</title>
+    <url>/2018/11/14/linux%E4%BF%AE%E6%94%B9%E5%9B%A0%E8%BD%AF%E4%BB%B6%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<p>linux部分版本会内置一些常用软件命令，如python /qt等。</p>
+<a id="more"></a>
+<p>Ubuntu自带python2，qt4，如果我们安装了python3 ，qt5</p>
+<p>发现python命令调的还是python2，而qt命令还是调用的qt4，这时候我们需要找到该命令链接点，从新链接即可</p>
+<p>而当前用户的命令通常所在目录是<code>/usr/bin</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#进入用户命令所在目录</span></span><br><span class="line"><span class="built_in">cd</span> /usr/bin</span><br><span class="line"><span class="comment">#查看python命令</span></span><br><span class="line">ls -l python</span><br><span class="line"><span class="comment">#查看qt的翻译器</span></span><br><span class="line">ls -l linguist</span><br><span class="line"><span class="comment">#删除</span></span><br><span class="line">sudo rm -rf python</span><br><span class="line"><span class="comment">#重新建立软链接</span></span><br><span class="line">sudo ln -s /opt/python3/bin/python3 ./python</span><br><span class="line"> </span><br><span class="line">sudo ln -s /opt/Qt5.9.4/5.9.4/gcc_64/bin/linguist ./linguist</span><br><span class="line">或者</span><br><span class="line">sudo ln -snf /opt/Qt5.9.4/5.9.4/gcc_64/bin/linguist ./linguist</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Linux系统</category>
+      </categories>
+      <tags>
+        <tag>软连接</tag>
+        <tag>系统命令</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Gnome隐藏上边栏，Ubuntu18 hide top bar</title>
+    <url>/2018/10/30/Gnome%E9%9A%90%E8%97%8F%E4%B8%8A%E8%BE%B9%E6%A0%8F%EF%BC%8CUbuntu18%20hide%20top%20bar/</url>
+    <content><![CDATA[<p>Ubuntu18LTS，UI已经回归gnome了。Unity被弃！</p>
+<p>那么本文就将已Ubuntu18为例讲解怎么隐藏顶部状态栏及任务栏。</p>
+<a id="more"></a>
+<p>任务栏其实没啥讲的Ubuntu18/16都是在系统设置里面就支持自动隐藏了，还有停靠位置（左，右，下）。但是自动隐藏18与16不同的是，18只有软件界面与dock界面有交汇碰撞，dock才隐藏，否则，dock是一直显示的，可以参考本文最后效果图。而16的隐藏是只有光标覆盖才激活显示。</p>
+<p>1.css修改</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /usr/share/gnome-shell/theme/ubuntu.css</span><br></pre></td></tr></table></figure>
+
+<p>在文件末尾添加</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#panel</span>,<span class="selector-id">#panel</span> *&#123;</span><br><span class="line"><span class="attribute">height</span>: <span class="number">0px</span>;</span><br><span class="line"><span class="attribute">color</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有人说可以，但是本人的现象是：状态栏透明了，但是如果软件最大化，或者拖动到状态栏边缘，状态栏会变成标题栏的黑色。还是隐藏不了。（后来发现需要重启系统才能看出效果！）</p>
+<p>2.使用<code>gnome</code>的<code>hide top bar</code>插件</p>
+<p>这是一个浏览器插件，chrome/firefox都是可以用的。</p>
+<p>首先，使用firefox打开<a href="https://extensions.gnome.org/extension/545/hide-top-bar/" target="_blank" rel="noopener">gnome插件地址</a>，<br><img src="20181030152556379.png" alt=""><br>根据提示，单击蓝色链接，安装gnome-shell插件。 安装完之后，浏览器菜单栏有一个gnome图标<br><img src="20181030152740399.png" alt=""><br>点击这个图标，就会跳转到gnome插件管理界面 ，插件安装完了，我们可以刷新以上hide-top-bar链接，还有一个错误提示，这是系统本地与插件通信失败，系统还需要安装一个库，chrome-gnome-shell.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt install chrome-gnome-shell</span><br></pre></td></tr></table></figure>
+<p>安装成功后，再刷新地址即可，若错误消失，即为成功。<br><img src="20181030154031787.png" alt=""><br>这就是成功的了。讲off切成on即可。旁边的设置图标，会有更详细的设置信息。最后上一张Gnome效果图。<br><img src="20181030154046179.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>Linux系统</category>
+      </categories>
+      <tags>
+        <tag>gnome</tag>
+        <tag>hide top bar</tag>
+        <tag>ubuntu18</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vm14卡顿及安装linux黑屏问题</title>
+    <url>/2018/10/30/vm14%E5%8D%A1%E9%A1%BF%E5%8F%8A%E5%AE%89%E8%A3%85linux%E9%BB%91%E5%B1%8F%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>因工作需要按照了vm运行Linux，当然按照64位系统了，vm14+Ubuntu18/16LTS都有，安装很简单默认点击下一步就完了，也很顺利。但是发现奇慢无比，我将系统移到C盘固态硬盘会好很多。<a id="more"></a></p>
+<p>我就纳闷了，vm又不是第一次用，怎么会如此慢，单击系统任何地方都得等几秒钟才勉强响应，硬件配置是完全够的4核CPU+8G内存+128g固态+500g机械硬盘等。好过以前的电脑配置太多了。所以直接排除”带不动“的原因！</p>
+<p>于是b度，呵呵，果然没什么卵用，改vm配置什么的都是耍流氓，都是默认安装的需要改啥？？？</p>
+<p>那就自己另找原因，一边打开任务管理器，一边操作linux，cpu/内存占比没毛病，开始还没发现硬盘读写那么频繁，在此一定要表扬一下win10，监控的很完美，比win7更细更直观。虽然硬盘没显示跑满的速度，但是看到vm的io读写都是10m/s左右，最低都是4m/s显然是不正常的，如此频繁的io，肯定是拖累系统的直接原因了。</p>
+<p>后来查看虚拟机的配置信息，默认就是1cpu+1g内存，感觉我cpu，内存一直空闲着呢，那我就手动修改一下2cpu+2g内存重启系统，果然soso的了。任务管理器io速度也下来了</p>
+<p><strong>总结：加内存（其他都是废话）</strong></p>
+<p>现在的64位系统，还用以前的老配置1cpu+1g内存是不够的了，尤其内存太低导致虚拟机为满足系统内存需求一直在做内存映射，才导致硬盘io速度上升。如此带来严重卡顿效果。另1cpu+2g内存笔者也试了，简单操作还是很流畅的。至于vm为啥没将内存2g作为默认配置，这个就不知道了，可能是为了尽量不浪费用户资源的前提下对老32位系统支持吧，只能这样想了。</p>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a><strong>补充</strong></h2><p>vm14安装centos，Ubuntu等Linux出现黑屏，但是缩略图中有时能看到系统安装界面。</p>
+<p><strong>原因</strong>：安装系统的时候安装tools</p>
+<p><strong>解决方式</strong>：以管理员身份运行“命令提示符”， 输入命令：<code>netsh winsock reset</code> </p>
+<p>重置Windowssock网络即可，重新安装linux的过程中还会提示安装tools，别点，点就黑屏，又得重来，也正是因为如此，我才判断的是tools引起的网络更改出错，导致安装不了。</p>
+]]></content>
+      <categories>
+        <category>防坑笔记</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>vm</tag>
+        <tag>黑屏</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux修改因软件版本升级不能使用的命令</title>
+    <url>/2018/10/26/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E8%A7%A3%E6%9E%90/</url>
+    <content><![CDATA[<p>本文是基于<a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">原教程地址</a>学习后的一个笔记记录，感谢原作者的无私分享！github遵守开源协议，fork后的仓库代码可以读写，甚至可以pull request给官方仓库来贡献代码。 </p>
+<a id="more"></a>
+<ol>
+<li><p><code>git config</code>命令的–global参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">"Your Name"</span></span><br><span class="line"> </span><br><span class="line">git config --global user.email <span class="string">"email@example.com"</span></span><br></pre></td></tr></table></figure></li>
+<li><p>初始化一个Git仓库，</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure></li>
+<li><p>添加文件，并提交，与svn不一样每次修改都要add，</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git add &lt;file&gt;</span><br><span class="line"> </span><br><span class="line">git commit -m &lt;message&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">#下面一行相当于上面两行</span></span><br><span class="line">git commit -a -m &lt;message&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>查看文件状态</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure></li>
+<li><p>比较文件不同</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure></li>
+<li><p>查看提交日志</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span></span><br></pre></td></tr></table></figure></li>
+<li><p>版本重置/及跳转</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git reset --hard commit_id</span><br></pre></td></tr></table></figure></li>
+<li><p>查看历史命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git reflog</span><br></pre></td></tr></table></figure></li>
+<li><p>用版本库文件替换工作区文件（撤销修改）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git checkout -- file</span><br></pre></td></tr></table></figure></li>
+<li><p>删除文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git rm</span><br></pre></td></tr></table></figure></li>
+<li><p>关联远程库（注意：与github交互需要ssh支持，rsa加密的）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git remote add origin git@server-name:path/repo-name.git</span><br><span class="line">origin是一个默认用户名 </span><br><span class="line"></span><br><span class="line">另：当远程库路径（如：ip）更改后，可通过下面命令重新设置路径，或者直接更改当前目录./.git/config文件中的ip地址。</span><br><span class="line"></span><br><span class="line"><span class="comment">#本地库不需要用.git，路径必须是绝对路径</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin ssh://zhum@ip:/home/zhum/gitpath</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>push到远程库</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git push -u origin master</span><br><span class="line">由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。</span><br><span class="line"></span><br><span class="line">注意：服务器要设置变量，默认是拒绝接收push的。在服务器执行：</span><br><span class="line"></span><br><span class="line">git config receive.denyCurrentBranch ignore</span><br><span class="line">另外，客户端push成功了，服务器也有了日志，但是服务器文件是不会自动更新的，被修改的文件显示modify状态。发现用checkout切换分支可以自动更新（?）。</span><br></pre></td></tr></table></figure></li>
+<li><p>克隆</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> &lt;project-address&gt;</span><br><span class="line">GitHub给出的地址不止一个，还可以用https://github.com/michaelliao/gitskills.git这样的地址。实际上，Git支持多种协议，默认的git://使用ssh，但也可以使用https等其他协议。</span><br><span class="line"></span><br><span class="line">使用https除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令，但是在某些只开放http端口的公司内部就无法使用ssh协议而只能用https。</span><br></pre></td></tr></table></figure></li>
+<li><p>分支</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Git鼓励大量使用分支：</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看分支：</span></span><br><span class="line">git branch</span><br><span class="line"> </span><br><span class="line"><span class="comment">#创建分支：</span></span><br><span class="line">git branch &lt;name&gt;</span><br><span class="line"> </span><br><span class="line"><span class="comment">#切换分支：</span></span><br><span class="line">git checkout &lt;name&gt;</span><br><span class="line"> </span><br><span class="line"><span class="comment">#创建+切换分支：</span></span><br><span class="line">git checkout -b &lt;name&gt;</span><br><span class="line"> </span><br><span class="line"><span class="comment">#合并某分支到当前分支：</span></span><br><span class="line">git merge &lt;name&gt;</span><br><span class="line"> </span><br><span class="line"><span class="comment">#删除分支：</span></span><br><span class="line">git branch -d &lt;name&gt;</span><br><span class="line"><span class="comment">#强制删除：</span></span><br><span class="line">git branch -D &lt;name&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>查看分支合并图</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> --graph</span><br></pre></td></tr></table></figure></li>
+<li><p>bug分支处理</p>
+</li>
+</ol>
+<p>修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；</p>
+<p>当手头工作没有完成时，先把工作现场git stash一下，然后去修复bug，修复后，再git stash pop，回到工作现场</p>
+<ol start="17">
+<li>新模块/特征分支处理</li>
+</ol>
+<p>开发一个新feature，最好新建一个分支；</p>
+<p>如果要丢弃一个没有被合并过的分支，可以通过<code>git branch -D &lt;name&gt;</code>强行删除。</p>
+<ol start="18">
+<li>多人开发注意项</li>
+</ol>
+<p>查看远程库信息，使用<code>git remote -v</code>；</p>
+<p>本地新建的分支如果不推送到远程，对其他人就是不可见的；</p>
+<p>从本地推送分支，使用<code>git push origin branch-name</code>，如果推送失败，先用git pull抓取远程的新提交；</p>
+<p>在本地创建和远程分支对应的分支，使用<code>git checkout -b branch-name origin/branch-name</code>，本地和远程分支的名称最好一致；</p>
+<p>建立本地分支和远程分支的关联，使用<code>git branch --set-upstream branch-name origin/branch-name</code>；</p>
+<p>从远程抓取分支，使用<code>git pull</code>，如果有冲突，要先处理冲突。</p>
+<ol start="19">
+<li>变基<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git rebase</span><br></pre></td></tr></table></figure>
+rebase操作可以把本地未push的分叉提交历史整理成直线；</li>
+</ol>
+<p>rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。</p>
+<ol start="20">
+<li>标签管理</li>
+</ol>
+<p>发布一个版本时，我们通常先在版本库中打一个标签（tag），这样，就唯一确定了打标签时刻的版本。将来无论什么时候，取某个标签的版本，就是把那个打标签的时刻的历史版本取出来。所以，标签也是版本库的一个快照。</p>
+<p>Git的标签虽然是版本库的快照，但其实它就是指向某个commit的指针（跟分支很像对不对？但是分支可以移动，标签不能移动），所以，创建和删除标签都是瞬间完成的。</p>
+<p><strong>Git有commit，为什么还要引入tag？</strong></p>
+<p>tag就是一个让人容易记住的有意义的名字，它跟某个commit绑在一起。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git tag &lt;tagname&gt;<span class="comment">#用于新建一个标签，默认为HEAD，也可以指定一个commit id；</span></span><br><span class="line"> </span><br><span class="line">git tag -a &lt;tagname&gt; -m <span class="string">"blablabla..."</span><span class="comment">#可以指定标签信息；</span></span><br><span class="line"> </span><br><span class="line">git tag<span class="comment">#可以查看所有标签。</span></span><br><span class="line"> </span><br><span class="line">git push origin &lt;tagname&gt;<span class="comment">#可以推送一个本地标签；</span></span><br><span class="line"> </span><br><span class="line">git push origin --tags<span class="comment">#可以推送全部未推送过的本地标签；</span></span><br><span class="line"> </span><br><span class="line">git tag -d &lt;tagname&gt;<span class="comment">#可以删除一个本地标签；</span></span><br><span class="line"> </span><br><span class="line">git push origin :refs/tags/&lt;tagname&gt;<span class="comment">#可以删除一个远程标签。</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Linux系统</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>github</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Qt自己编写keyboad虚拟键盘</title>
+    <url>/2018/10/24/Qt%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99keyboad%E8%99%9A%E6%8B%9F%E9%94%AE%E7%9B%98/</url>
+    <content><![CDATA[<p>由于项目中有需要用到虚拟键盘，首先想到的是系统自带的，笔者是Ubuntu16 + Qt5.9。</p>
+<a id="more"></a>
+<ol>
+<li>系统虚拟键盘的优缺点：</li>
+</ol>
+<p><strong>优点</strong>：直接可以脚本调起，功能完善，稳定。外观完美。</p>
+<p><strong>缺点</strong>：定制麻烦（详情看onboard帮助文档，英文），要想像手机那样用时自动显示，不用时自动隐藏，需要先设置系统的输入法，而且需要GNome的辅助功能支持。<br><img src="20181024180737982.png" alt=""><br>2. Qt5已经有自带输入法了。Qt安装的时候就有一个virtualkeyboard选项，安装即可，编译生成完了，会在安装目录的plugins/plaforminputcontexts目录下。</p>
+<p><strong>优点</strong>：美观，方便，功能完善，跨平台，支持中文</p>
+<p><strong>缺点</strong>：定制的话在于改源代码的能力了，这是一个基于qml开发的插件，所以如果是widget使用的话需要用qquickwidget组件包装才能正常调出键盘。<br><img src="20181024181912328.png" alt=""></p>
+<ol start="3">
+<li>自己写一个plaforminputcontextsplugin</li>
+</ol>
+<p>这个呢，非常感谢下面两篇连接的作者，链接如下：</p>
+<p><a href="https://blog.csdn.net/tracing/article/details/50617571" target="_blank" rel="noopener">QT5的软键盘实现</a>…</p>
+<p><a href="https://blog.csdn.net/wzs250969969/article/details/78418725" target="_blank" rel="noopener">QT之全平台虚拟键盘</a>…</p>
+<p><strong>优点</strong>：能实现简单定制键盘，可以了解并学习Qt插件开发规则</p>
+<p><strong>缺点</strong>：该input插件依赖DBus通信，而windows对DBus支持有很多问题要解决，<br>所幸Ubuntu是没问题的（好像搜狗的拼音，也是有开发Qt插件的，在linux平台的Qtcreator支持上，否则搜狗也是不能用于QtCreator的中文输入）<a href="https://download.csdn.net/download/evil_119/10742059" target="_blank" rel="noopener">源代码链接</a><br><img src="20181024184023154.png" alt=""></p>
+<ol start="4">
+<li>在3的基础上自己封装定制dll</li>
+</ol>
+<p>在应用程序中添加本地库到当前工程，在pro文件中加以下类似代码：</p>
+<p><code>LIBS += -L$$OUT_PWD/../keyboard/debug/ -lkeyboard</code><br>然后在主程序中调用即可</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">Keyboard</span> objKeyboard;<span class="comment">//创建对象</span></span><br><span class="line">    objKeyboard.showDigital();<span class="comment">//显示数字键盘</span></span><br><span class="line"> </span><br><span class="line">    MainWindow w;</span><br><span class="line">    w.show();</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> a.exec();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>优点</strong>：自由定制，重复利用，跨平台。最后上个效果图。<br><img src="20181024184526544.png" alt=""><br>美化一下也是可以的：<br><img src="20200218103458.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>Qt</category>
+      </categories>
+      <tags>
+        <tag>Qt</tag>
+        <tag>keyboad</tag>
+        <tag>虚拟键盘</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Qt想用QLibrary动态加载库</title>
+    <url>/2018/10/24/Qt%E6%83%B3%E7%94%A8QLibrary%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E5%BA%93/</url>
+    <content><![CDATA[<p>最近写了一个小组件没错就是虚拟键盘，打包成动态库了，但发现一个小问题，就是QLibrary动态加载总有问题当然，在做下面测试的之前，肯定是需要保证自己的dll是ok的，右击工程添加本地库是正常执行了的。</p>
+<a id="more"></a>
+<p>首先在pro文件中即使添加库路径如下</p>
+<p><code>LIBS += -L$$OUT_PWD/../keyboard/debug/</code><br>当然我删除了<code>-lkeyboard</code>，因为我要用<code>QLibrary::load()</code>,然而还是如下图：<br><img src="20181024174727161.png" alt=""><br>但这是一个编译中的link错误，显然包含.h文件是成功了的，目前猜测应该是解析lib*.a失败的原因吧，解析函数接口失败。</p>
+<p>load是一个运行态的，所以在此还看不到效果，但是如果要是在pro中加上 -lkeyboard 静态加载了那我还load干啥，不是？</p>
+<p>有点懵逼，以后有时间再研究了，可能与我的库导出的类也有一定关系吧，我的导出类是一个继承自QObject的子类。</p>
+<p>最后：<br>后面用resolve()配合load()可以解决，但是麻烦。</p>
+]]></content>
+      <categories>
+        <category>防坑笔记</category>
+      </categories>
+      <tags>
+        <tag>Qt</tag>
+        <tag>动态库</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ubuntu 16.04 关闭开启图形界面之systemctl命令</title>
+    <url>/2018/10/23/ubuntu%2016.04%20%E5%85%B3%E9%97%AD%E5%BC%80%E5%90%AF%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E4%B9%8Bsystemctl%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<p>ubuntu16.04关掉图形界面启动，命令：<code>systemctl disable lightdm.service</code></p>
+<p>确实生效了，但是由于不能显示笔者的应用程序（QT界面程序），系统一直卡死在启动界面，还不如进gnome界面了，故又想恢复，发现恢复之路坑太多了。</p>
+<a id="more"></a>
+<ol>
+<li><p>因为界面卡死，是不能用输命令的，所以只能且系统模式，好在ctrl+alt+f1还是能用的，进入文本模式。</p>
+</li>
+<li><p>百度systemctl enable lightdm.service之后reboot你以为有用？</p>
+</li>
+<li><p>没用，那再加一行：<code>sudo service lightdm start</code> ，reboot还是无用</p>
+</li>
+<li><p>但是发现从文本模式能使用startx进入图形界面，reboot，呵呵空欢喜</p>
+</li>
+<li><p>还有人进入图形界面后查看service status lightdm，当然正常了。不然怎么可能进入图形界面？所以最后猜测是系统启动程序没有调用lightdm，</p>
+</li>
+</ol>
+<p>很有幸猜对了，只剩最后一个问题，因为Ubuntu系统启动有多种方式，我们要如何处理</p>
+<p>跳过以上看重点：</p>
+<p>正确的开启图形界面命令：<br><code>sudo ln -s /lib/systemd/system/lightdm.service /etc/systemd/system/display-manager.service</code></p>
+<p>之后执行 : <code>reboot</code><br>即可恢复界面显示。</p>
+]]></content>
+      <categories>
+        <category>防坑笔记</category>
+      </categories>
+      <tags>
+        <tag>systemctl</tag>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>QT5中Model,View模型的使用</title>
+    <url>/2018/09/30/QT5%E4%B8%ADModel,View%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<p>该文章不对model/view的初级使用做解释。qt引入Model/view结构，目的是为了提高传统QTabelWidget等的大数据刷新的效率。既然是为高效率显示而设计的，我们使用时就需要对其设计思路做了解。</p>
+<a id="more"></a>
+<p>view的继承模型如下图：<br><img src="QT5%E4%B8%ADModel,View%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8/20180930140558515.png" alt=""></p>
+<p>model继承模型如下图：<br><img src="QT5%E4%B8%ADModel,View%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8/2018093016103156.png" alt=""></p>
+<p>结合两个类继承图，我们可以看出<code>Model/view</code>是完全分开设计的，目的就是解耦合，Model只做数据管理，view只做显示，view与model之间的通信，就是一个重要函数了<code>setModel</code>,大可猜出该函数建立起了<code>model/view</code>之间的信号槽连接（因为笔者是win系统，没有下载源码，从严谨性来说只能说是猜测了，里面肯定有一堆connect()….），选择什么view，及view的使用其实比较简单（通过继承关系图也可以看出来），我们重点说Model，常用的Model大体可分为两类：一类是抽象接口分支下的常用数据模型，二类是数据委托，Delegate结尾的，这一类主要解决的是我们在view中显示的方式的问题，如：</p>
+<p><img src="QT5%E4%B8%ADModel,View%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8/20180930142909340.png" alt=""></p>
+<p>这类型列表，通常结合数据编辑器使用以达到较优的用户体验。</p>
+<p>最后说一下数据代理模型，qt原生提供的就两个实例（<code>QIdenityProxyModel/QSortFilterProxyModel</code>)，前者是唯一索引代理，后者是排序筛选代理，前者可能sqlModel用的较多一点，后者其实更普遍，当表格需要排序时，筛选部分数据显示时即可使用后者，另，如果两者皆不满足需求，我们可以直接继承<code>QAbstractProxyModel</code>实现自己的<code>proxyModel</code>。</p>
+<p>笔者最近就是有一个多view使用同一个Model的情景。使用ProxyModel即可优雅的解决。各个view通过设置各自的QSortFilterProxyModel即可，而各ProxyModel只需setSourceModel成同一个Model即可。某个view对model数据更改后，只需</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">emit m_model-&gt;dataChanged(index,index);</span><br></pre></td></tr></table></figure>
+<p>即可同步所有的view更新。注意，更新时，如果有selectionModel该selectionModel是不会立马更新的，通过继承图可以看到selectionModel也是独立的。所以如果我们需要更新view的选择项，可以执行这句：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">view-&gt;selectionModel()-&gt;<span class="built_in">clear</span>();<span class="comment">//清除选中项</span></span><br></pre></td></tr></table></figure>
+<p>这样就间接的更新了选中项了，qt的选中项作为一个独立模块，当我们需要遍历列表中所有选中项的时候也是需要先拿到selectionModel对象的，代码是：<code>view-&gt;selectionModel()</code>.然后就可以用该对象获取<code>selectedRows()/selectionIndexs()</code>等函数了。</p>
+]]></content>
+      <categories>
+        <category>Qt</category>
+      </categories>
+      <tags>
+        <tag>qt</tag>
+        <tag>model</tag>
+        <tag>view</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>QT5如何打包到Ubuntu16</title>
+    <url>/2018/06/20/QT5%E5%A6%82%E4%BD%95%E6%89%93%E5%8C%85%E5%88%B0Ubuntu16/</url>
+    <content><![CDATA[<p>最近一个跨平台的项目打包折腾的够呛，所以记录一波。没有用打包工具也正好从原理层分析讲解。qt自带的打包工具其实会方便但是冗余依赖库也挺多。具体看需求了。</p>
+<a id="more"></a>
+<p><code>ldd 应用程序名</code></p>
+<p>可以查看该应用程序名下面的所有依赖库，所以该命令很重要。网上有人利用该命令去导出所以依赖库，附代码如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"> </span><br><span class="line">exe=<span class="string">"./appname"</span></span><br><span class="line"><span class="comment">#发布的程序名</span></span><br><span class="line">des=<span class="string">"/home/myname/Qt5.9/"</span></span><br><span class="line"><span class="comment">#目标路径</span></span><br><span class="line"> </span><br><span class="line">deplist=$(ldd <span class="variable">$exe</span> | awk <span class="string">'&#123;if (match($3,"/")) &#123; printf("%s "),$3 &#125; &#125;'</span>)</span><br><span class="line">cp <span class="variable">$deplist</span> <span class="variable">$des</span></span><br></pre></td></tr></table></figure>
+<p>看上去很完美，当程序依旧运行不了的时候，才发现人家的东西毕竟不是自己的，所以追本溯源才是重要的。根据程序报错来解决呗。</p>
+<ol>
+<li>报错QT_5库no found：</li>
+</ol>
+<p>进入开发机的qt安装目录如：<code>/opt/qt5.9.4/5.9.4/gcc_64/（本人是64位系统）</code>，几个目录简要说明：</p>
+<p><code>bin/</code>    属于qt的一些运行文件如qmake,moc,designer等等</p>
+<p>（附加说明一下，该目录下有一个qt.conf文件，该文件是用来指定程序路径结构的）</p>
+<p><code>include/</code>    包含了所有qt的头文件</p>
+<p><code>doc/</code>    帮助文档等</p>
+<p><code>translation/</code>    qtcreate支持的所有语言语种</p>
+<p><code>mkspecs/</code>    qt支持的所有编译器</p>
+<p><code>phrasebooks/</code>    qt常用语手册，多国语言</p>
+<p><code>qml/</code>    qml相关</p>
+<p><code>lib/</code>    所有qt程序依赖库</p>
+<p><code>plugins/</code>    所有qt插件</p>
+<p>有平台相关，图片相关，多媒体，qml，sql，xcb等等。</p>
+<p>拷贝lib目录下的程序依赖库到lib文件夹，到时候直接拷贝整个文件夹到目标机中即可。</p>
+<p>根据错误提示，基本</p>
+<p><code>cp -a libQt5Core.so* libQt5Widget.so* libQt5Gui.so* libQt5Netword.so* libQt5Svg.so* libQt5Sql.so* libQt5SerialPort.so* 目标路径/lib</code></p>
+<p>为什么要用*结尾，目的是连软链接一起拷贝走，否则，系统还是用自带的qt库，所以我们需要<code>libQt5Core.so.5</code>这样的软链接被新版本覆盖掉，还有一种方式就是重命名所有的依赖库，linux下的动态库可是有一串的版本相关，这点上windows显得更精简。</p>
+<p>最后将目标路径/lib拷贝到目标机的 <code>/usr/lib/x86...(64位机)</code>，运行报错不一样了，说明依赖的qt库有作用了。</p>
+<ol start="2">
+<li>继续报错qt5，但库明显不一样了。</li>
+</ol>
+<p>步骤同上：</p>
+<p><code>cp -a libicui18n.so* libicuuc.so* libicudata.so* 目标路径/lib</code></p>
+<p>这次报错不一样了</p>
+<ol start="3">
+<li>“xcb”平台相关xcb no found</li>
+</ol>
+<p>xcb相关的东西是真多，好在系统已经自带了一部，我们只需拷贝qt相关的就好了</p>
+<p><code>cp -a libQt5DBus.so* libQt5XcbQpa.so.5*目标路径/lib</code></p>
+<p><code>cp -a plugins/platforms plugins/xcbglintegrations 目标路径/plugins</code>（将qt的xcb插件拷贝到目标机，目标路径为运行文件所在路径）</p>
+<p>此处花费时间最长，网上各种说法，真是五花八门。其实很简单就能解决的。linux就是很多这种看似很复杂实际很简单的操作，被人们用的太乱导致的。</p>
+<p>此时程序终于可以爬起来了。但是</p>
+<ol start="4">
+<li>程序图标不显示</li>
+</ol>
+<p>第一反应是images/目录没拷贝过来，是不是像win程序那样要加载资源，cp，然而一样，才醒悟过来，编译的时候就已经编译进去了。后面这点在开发机得以证实，是不需要images的。仔细查看运行中的程序发现是部分图片没显示，对比发现ico能显示正常，png显示不了，发现qt插件中还有个imageformats文件夹呢，一试，果然好了，此时程序基本ok了。</p>
+<p><code>cp -a plugins/imageformats 目标路径/plugins</code>（这里发现iconengines与sqldrivers等居然可以不要拷贝？嗯，后续遇到再拷贝过来吧。本程序是有用ico，sql的哦）</p>
+<ol start="5">
+<li>不能播放声音</li>
+</ol>
+<p>呵，简单了，<code>cp -a plugins/mediaservice playlistformats 目标路径/plugins</code></p>
+<p>然而并没有用！！！baidu。果然没什么卵用。基本就是说gstreame/dsengine,后面才知道这两个一个是linux的开源多媒体引擎，一个是win平台的多媒体引擎。对比两平台的mediaservice插件，果然win是<code>dsengine.dll</code>. linux是<code>libgst*.so.</code>那就看看这些库依赖的库呗。目标机执行</p>
+<p><code>ldd libgst*.so.</code>    呵呵，no found <code>libQt5MultiMedia</code> 。。等等。统统cp一下。GAME START!完美！</p>
+<p><strong>补充：</strong></p>
+<ol>
+<li>linux系统提供的共享库目录是<code>/lib</code>，<code>/usr/lib (64位是/usr/lib/x86_64-linux-gun)</code>。如何添加新的搜索目录？</li>
+<li>添加的搜索路径默认是放在<code>/etc/ld.so.conf.d/</code>目录下的所有文件中的，所以只需要在该目录下新建一个文件比如说<code>opencv.conf</code>，然后在该文件中加入.so文件的路径，比如<code>/usr/local/lib</code> 就可以了。切记，添加完后执行<code>ldconfig</code>使命令生效。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Qt</category>
+      </categories>
+      <tags>
+        <tag>打包</tag>
+        <tag>qt</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>qt5.9中虚拟键盘的中文使用</title>
+    <url>/2018/05/04/qt5-9%E4%B8%AD%E8%99%9A%E6%8B%9F%E9%94%AE%E7%9B%98%E7%9A%84%E4%B8%AD%E6%96%87%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<p>qtvirtualkeyboard是qt基于qtquick的一个项目，源代码目录如下图：<a id="more"></a><br><img src="20180504113659381.png" alt=""><br>为何要提到这个呢，是因为本文想解释中文输入。否则只需在安装qt的过程中将qtvirtualkeyboard插件打上勾就能在qml工程中使用了<br>qtvirtualkeyboard工程包含例程，库，插件等。例程是basic一个简单的qml项目，<br>库有多个语言库，在目录<code>qtvirtualkeyboard\src\virtualkeyboard\3rdparty</code>中找到<code>pinyin</code>文件夹，包含了中文拼音输入法的依赖库项目，编译后会生成相应的静态库文件<code>libqtpinyin.a/libqtpinyind.a</code> (本人是win+mingw32环境)。</p>
+<p><strong>重点：</strong></p>
+<ol>
+<li><p><code>cd ~/qtvirtualkeyboard目录</code></p>
+</li>
+<li><p><code>qmake CONFIG+=&quot;lang-en_GB lang-zh_CN&quot;</code><br>注意：要带引号，如果没找到qmake命令是系统环境变量没设置</p>
+</li>
+</ol>
+<p>这一步会生成两个文件<code>.qmake.cache</code>和<code>.qmake.stash</code></p>
+<ol start="3">
+<li><code>mingw32-make.exe</code>如果是vs编译器<code>nmake.exe</code></li>
+</ol>
+<p>这一步要一段时间编译</p>
+<ol start="4">
+<li><code>mingw32-make.exe install</code>    如果是vs编译器<code>nmake.exe install</code></li>
+</ol>
+<p>安装语言包</p>
+<ol start="5">
+<li>重新打开basic工程，运行即可得到带中文的虚拟键盘了。且该键盘是对所有键盘程序都影响的不是只针对某一个App.最后上个其他测试程序的图，尽量截了一个含中英文切换的图片<br><img src="20180504115735851.png" alt=""></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Qt</category>
+      </categories>
+      <tags>
+        <tag>qt</tag>
+        <tag>虚拟键盘</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu/Windows使用glog</title>
+    <url>/2018/04/03/Ubuntu-Windows%E4%BD%BF%E7%94%A8glog/</url>
+    <content><![CDATA[<p>本文glog版本位0.3.5。</p>
+<h2 id="glog获取"><a href="#glog获取" class="headerlink" title="glog获取"></a>glog获取</h2><pre><code>`git clone [https://github.com/google/glog.git](https://github.com/google/glog.git)`
+或者直接网页下载下来，`tar -xzvf google-master*.gz`</code></pre><a id="more"></a>
+<h2 id="glog编译生成"><a href="#glog编译生成" class="headerlink" title="glog编译生成"></a>glog编译生成</h2><pre><code>如果是window平台，得使用CMake工具生成解决方案并编译生成相应的libglog.dll,libglog.lib本文不作赘述。前面以说过CMake的使用。
+
+Ubuntu生成库还是很方便的，基本命令流程就是
+
+`./autogen.sh` 该工具如果没安装会报错，安装命令`sudo apt-get install autoconf automake libtool`，必须是三个包都安装
+
+`./configure` 生成配置信息，可以在此改变生成路径，否则默认是`/usr/local/lib`目录
+
+`make`
+
+`make install` 这里可能需要sudo，执行无报错，会生成相应的库文件：libglog.a,libglog.so....
+
+可以将生成的动态库放到系统lib目录`cp libglog.so* /usr/lib`</code></pre><h2 id="glog使用"><a href="#glog使用" class="headerlink" title="glog使用"></a>glog使用</h2><pre><code>库已经生成了，头文件结构如下图（这是我的qt中引用的结构）：</code></pre><p><img src="20180403195638667.png" alt=""><br>    测试代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"glog/logging.h"</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	google::InitGoogleLogging(argv[<span class="number">0</span>]);<span class="comment">//初始化</span></span><br><span class="line">        google::SetLogDestination(google::GLOG_INFO,<span class="string">"./aTestInfo"</span>);<span class="comment">//设置日志文件路径，默认+时间作为生成的日志文件名</span></span><br><span class="line">	LOG(INFO)&lt;&lt;<span class="string">"HELLO"</span>&lt;&lt;<span class="string">" WORLD!"</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">g++ Test.cpp -L库目录 -lglog</span><br><span class="line">./a.out</span><br></pre></td></tr></table></figure>
+<p><img src="20180403200506539.png" alt=""><br>顺便附上qt工程配置</p>
+<figure class="highlight crystal"><table><tr><td class="code"><pre><span class="line">INCLUDEPATH += ./<span class="number">3</span>rdParty/glog-master/<span class="keyword">include</span></span><br><span class="line"></span><br><span class="line">LIBS += -L./<span class="number">3</span>rdParty/glog-master/<span class="class"><span class="keyword">lib</span> -<span class="title">lglog</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a><span style=color:red>注意</span></h2><p>你可以使用以下的日志等级（日志等级从低到高）：INFO. WARNING. ERROR和FATAL。使用FATAL打印日志的时候，程序会在打印该日志后终止。需要注意的是，一个给定的日志等级日志信息不仅会记录到当前的日志等级文件，还会记录到所有比他等级低的日志文件内（就是说，WARNGING的日志不仅会打印到日志文件warnging中，还会打印到INFO日志文件中），比如FATAL的日志会打印到所有的日志文件中，包括INFO. WARNING. ERROR和FATAL。</p>
+<h2 id="Windows使用glog（0-3-5）"><a href="#Windows使用glog（0-3-5）" class="headerlink" title="Windows使用glog（0.3.5）"></a>Windows使用glog（0.3.5）</h2><p>此版本glog在window下CMake会生成一系列项目，如图glog只生成lib库<br><img src="20180404171239399.png" alt=""><br>这在之前的版本会生成dll，lib等几个工程，现在就只有一个工程了也只需要使用这一个静态库，换句话说可能是考虑到项目本来就轻巧，不需要dll，直接lib足够了。</p>
+<p>下面说使用注意点：</p>
+<ol>
+<li><p>在需要的地方<code>#include &quot;glog/logging.h&quot;</code>。建议添加到stdafx.h中。 </p>
+</li>
+<li><p>使用静态库必须添加<code>#define GOOGLE_GLOG_DLL_DECL</code>。动态库不必添加。</p>
+</li>
+<li><p>因windows.h中定义的宏ERROR，与glog中定义的宏ERROR冲突，所以如果<code>#include &lt;windows.h&gt;</code>后要添加<code>#define GLOG_NO_ABBREVIATED_SEVERITIES</code>，并且代码中要用<code>google::GLOG_ERROR</code>来代替原来的<code>google::ERROR</code>，相应的其他也改为：GLOG_INFO. GLOG_WARNING. GLOG_FATAL。</p>
+</li>
+<li><p>添加库文件：<code>#pragma comment(lib,&quot;glog/libglog_static.lib&quot;)</code><br><img src="20180404173834859.png" alt=""></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>其它</category>
+      </categories>
+      <tags>
+        <tag>glog</tag>
+        <tag>ubuntu</tag>
+        <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CEF3的使用说明及CMake使用</title>
+    <url>/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="CEF简介"><a href="#CEF简介" class="headerlink" title="CEF简介"></a>CEF简介</h2><p>Chromium Embedded Framework (CEF)是个基于Google Chromium项目的开源Web browser控件，支持Windows, Linux, Mac平台。</p>
+<a id="more"></a>
+<p>简单说就是Chrome的开源版，目前很多所谓的双核浏览器，实质就是chrome+IE的双核。基于HTML5的支持，以及v8引擎的效率，在软<br>件中嵌入chromium是个不错的选择，而且目前市面上应用及其广泛，如：tx系软件。spy++一抓就知道了，如下图<br><img src="20171208150431090.jpg" alt=""></p>
+<h2 id="cef下载"><a href="#cef下载" class="headerlink" title="cef下载"></a>cef下载</h2><p><a href="http://opensource.spotify.com/cefbuilds/index.html" target="_blank" rel="noopener">下载地址</a>下载速度是不快，但总算下载下来了，由于本人是vs2013，遇到的坑就是3.3以上的版本至少要vs2015以上才能编译，总之搞了很久最后下了一个3.27版本才成功，提示：如果不打算放弃32位就建议下载32位版本吧，不然64位软件在32位系统是跑不起来的。<br>由于新下载的标准开发包解压就是如下图了，<br><img src="20171208150453786.jpg" alt=""><br>文件目录结构在此做下说明，很是重要。笔者在此花费了很多时间。</p>
+<ol>
+<li>首先建议先阅读Readme.txt，该文件对项目结构做了简要说明。当然看一遍肯定不可能完全理解。但随着对项目的熟悉了解，发现该文件说的还是挺清晰的。</li>
+<li>licence.txt没啥说的，就是关于版权的说明。<br>几个gyp/gypi文件是不能手动修改的，是GYP（Generate Your Projects）工具自动生成的相当于工程配置文件。插入一段GYP说明：<blockquote>
+</blockquote>
+GYP结构<br>GYP的输入是.gyp和.gypi文件，.gypi文件是用于.gyp文件include使用的。.gyp文件就是符合特定格式的json文件。<br>gyp文件中包含target，Visual C++下，gyp生成sln，target生成vcproj或vxcproj。<br>chromium中GYP结构是，通过命令行统一使用build/common.gypi的公共文件，工程的配置，选项的处理，编译选项的使用，都是在这个文件中配置。</li>
+</ol>
+<blockquote>
+<p>生成一个总工程all.gyp，这个工程依赖于其他所有的工程，这个工程生成，所有工程都生成完成。而且有一个总工程也方便开发。<br>如果要使用GYP，建议依照chromium的结构，common.gypi也用chromium的进行裁剪，毕竟各种选项的选择也是需要经验的。</p>
+</blockquote>
+<blockquote>
+<p>使用GYP<br>chromium工程中的方法是使用build/gyp_chromium这个Python脚本来调用，这个脚本实现添加公共配置，侦测附加配置，添加需要的编译选项。</p>
+</blockquote>
+<ol start="3">
+<li>然后就是介绍CMakeList.txt文件了，该文件非常重要。这里要引入CMake的一些知识，下载地址：<br><a href="https://cmake.org/download/" target="_blank" rel="noopener">CMake下载地址</a><br>CMake是一个跨平台的安装（编译）工具，可以用简单的语句来描述所有平台的安装(目前很多开源跨平台库都使用此方式如：ProtoBuf，cef)。</li>
+</ol>
+<p>CMake脚本本文不做介绍，由于当前用的win平台所以直接下载免安装版解压运行cmake-gui.exe,（说句废话，这是一个qt程序，</p>
+<p>跨平台还是选择了qt，呵呵）。<br><img src="20171208155106665.png" alt=""></p>
+<p>需要注意的就是源代码目录和生成工程文件的目录了，<code>configue</code>没错误就<code>Generate</code>生成相应vs版本工程文件，然后<code>OpenProject</code>，<br><img src="20171208155909895.jpg" alt=""><br>正常情况就是所有的项目（包括库和测试程序）都包含在这个工程中。<br><code>libcef_dll_wrapper</code>会生成一个库，<code>cefclient</code>和<code>cefsimple</code>则会生成测试程序，对应下面两张图。<br><img src="20171208160252696.jpg" alt=""><br><img src="20171208160332354.jpg" alt=""></p>
+<ol start="4">
+<li>文件夹介绍</li>
+</ol>
+<p>（1）cmake，该文件夹包含Cmake的一些宏定义，配置信息。<br>（2）include，使用该库的所有头文件<br>（3）libcef_dll，库的源代码<br>（4）tests，测试程序demo源代码<br>（5）Resource,资源文件<br>该资源文件是程序运行需要依赖的资源文件，含语言包，unicode支持等<br>（6）Debug/Release，程序依赖的动态库/静态库。但不包括C++库：libcef_dll_wrapper.lib。</p>
+<p><strong>1. 必须文件，缺少任意一个CEF将无法运行：</strong><br>libcef.dll<br>    这个不用多说，CEF的核心库文件，js引擎、网页加载渲染逻辑等都在其中，也是size最大的一个文件（Release版将近50M，Debug版超过500M）。<br>icudtl.dat<br>    用来支持unicode，缺少这些文件虽然编译能通过，但是执行CefInitialize();的时候就会崩溃，在这个坑趴了很久还以为是代码问题。<br>natives_blob.bin<br>snapshot_blob.bin<br>    V8引擎快照数据。<br><strong>2. 可选文件：</strong><br>locales/<br>    该目录包含CEF，Chromium和Blink使用的本地化资源。 CefSettings.locale指定需要加载的.pak文件。 只需要发布配置的区域对应的.pak文件。</p>
+<p>如果没有区域设置将配置默认语言环境“en-US”。如果没有这些文件任意Web组件可能显示不正确。<br>cef.pak<br>cef_100_percent.pak<br>cef_200_percent.pak<br>    这些文件包含了供CEF使用的区域无关资源，缺少这些文件任意Web组件可能显示不正确。（笔者当时缺少cef_100_percent.pak，</p>
+<p>cef_200_percent.pak两文件，导致视频控件不显示音量和最大化按钮）。<br>cef_extensions.pak<br>    此文件包含扩展加载所需的非本地化资源传递<code>--disable-extensions</code>命令行标志来禁止使用文件。没有这个文件，依赖于扩展系统的组件将不起作用，</p>
+<p>如PDF查看器。<br>devtools_resources.pak<br>    此文件包含Chrome开发者工具所需的非本地化资源，缺少这个文件，Chrome开发者工具将无法运行。<br>d3dcompiler_43.dll (Windows XP需要该文件)<br>d3dcompiler_47.dll (Windows Vista和更高版本的系统需要该文件)<br>libEGL.dll<br>libGLESv2.dll<br>    Direct3D支持文件，如果缺少这些文件，HTML5在渲染2D画布，3D CSS，WebGL时将不起作用。<br>wow_helper.exe<br>    用来支持Windows Vista 64位沙箱。如果没有这个文件，32位的CEF将无法在开启了沙箱的64位的Vista机器上运行。</p>
+<p><a href="https://bitbucket.org/chromiumembedded/cef/src/816f700d3ea42bedc5ca5a2314c27b761b69abc5/tools/distrib/win/README.redistrib.txt?at=master&fileviewer=file-view-default" target="_blank" rel="noopener">英文原文</a></p>
+<p>附MFC使用CEF3简单Demo代码</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">CMFCDlgCefTestDlg::OnInitDialog</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	CDialogEx::OnInitDialog();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// <span class="doctag">TODO:</span>  在此添加额外的初始化代码</span></span><br><span class="line">	<span class="function">CefRefPtr&lt;CSimpleClient&gt; <span class="title">client</span><span class="params">(<span class="keyword">new</span> CSimpleClient())</span></span>;</span><br><span class="line">	m_simpleClient = client;</span><br><span class="line"></span><br><span class="line">	CefSettings settings;</span><br><span class="line">	CefSettingsTraits::init(&amp;settings);</span><br><span class="line">	settings.multi_threaded_message_loop = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">	CefMainArgs mainArgs;</span><br><span class="line">	CefRefPtr&lt;CefApp&gt; cefApp;</span><br><span class="line">	CefInitialize(mainArgs, settings, cefApp, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	RECT <span class="built_in">rect</span>;</span><br><span class="line">	GetClientRect(&amp;<span class="built_in">rect</span>);</span><br><span class="line">	RECT rectnew = <span class="built_in">rect</span>;</span><br><span class="line">	CefWindowInfo winInfo;</span><br><span class="line">	winInfo.SetAsChild(GetSafeHwnd(), rectnew);</span><br><span class="line"></span><br><span class="line">	CefBrowserSettings browserSettings;</span><br><span class="line">	CefBrowserHost::CreateBrowser(winInfo, client, _T(<span class="string">"http://www.lofter.com"</span>), browserSettings, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> TRUE;  <span class="comment">// 除非将焦点设置到控件，否则返回 TRUE</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CMFCDlgCefTestDlg::OnClose</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// <span class="doctag">TODO:</span>  在此添加消息处理程序代码和/或调用默认值</span></span><br><span class="line">	m_simpleClient-&gt;Release();</span><br><span class="line">	CefShutdown();<span class="comment">//其实这行代码如果没有设置cefApp的话，是会崩溃的，测试完全可以注释。但切记，该函数只能在主线程中调用。后续深入学习后，还需解一下惑</span></span><br><span class="line">	CDialogEx::OnClose();</span><br><span class="line">&#125;</span><br><span class="line">	<span class="comment">// <span class="doctag">TODO:</span>  在此添加消息处理程序代码和/或调用默认值</span></span><br><span class="line">	m_simpleClient-&gt;Release();</span><br><span class="line">	CefShutdown();<span class="comment">//其实这行代码如果没有设置cefApp的话，是会崩溃的，测试完全可以注释。但切记，该函数只能在主线程中调用。后续深入学习后，还需解一下惑</span></span><br><span class="line">	CDialogEx::OnClose();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="20171208164157983.jpg" alt="lofter"><br>推荐一个不错的文档地址：</p>
+<p><a href="https://github.com/fanfeilong/cefutil" target="_blank" rel="noopener">github文档</a></p>
+<p><a href="http://download.csdn.net/download/evil_119/10151078" target="_blank" rel="noopener">csdn下载</a></p>
+]]></content>
+      <categories>
+        <category>c/c++</category>
+      </categories>
+      <tags>
+        <tag>cef</tag>
+        <tag>cmake</tag>
+        <tag>chromium</tag>
+        <tag>chrome</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>开发界面之窗口边框重绘</title>
+    <url>/2017/11/24/%E5%BC%80%E5%8F%91%E7%95%8C%E9%9D%A2%E4%B9%8B%E7%AA%97%E5%8F%A3%E8%BE%B9%E6%A1%86%E9%87%8D%E7%BB%98/</url>
+    <content><![CDATA[<p>基于上篇已经解决了富图软件窗口child的效果。这边主要仿照其重绘边框——即活动窗口边框高亮，本文不讲标题栏与border重绘（难度是比Client绘制要难，但是社区也有人做了相应的demo），基于富图考虑，它不要标题栏，我们也用无边框窗口绘制就好了。</p>
+<a id="more"></a>
+<h2 id="边框及标题栏绘制"><a href="#边框及标题栏绘制" class="headerlink" title="边框及标题栏绘制"></a>边框及标题栏绘制</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CDlgFrm::OnPaint</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="function">CPaintDC <span class="title">dc</span><span class="params">(<span class="keyword">this</span>)</span></span>; <span class="comment">// device context for painting</span></span><br><span class="line">	<span class="comment">// <span class="doctag">TODO:</span>  在此处添加消息处理程序代码</span></span><br><span class="line">	<span class="comment">// 不为绘图消息调用 CDialogEx::OnPaint()</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//画边框</span></span><br><span class="line">	HPEN newPen = CreatePen(PS_SOLID, <span class="number">2</span>, m_colFrm);</span><br><span class="line">	HPEN oPen = (HPEN)dc.SelectObject(newPen);</span><br><span class="line">	CRect rc, rc2;</span><br><span class="line">	GetClientRect(rc);</span><br><span class="line">	rc.left = rc.top = <span class="number">2</span>;</span><br><span class="line">	dc.Rectangle(rc);</span><br><span class="line">	dc.SelectObject(oPen);</span><br><span class="line">	<span class="comment">//画标题栏</span></span><br><span class="line">	oPen = (HPEN)dc.SelectObject(GetStockObject(NULL_PEN));</span><br><span class="line">	HBRUSH newBrsh = CreateSolidBrush(RGB(<span class="number">130</span>, <span class="number">130</span>, <span class="number">130</span>));</span><br><span class="line">	HBRUSH oldBrsh = (HBRUSH)dc.SelectObject(newBrsh);</span><br><span class="line">	dc.Rectangle(<span class="number">3</span>, <span class="number">3</span>, rc.Width()+<span class="number">1</span>, <span class="number">33</span>);</span><br><span class="line">	dc.SelectObject(oldBrsh);</span><br><span class="line">	::DeleteObject(newBrsh);</span><br><span class="line">	dc.SelectObject(oPen);</span><br><span class="line">	<span class="comment">//画标题文字</span></span><br><span class="line">	<span class="keyword">if</span> (m_strTitle.IsEmpty() == FALSE)</span><br><span class="line">	&#123;</span><br><span class="line">		rc = CRect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">30</span>);</span><br><span class="line">		dc.SetTextColor(RGB(<span class="number">255</span>, <span class="number">250</span>, <span class="number">250</span>));</span><br><span class="line">		dc.SetBkMode(TRANSPARENT);</span><br><span class="line">		dc.DrawText(m_strTitle, rc, DT_VCENTER | DT_CENTER | DT_SINGLELINE);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时还不能move/resize窗口.</p>
+<h2 id="重写OnNcHitTest"><a href="#重写OnNcHitTest" class="headerlink" title="重写OnNcHitTest"></a>重写OnNcHitTest</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">LRESULT <span class="title">CDlgFrm::OnNcHitTest</span><span class="params">(CPoint <span class="built_in">point</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// <span class="doctag">TODO:</span>  在此添加消息处理程序代码和/或调用默认值</span></span><br><span class="line">	UINT nHitTest = CDialogEx::OnNcHitTest(<span class="built_in">point</span>);</span><br><span class="line"> </span><br><span class="line">	<span class="function">CPoint <span class="title">pt</span><span class="params">(<span class="number">0</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">	ClientToScreen(&amp;pt);</span><br><span class="line">	<span class="keyword">if</span> (nHitTest == HTCLIENT &amp;&amp; <span class="built_in">point</span>.y - pt.y &lt; <span class="number">32</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		nHitTest = HTCAPTION;</span><br><span class="line">	&#125;</span><br><span class="line">	RECT rcWindow;</span><br><span class="line">	::GetWindowRect(m_hWnd, &amp;rcWindow);</span><br><span class="line">	<span class="comment">// 最好将四个角的判断放在前面  </span></span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">point</span>.x &lt;= rcWindow.left + RESIZE_REGION_SIZE &amp;&amp; <span class="built_in">point</span>.y &lt;= rcWindow.top + RESIZE_REGION_SIZE)</span><br><span class="line">		<span class="keyword">return</span> HTTOPLEFT;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">point</span>.x &gt;= rcWindow.right - RESIZE_REGION_SIZE &amp;&amp; <span class="built_in">point</span>.y &lt;= rcWindow.top + RESIZE_REGION_SIZE)</span><br><span class="line">		<span class="keyword">return</span> HTTOPRIGHT;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">point</span>.x &lt;= rcWindow.left + RESIZE_REGION_SIZE &amp;&amp; <span class="built_in">point</span>.y &gt;= rcWindow.bottom - RESIZE_REGION_SIZE)</span><br><span class="line">		<span class="keyword">return</span> HTBOTTOMLEFT;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">point</span>.x &gt;= rcWindow.right - RESIZE_REGION_SIZE &amp;&amp; <span class="built_in">point</span>.y &gt;= rcWindow.bottom - RESIZE_REGION_SIZE)</span><br><span class="line">		<span class="keyword">return</span> HTBOTTOMRIGHT;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">point</span>.x &lt;= rcWindow.left + RESIZE_REGION_SIZE)</span><br><span class="line">		<span class="keyword">return</span> HTLEFT;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">point</span>.x &gt;= rcWindow.right - RESIZE_REGION_SIZE)</span><br><span class="line">		<span class="keyword">return</span> HTRIGHT;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">point</span>.y &lt;= rcWindow.top + RESIZE_REGION_SIZE)</span><br><span class="line">		<span class="keyword">return</span> HTTOP;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">point</span>.y &gt;= rcWindow.bottom - RESIZE_REGION_SIZE)</span><br><span class="line">		<span class="keyword">return</span> HTBOTTOM;</span><br><span class="line">	<span class="keyword">return</span> nHitTest;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里本人发现一个有趣的问题，当窗口为子窗口的时候，至此，是可以实现move和resize了。但是如果你modify成popup了，只能移动，不能resize。实质是popup会丢失消息，于是手动加上</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CDlgFrm::OnNcLButtonDown</span><span class="params">(UINT nHitTest, CPoint <span class="built_in">point</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// <span class="doctag">TODO:</span>  在此添加消息处理程序代码和/或调用默认值</span></span><br><span class="line"> </span><br><span class="line">	CDialogEx::OnNcLButtonDown(nHitTest, <span class="built_in">point</span>);</span><br><span class="line">	<span class="keyword">if</span> (nHitTest == HTTOP)</span><br><span class="line">		SendMessage(WM_SYSCOMMAND, SC_SIZE | WMSZ_TOP, MAKELPARAM(<span class="built_in">point</span>.x, <span class="built_in">point</span>.y));</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (nHitTest == HTBOTTOM)</span><br><span class="line">		SendMessage(WM_SYSCOMMAND, SC_SIZE | WMSZ_BOTTOM, MAKELPARAM(<span class="built_in">point</span>.x, <span class="built_in">point</span>.y));</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (nHitTest == HTLEFT)</span><br><span class="line">		SendMessage(WM_SYSCOMMAND, SC_SIZE | WMSZ_LEFT, MAKELPARAM(<span class="built_in">point</span>.x, <span class="built_in">point</span>.y));</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (nHitTest == HTRIGHT)</span><br><span class="line">		SendMessage(WM_SYSCOMMAND, SC_SIZE | WMSZ_RIGHT, MAKELPARAM(<span class="built_in">point</span>.x, <span class="built_in">point</span>.y));</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (nHitTest == HTTOPLEFT)</span><br><span class="line">		SendMessage(WM_SYSCOMMAND, SC_SIZE | WMSZ_TOPLEFT, MAKELPARAM(<span class="built_in">point</span>.x, <span class="built_in">point</span>.y));</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (nHitTest == HTTOPRIGHT)</span><br><span class="line">		SendMessage(WM_SYSCOMMAND, SC_SIZE | WMSZ_TOPRIGHT, MAKELPARAM(<span class="built_in">point</span>.x, <span class="built_in">point</span>.y));</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (nHitTest == HTBOTTOMLEFT)</span><br><span class="line">		SendMessage(WM_SYSCOMMAND, SC_SIZE | WMSZ_BOTTOMLEFT, MAKELPARAM(<span class="built_in">point</span>.x, <span class="built_in">point</span>.y));</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (nHitTest == HTBOTTOMRIGHT)</span><br><span class="line">		SendMessage(WM_SYSCOMMAND, SC_SIZE | WMSZ_BOTTOMRIGHT, MAKELPARAM(<span class="built_in">point</span>.x, <span class="built_in">point</span>.y));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是popup窗口resize也ok了。</p>
+<h2 id="窗口resize阴影严重需要update"><a href="#窗口resize阴影严重需要update" class="headerlink" title="窗口resize阴影严重需要update"></a>窗口resize阴影严重需要update</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CDlgFrm::OnSize</span><span class="params">(UINT nType, <span class="keyword">int</span> cx, <span class="keyword">int</span> cy)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	CDialogEx::OnSize(nType, cx, cy);</span><br><span class="line"> </span><br><span class="line">	<span class="comment">// <span class="doctag">TODO:</span>  在此处添加消息处理程序代码</span></span><br><span class="line">	<span class="keyword">if</span> (m_pDlg)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//::SendMessage(m_pDlg-&gt;m_hWnd, WM_SIZE, nType, MAKELPARAM(cx, cy));</span></span><br><span class="line">		m_pDlg-&gt;SetWindowPos(<span class="literal">NULL</span>, <span class="number">0</span>, <span class="number">0</span>, cx - <span class="number">4</span>, cy - <span class="number">32</span> - <span class="number">2</span>, SWP_NOMOVE);</span><br><span class="line">		m_pDlg-&gt;Invalidate();</span><br><span class="line">	&#125;</span><br><span class="line">	Invalidate();</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其实至此，窗口绘制是完了，但是如果窗口中有子窗口或者控件，你会发现，当缩小到控件交叉时，会有边框被控件覆盖的效果如下图：<br><img src="20171124102142774.png" alt=""></p>
+<p>解决上图有两种方法：</p>
+<ol>
+<li><p><strong>使用自己管理的透明对话框（边框不透明）去覆盖在窗口上，然后让该对话框跟着Active窗口移动，resize以及窗口非Active时隐藏。</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">CRect rc;</span><br><span class="line">GetWindowRect(rc);</span><br><span class="line"><span class="keyword">if</span> (m_dlgBorder.Create(CDlgBorder::IDD, <span class="keyword">this</span>))</span><br><span class="line">&#123;</span><br><span class="line">	m_dlgBorder.m_hWndOwner = m_hWnd;</span><br><span class="line">	m_dlgBorder.SetWindowPos(<span class="keyword">this</span>, <span class="number">0</span>, <span class="number">0</span>, rc.Width(), rc.Height(), SWP_NOZORDER);</span><br><span class="line">	m_dlgBorder.ModifyStyleEx(<span class="literal">NULL</span>, WS_EX_LAYERED | WS_EX_NOACTIVATE | WS_EX_TRANSPARENT;</span><br><span class="line">	SetWindowLong(m_dlgBorder.m_hWnd, GWL_EXSTYLE, </span><br><span class="line">		GetWindowLongPtr(m_dlgBorder.m_hWnd, GWL_EXSTYLE) | WS_EX_LAYERED);</span><br><span class="line">	m_dlgBorder.SetLayeredWindowAttributes(RGB(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>), (<span class="number">255</span> * <span class="number">0</span>) / <span class="number">100</span>, LWA_COLORKEY<span class="comment">/*LWA_ALPHA*/</span>);</span><br><span class="line">	m_dlgBorder.ShowWindow(SW_SHOW);</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意该窗口要透明一定是popup属性，扩展属性必须有<code>LAYERED|NOACTIVATE|TRANSPARENT</code>,最后<br><code>SetLayeredWindowAttributes(...)</code><br>设置成透明。至于透明窗口中的代码就是绘制边框/重绘刷新了</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CDlgBorder::OnPaint</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="function">CPaintDC <span class="title">dc</span><span class="params">(<span class="keyword">this</span>)</span></span>; <span class="comment">// device context for painting</span></span><br><span class="line">	<span class="comment">// <span class="doctag">TODO:</span>  在此处添加消息处理程序代码</span></span><br><span class="line">	<span class="comment">// 不为绘图消息调用 CDialogEx::OnPaint()</span></span><br><span class="line">	<span class="keyword">if</span> (IsWindow(m_hWndOwner))</span><br><span class="line">	&#123;</span><br><span class="line">		HWND m_hOwnerParent = ::GetParent(m_hWndOwner);</span><br><span class="line">		HPEN newPen = CreatePen(PS_SOLID, <span class="number">2</span>, RGB(<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>));</span><br><span class="line">		HPEN oPen = (HPEN)dc.SelectObject(newPen);</span><br><span class="line">		CRect rc,rc2;</span><br><span class="line">		GetClientRect(rc);</span><br><span class="line">		rc.left = rc.top = <span class="number">2</span>;</span><br><span class="line">		::GetClientRect(m_hOwnerParent, rc2);</span><br><span class="line">		ClientToScreen(rc2);</span><br><span class="line">		<span class="comment">//if (rc.TopLeft)</span></span><br><span class="line">		<span class="comment">//dc.MoveTo()</span></span><br><span class="line">		dc.Rectangle(rc);</span><br><span class="line">		dc.SelectObject(oPen);</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CDlgBorder::DoPaintBorder</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	CRect rc;</span><br><span class="line">	<span class="keyword">if</span> (IsWindow(m_hWndOwner))</span><br><span class="line">	&#123;</span><br><span class="line">		::GetWindowRect(m_hWndOwner, rc);</span><br><span class="line">		SetWindowPos(<span class="number">0</span>, rc.left, rc.top, rc.Width(), rc.Height(), SWP_NOZORDER);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每次resize，move后调用DoPaintBorder更新窗口位置大小即可。<br><img src="20171124104913486.png" alt=""><br>但是当窗口移动到边框的时候因为popup属性还会显示出来，所以，还要将该窗口修复一下，方式两种，</p>
+</li>
+<li><p>自己计算边框控制绘图越界。</p>
+</li>
+<li><p>将透明窗口设置成该窗口的父窗口的子窗口（也是该窗口的兄弟窗口）即可。</p>
+</li>
+<li><p><strong>使用父窗口重绘边框，再在其客户区放置不可移动的子窗口，再在子窗口上放控件。相当于多嵌套一层子窗口。然后让子窗口跟着一起resize。</strong></p>
+</li>
+</ol>
+<p>如文章开始提到的封装一个CDlgFrm当容器,但要注意的是OnSize中一定要将其子窗口一起resize。代码上面已经提供，否则还是会出现边框被子窗口遮挡的现象。最后上个效果图<br><img src="20171124105922934.jpg" alt=""><br>标题栏再加上关闭按钮：<br><img src="20171124172111062.jpg" alt=""><br><img src="20171124172117227.jpg" alt=""></p>
+]]></content>
+      <categories>
+        <category>vc</category>
+      </categories>
+      <tags>
+        <tag>mfc</tag>
+        <tag>窗口重绘</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>子窗口与弹出窗口不可忽视的标题栏属性</title>
+    <url>/2017/11/21/%E5%AD%90%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E6%A0%87%E9%A2%98%E6%A0%8F%E5%B1%9E%E6%80%A7/</url>
+    <content><![CDATA[<p>之前写过一篇日志说child窗口edit不能输入。虽然解决了，但并不完美，后面发现能输入了，但是鼠标不能选择文字，键盘却可以。</p>
+<a id="more"></a>再加上以前遇到的一些问题，比如窗口透明，背景色，甚至子窗口的Z序也让人蒙圈（后创建的在后面去了）等都不顺利，换句话说是相对popup窗口而言。总之微软对于子窗口的实现就像个半成品。
+
+<p>关于edit不能选择文字，还发现一个问题可以解决，就是去掉子窗口的标题栏，如果实在需要拖动窗口，可以自会标题栏。但前几天研究富图发现一个有趣的事情<br><img src="20171121182014112.png" alt=""><br><img src="20171121182021701.png" alt=""><br><img src="20171121182027595.png" alt=""><br>我就直接解析这个spy++看到的现象吧，窗口002413f4显然是一个子窗口，但窗口属性确是一个popup属性。但是基于微软的解析Child与popup是不能共用的，也是不建议共用的，那叫undocumented window.傻眼，不信,自己Create一个popup和图中效果不一样,用child也不对，那就popup|child这个更不对。最后那就避开Create函数，在create成功后修改成popup呗，于是<code>ModifyStyle(WS_CHILD, WS_POPUP)</code>;，得到了如下效果图：<br><img src="20171121182034323.png" alt=""></p>
+<p>呵呵，差不多了，就是这个。也是我想要的结果。入坑很久才解决的问题，标记一下。至于修改成popup后，父窗口句柄或者owener句柄都是会变的。自己保存自己管理就好了,<strong>也由此可见Create传入的Style与ModifyStyle并不是相等的效果</strong>。</p>
+]]></content>
+      <categories>
+        <category>vc</category>
+      </categories>
+      <tags>
+        <tag>mfc</tag>
+        <tag>子窗口</tag>
+        <tag>弹出窗口</tag>
+        <tag>标题属性</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MFC状态栏设置图标自动变高</title>
+    <url>/2017/09/06/MFC%E7%8A%B6%E6%80%81%E6%A0%8F%E8%AE%BE%E7%BD%AE%E5%9B%BE%E6%A0%87%E8%87%AA%E5%8A%A8%E5%8F%98%E9%AB%98/</url>
+    <content><![CDATA[<p>状态栏被自动变高，清除字体，ico等可恢复到原始状态。给mdi状态栏添加图标，以显示实时网络连接状态。</p>
+<a id="more"></a>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SetPaneIcon</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">   <span class="keyword">int</span> nIndex,</span></span></span><br><span class="line"><span class="function"><span class="params">   HICON hIcon,</span></span></span><br><span class="line"><span class="function"><span class="params">   BOOL bUpdate=TRUE </span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>这是MFC提供的设置图标的函数，ico文件支持透明所以就用了，但使用后发现无论你ico 是啥分辨率，都会被设置成32x32图片，而且透明支持的也不是很好，还有黑边。最重要的是状态栏被撑高了，原来就二十几的像素现在有38像素左右了，很难看。先不说CStatusBar没有设置高度的接口，还要重载才能实现高度重绘，即使设置高度成功了，图片还是32x32的哪怕你用16x16的也会被放大，然后显示一半。暂且就当是微软留下的一个bug吧。</p>
+<p>解决办法：用这个函数的重载函数即</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SetPaneIcon</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">   <span class="keyword">int</span> nIndex,</span></span></span><br><span class="line"><span class="function"><span class="params">   HBITMAP hBmp,</span></span></span><br><span class="line"><span class="function"><span class="params">   COLORREF clrTransparent=RGB(<span class="number">255</span>,<span class="number">0</span>,<span class="number">255</span>),</span></span></span><br><span class="line"><span class="function"><span class="params">   BOOL bUpdate=TRUE </span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>该函数是使用bmp格式图片的，透明色默认是这个粉色（可能是因为这个颜色难看吧），当然可以自己更改。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">m_wndStatusBar.SetPaneIcon(nIndex</span><br><span class="line">    , LoadBitmap(AfxGetApp()-&gt;m_hInstance, MAKEINTRESOURCE(IDB_XXX)));</span><br></pre></td></tr></table></figure>
+<p>搞定。</p>
+]]></content>
+      <categories>
+        <category>vc</category>
+      </categories>
+      <tags>
+        <tag>mfc</tag>
+        <tag>状态栏高度</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>写MFC程序还是先注释写注册表或者先清理注册表吧！</title>
+    <url>/2017/08/04/%E5%86%99MFC%E7%A8%8B%E5%BA%8F%E8%BF%98%E6%98%AF%E5%85%88%E6%B3%A8%E9%87%8A%E5%86%99%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%88%96%E8%80%85%E5%85%88%E6%B8%85%E7%90%86%E6%B3%A8%E5%86%8C%E8%A1%A8%E5%90%A7%EF%BC%81/</url>
+    <content><![CDATA[<p>血的教训，浪费了大把时间调试找问题，然而却不知道MFC自动写注册带来的巨坑有多坑。</p>
+<a id="more"></a>
+<p>一次次让你怀疑人生，<br>微软这个设计老子真心想拍死你。</p>
+<ol>
+<li>自动写注册表，这里说自动是创建工程自带SetRegistryKey将巨坑埋下伏笔</li>
+<li>注册信息不是空，讲道理应该为空，但老vc都知道软件保留用户操作习惯是默认的。</li>
+<li>注册信息奇多，含菜单/工具栏/状态栏/停靠窗口，，，似乎除了main  client区域。（需要补充，不确定）<br>这些东西，如果你没注释，开发过程中受的苦就是：皮肤设置成功，显示还是原来的，菜单修改成功显示还是原来的，原因就是注册表里保存的是你的<strong>资源信息</strong>。各种接口调用成功了，显示出来的却不是你想要的是不是怀疑人生？<br>开发后，如果不注意，在你的电脑显示好好的，在人家的电脑上就是不一样，原因还是注册表。</li>
+</ol>
+<p>此次就是为了做多语言支持，修改菜单<code>ModifyMenu(hSubMenu,i, MF_STRING| MF_BYPOSITION,ID_FILE_SAVE,&quot;Save&quot;)</code>;总是不成功，实际调用是正确的，清除注册表就ok了。</p>
+<p>好了，暂不吐槽了，处理问题才是关键：</p>
+<ol>
+<li>InitInstance（）中注释SetRegistryKey（）</li>
+<li>ExitInstance（）中CleanState（）</li>
+</ol>
+<p>今天还遇到还有可能碰到以上两种方法不管用，第一种程序跑不起来，第二种清理不干净。原因：第一种会导致取资源失败自然创建MainFrame失败，第二种就真是清理不干净了，所以手动delRegist（自己写清理注册表函数，或者手动删除注册表）才行。</p>
+<h2 id="注意："><a href="#注意：" class="headerlink" title="注意："></a><span style=color:red>注意：</span></h2><p>在修改MDI的Mainfrm/ChildFrm菜单时，获取这两个菜单句柄然后修改<br><code>pDocTemplate-&gt;m_hMenuShared;//ChildFrm Menu</code><br><code>pMainFrame-&gt;m_hMenuDefault;//主框架Menu</code><br>如果是在MainFrm中获取MainMenu还有<code>m_wndMenuBar.GetHMenu()</code>和<code>GetMenu()</code><br>至于修改就是<code>ModifyMenu</code>了。<br>今天发现在InitInstance中可以初始化ChrildFrmMenu的修改，但不能对MainFrmMenu修改。<br>在MainFrm中OnCreat()中初始化MainFrmMenu的修改又能成功，于是我对比<code>pMainFrame-&gt;m_hMenuDefault ？= m_wndMenuBar.GetHMenu()</code>。是相等的，也就是说Menu是同一个，都正确取到了，但是更改只能在Mainfrm中完成！！！</p>
+]]></content>
+      <categories>
+        <category>vc</category>
+      </categories>
+      <tags>
+        <tag>mfc</tag>
+        <tag>注册表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mfc非模态对话框Child窗口CEdit控件获取不到焦点问题</title>
+    <url>/2017/07/25/mfc%E9%9D%9E%E6%A8%A1%E6%80%81%E5%AF%B9%E8%AF%9D%E6%A1%86Child%E7%AA%97%E5%8F%A3CEdit%E6%8E%A7%E4%BB%B6%E8%8E%B7%E5%8F%96%E4%B8%8D%E5%88%B0%E7%84%A6%E7%82%B9%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>遇到的问题就是创建一个非模态的子窗口。发现子窗口上的edit控件总是不能被激活.</p>
+<a id="more"></a>
+<p><img src="20170725155838473.png" alt=""><br>开始担心自己工程出问题了，于是新建了一个sdi，如图问题依然存在，既然如此那就在新工程中找问题，先设置对话框style，popup/overlap都能正常使用，再试试模式对话框（有点没必要，因为模式对话框不能是child）依然没问题，为了保守起见，还是多托几个控件靠谱，发现只有edit无效，尴尬。那就只能对edit下手了，于是spy++追踪，发现控件是能响应鼠标的LBUTTONDOWN消息的。<br><img src="20170725155854049.png" alt=""><br>仔细看图，其实edit边框黑色是有加深的。再一次确认了并不是edit没被激活而是丢失了某些消息。对于edit，当然是鼠标单击的时候就该获取焦点，显示光标。</p>
+<p>思路：拦截消息/设置控件焦点</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">CDlgChild::PreTranslateMessage</span><span class="params">(MSG* pMsg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span>  在此添加专用代码和/或调用基类</span></span><br><span class="line">    <span class="keyword">if</span> ( pMsg-&gt;message == WM_LBUTTONDOWN)<span class="comment">//这里让每个控件都响应，如果是针对某个控件，可以使用pMsg-&gt;hwnd与控件句柄比较删选。</span></span><br><span class="line">    &#123;</span><br><span class="line">        ::SetFocus(pMsg-&gt;hwnd);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> CDialogEx::PreTranslateMessage(pMsg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>F5，正常了。<del>~ 最后吐槽一句，总觉得这是微软留的一个坑，说大也不大。虽然这中情况用的不多。但毕竟还是遇到了。</del></p>
+<p><strong>今天是来修改本文最后一句的，不删除原文主要也是想起到提醒左右。其实这个是窗口的标题属性（WS_TITLE）所致。当我们把子窗口的标题栏置false就不会有这个问题了。而且上述解决方式还存在一个问题就是CEdit/CCombox等需要输入的控件鼠标不能定位已输入文本，只能键盘定位，很不便。当我们业务需要标题栏咋办呢？不妨重绘对话框客户区，自己绘标题栏，顺便代码也上来吧。</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">LRESULT <span class="title">CDlgNoTitle::OnNcHitTest</span><span class="params">(CPoint <span class="built_in">point</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span>  在此添加消息处理程序代码和/或调用默认值</span></span><br><span class="line">    UINT nHitTest = CDialogEx::OnNcHitTest(<span class="built_in">point</span>);</span><br><span class="line"> </span><br><span class="line">    <span class="function">CPoint <span class="title">pt</span><span class="params">(<span class="number">0</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    ClientToScreen(&amp;pt);</span><br><span class="line">    <span class="keyword">if</span> (nHitTest == HTCLIENT &amp;&amp; <span class="built_in">point</span>.y - pt.y &lt; <span class="number">32</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        nHitTest = HTCAPTION;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> nHitTest;</span><br><span class="line">    <span class="comment">//return CDialogEx::OnNcHitTest(point);</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>vc</category>
+      </categories>
+      <tags>
+        <tag>mfc</tag>
+        <tag>child</tag>
+        <tag>focus</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>由Create一个Child窗口，导出的z序问题</title>
+    <url>/2017/07/17/%E7%94%B1Create%E4%B8%80%E4%B8%AAChild%E7%AA%97%E5%8F%A3%EF%BC%8C%E5%AF%BC%E5%87%BA%E7%9A%84z%E5%BA%8F%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>首先遇到的情况，直接看图<br><img src="20170717165411414.png" alt=""></p>
+<a id="more"></a>
+<p>看到这现象有点怀疑人生，Windows默认Create顺序是按照Z序依次递增的，然而为何会出现如此现象？</p>
+<p>首先和窗口类型确实有关：用的是Child，如果使用popup/overlapped都正常，我们通常非模态对话框用overlapped最多，这次要做子窗口管理，才发现有如此问题。考虑在窗口类型上选择：层叠/弹出/子窗口。选择Child类型是必须的（根据需求）。于是想办法改变窗口Z序，windowsZ序说明并不多，看来也是不复杂的原因，搜索相关函数</p>
+<p>BOOL SetWindowPos(  const CWnd* pWndInsertAfter,  int x,  int y,  int cx,  int cy,  UINT nFlags  );<br>pWndInsertAfter<br>Identifies the CWnd object that will precede (be higher than) this CWnd object in the Z-order. This parameter can be a pointer to a CWnd or a Pointer to one of the following values:</p>
+<p>wndBottom   Places the window at the bottom of the Z-order. If this CWnd is a topmost window, the window loses its topmost status; the system places the window at the bottom of all other windows.</p>
+<p>wndTop   Places the window at the top of the Z-order.</p>
+<p>wndTopMost   Places the window above all non-topmost windows. <em>重点The window maintains its topmost position even when it is deactivated</em>.</p>
+<p>wndNoTopMost   Repositions the window to the top of all non-topmost windows (that is, behind all topmost windows). <em>重点This flag has no effect if the window is already a non-topmost window</em>.</p>
+<p>换句话说，就此4中Z序：底部/顶部/最顶/非最顶，这都是相对你要插入的窗口指针的</p>
+<blockquote>
+<p>看微软注释：<br> static AFX_DATA const CWnd wndTop; // SetWindowPos’s pWndInsertAfter<br> static AFX_DATA const CWnd wndBottom; // SetWindowPos’s pWndInsertAfter<br> static AFX_DATA const CWnd wndTopMost; // SetWindowPos pWndInsertAfter<br> static AFX_DATA const CWnd wndNoTopMost; // SetWindowPos pWndInsertAfter</p>
+</blockquote>
+<p><img src="20170717181216290.jpg" alt=""></p>
+]]></content>
+      <categories>
+        <category>vc</category>
+      </categories>
+      <tags>
+        <tag>WindowsZ序</tag>
+        <tag>子窗口管理</tag>
+        <tag>vc</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>由花屏引出的WS_CLIPCHILDREN，WS_CLIPSIBLINGS理解</title>
+    <url>/2017/07/16/%E7%94%B1%E8%8A%B1%E5%B1%8F%E5%BC%95%E5%87%BA%E7%9A%84WS-CLIPCHILDREN%EF%BC%8CWS-CLIPSIBLINGS%E7%90%86%E8%A7%A3/</url>
+    <content><![CDATA[<p>WS_CLIPCHILDREN，使得父窗体在绘制时留出其上的子窗体的位置不去画它，而那片区域留着子窗体去画。<a id="more"></a><br>WS_CLIPSIBLINGS，必须用于子窗体(Child)，使得该子窗体在收到WM_PAINT时同时令其兄弟窗体（MSDN讲必须不在该区域，即不与之重叠）也会被PAINT。</p>
+<p>所有的overlapped窗口和popup窗口，都有WS_CLIPSIBLINGS 属性，这些窗口<strong>不能</strong>在它的兄弟窗口上绘图</p>
+<p>对于child窗口，如果没有这个属性，它能在它的兄弟窗口上绘图<br><img src="20170716162535135.jpg" alt=""><br>图例说明：<br>如果A, B都是child窗口，<br>如果A具有WS_CLIPSIBLINGS属性，<br>那么A重绘时不会重绘C部分</p>
+<p>clip是裁减，去除的意思<br>WS_CLIPCHILDREN和WS_CLIPSIBLING都是为了减少重画，减少闪动，保证窗口的重叠部分只有一个窗口来实现PAINT。</p>
+<p>最近在做一个多非模态对话框程序，代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//创建窗口</span></span><br><span class="line">	<span class="keyword">int</span> x = <span class="number">10</span>, y = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		pDlg = <span class="keyword">new</span> CDlgHKMarket();</span><br><span class="line">		pDlg-&gt;Create(IDD_DLG_HKMARKET, <span class="keyword">this</span>);</span><br><span class="line">		SetWindowLong(pDlg-&gt;m_hWnd, GWL_STYLE, WS_CAPTION|WS_CHILD <span class="comment">/*|WS_CLIPSIBLINGS*/</span>);</span><br><span class="line">		SetWindowPos(pDlg, x, y, <span class="number">300</span>, <span class="number">200</span>, SWP_SHOWWINDOW|SWP_NOACTIVATE);</span><br><span class="line">		x += <span class="number">10</span>;</span><br><span class="line">		y += <span class="number">30</span>;</span><br><span class="line">		pDlg-&gt;ShowWindow(SW_SHOW);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>显示效果：<br><img src="20170716162654405.jpg" alt=""><br>花屏明显，原因就在于画到兄弟窗口去了，我不需要，于是对CDlgMarket加属性WS_CLIPSIBLINGS让兄弟窗口间互不影响,再run，ok.<br><img src="20170716162700866.jpg" alt=""></p>
+]]></content>
+      <categories>
+        <category>vc</category>
+      </categories>
+      <tags>
+        <tag>vc</tag>
+        <tag>花屏</tag>
+        <tag>绘图</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ScreenToClient与ClientToScreen</title>
+    <url>/2017/07/14/ScreenToClient%E4%B8%8EClientToScreen/</url>
+    <content><![CDATA[<blockquote>
+</blockquote>
+<p>The ClientToScreen function replaces the <code>client-area coordinates</code> in the POINT structure with the <code>screen coordinates</code>. The screen coordinates are relative to the upper-left corner of the screen.<a id="more"></a>Note, a screen-coordinate point that is above the window’s client area has a negative y-coordinate. Similarly, a screen coordinate to the left of a client area has a negative x-coordinate.<br>The <code>ScreenToClient</code> member function replaces the screen coordinates given in <em>lpPoint</em> or <em>lpRect</em> with client coordinates. The new coordinates are relative to the upper-left corner of the CWnd <strong>client area</strong>.</p>
+<p>实际就是一个屏幕坐标，一个客户区坐标，这两个坐标系统的转换</p>
+<p><code>GetWindowRect</code>得到的是screen coordinates.  <code>GetClientRect</code>得到的是client-area coordinates，所以GetClientRect得到的总是以（0，0）为左上的点。</p>
+<p>The dimensions are given in screen coordinates relative to the upper-left corner of the <code>display screen</code>. The dimensions of the caption, border, and scroll bars, if present, are included.</p>
+<p>如果我们要获取一个窗口pWnd相对于父窗口parent客户区的位置应该是：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">Rect rc;</span><br><span class="line"></span><br><span class="line">pWnd-&gt;GetWindowRect(&amp;rc);</span><br><span class="line"></span><br><span class="line">parent-&gt;ScreenToClient(&amp;rc);</span><br></pre></td></tr></table></figure>
+<p>如果如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">pWnd-&gt;GetWindowRect(&amp;rc);</span><br><span class="line"></span><br><span class="line">pWnd-&gt;ScreenToClient(&amp;rc);</span><br></pre></td></tr></table></figure>
+<p>得到的rc左顶坐标会出项负数，因为将自己的窗口往客户区映射，会出现标题栏/边框等的位置差错。</p>
+]]></content>
+      <categories>
+        <category>vc</category>
+      </categories>
+      <tags>
+        <tag>ScreenToClient</tag>
+        <tag>ClientToScreen</tag>
+        <tag>windows坐标系统</tag>
+        <tag>vc</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于Windows. linux跨平台的一些建议</title>
+    <url>/2016/10/11/%E5%85%B3%E4%BA%8EWindows%E3%80%81linux%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BB%BA%E8%AE%AE/</url>
+    <content><![CDATA[<p>在你做跨平台开发时，难免会遇到一些因操作系统特性带来的麻烦。本文集聚部分，并以Windows，linux为目标平台分析。由于java，Python等语言基本锁定自家编译器. IDE，也就没有C/C++这样的麻烦了，本文还是以C/C++为主。<a id="more"></a></p>
+<ol>
+<li>关于路径和头文件路径分隔符的问题</li>
+</ol>
+<p>在Windows中，正斜杠和反斜杠都可以，但是在Linux中，只能是/。</p>
+<p>在Windows中，路径大小写无所谓，在Linux中严格区分大小写。</p>
+<ol start="2">
+<li>关于宽字符的问题。</li>
+</ol>
+<p>在Windows中，wchar_t占两个字节，Linux中占四个字节，所以尽量用C/C++自带的字符类型或者第三方跨平台库类型如：qchar。</p>
+<ol start="3">
+<li>与平台相关的调用</li>
+</ol>
+<p>尽量用宏隔离开来，一般用不同的目录代表不同平台，BOOST. OGRE等是这样做。也可以再一个类或者文件中，这样会导致到处都是操作系统和编译器相关宏的定义。</p>
+<ol start="4">
+<li>关于头文件包含</li>
+</ol>
+<p>在Windows下某些C标准库的头文件不用显式包含，但是在linux下需要显式包含。所以在.c和.cpp文件中尽量包含这个文件中需要的头文件。</p>
+<ol start="5">
+<li>注意机器大尾端和小尾端的区别</li>
+</ol>
+<p>大小尾端对文件的读写会有很大影响，要编写跨平台c++程序，大小尾端是必须要考虑的问题。比如，你在大尾端机器上写了一个文件，然后在小尾端机器上读取，那么结果肯定是错误的，所以，我们设计文件格式时，都需要规定文件是大尾端存储还是小尾端存储，或者一个文件中规定某些部分是大尾端某些部分是小尾端。</p>
+<ol start="6">
+<li>使用<code>std::exception</code>时需要注意</li>
+</ol>
+<p>LINUX下是不支持抛出异常的，如果继承自标准库的异常类写自己的异常类的时候，在Linux下，子类的析构函数中就需要表明不抛出异常，所以析构函数后面加上<code>throw()</code>就可以了。</p>
+<ol start="7">
+<li>当继承模板类时需要谨慎</li>
+</ol>
+<p>在自己的代码中，需要继承模板类时，如果需要访问基类模板类的成员函数或者成员变量，前面加上<code>this-&gt;</code>。另外，构造函数需要用到基类进行构造时。基类的类型需要需要用该类的类型参数初始化，否则在linux下会提示找不到基类的这个名字。</p>
+<ol start="8">
+<li><p>尽量使用标准C和C++的函数以及STL，使用C语言中定义的类型。</p>
+</li>
+<li><p>头文件重复包含的问题</p>
+</li>
+</ol>
+<p>尽量用保卫宏去实现防止头文件的重复包含，很多代码在Windows下直接用#pragma once，这不能保证跨平台需要。</p>
+<ol start="10">
+<li>关于结构体对齐的问题。</li>
+</ol>
+<p>CPU为了简化内存和CPU之间的处理以及加快CPU从内存中取数据的速度，往往都会做一定的对齐，即结构体的各个成员并不是紧凑存储的，往往在成员中间填充一些字节。所以，我们一般不推荐用结构体直接读取和写入数据，这样在不同系统或者计算机之间进行移植时，会出现错误的结果。</p>
+<ol start="11">
+<li>注意BOM的陷阱（字节顺序标记）</li>
+</ol>
+<p>如果你在Windows用记事本创建一个源文件，那么Windows会在文件最前面加上一个BOM标记，即所谓的字节顺序标记，这样的源码在Windows下没问题，但是在Linux下就编译不过，所以需要用其他的文本编辑器或者直接在VS里面创建源文件。Linux下gcc/g++不认带BOM标记的源文件。</p>
+<ol start="12">
+<li>结束符问题</li>
+</ol>
+<p>Linux/UNIX:    ‘\n’  (LF)</p>
+<p>Mac  :    ‘\r’   (CR)</p>
+<p>DOS(Windows):     ‘\r\n’  (CR-LF)</p>
+<p>所以从linux拷贝文件到windows，用记事本打开.h/.cpp时，是没有换行效果的。</p>
+<ol start="13">
+<li>注意调用函数时的形参类型和函数声明中参数列表的类型不匹配</li>
+</ol>
+<p>这里特指有无const或者是否是引用参数。在Windows下的cl编译器没问题，linux下GCC/G++会报错。</p>
+<ol start="14">
+<li>注意两个尖括号不要连着写</li>
+</ol>
+<p>例如<code>std::vector&lt;std::vector&lt;int&gt;&gt; vec</code>;在Windows下这么写完全没问题，那么在linux下就是编译不过，所以linux下可以在连续两个尖括号符号之间留一个空格，即<code>std::vector&lt;std::vector&lt;int&gt;  &gt; vec</code>;</p>
+<ol start="15">
+<li>关于库引用</li>
+</ol>
+<p>windows引用动态库默认从当前目录取，Linux必须将动态库添加到库目录（注册系统环境变量）。</p>
+<ol start="16">
+<li>尽量不要使用内嵌汇编</li>
+</ol>
+<p>不同平台，应该说编译器，gcc与cl对汇编的语法要求是不一样的。</p>
+<ol start="17">
+<li>谨慎使用浮点数</li>
+</ol>
+<p>不同硬件. 编译器和编写代码的方式都可以影响结果的精确性。</p>
+]]></content>
+      <categories>
+        <category>防坑笔记</category>
+      </categories>
+      <tags>
+        <tag>c/c++</tag>
+        <tag>跨平台</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>QT多语言翻译工作</title>
+    <url>/2016/08/10/QT%E5%A4%9A%E8%AF%AD%E8%A8%80%E7%BF%BB%E8%AF%91%E5%B7%A5%E4%BD%9C/</url>
+    <content><![CDATA[<p>QT多语言翻译工作解决方式多样，但考虑多语言支持。</p>
+<a id="more"></a>
+<p>建议做法如下：</p>
+<ol>
+<li><p>在工程文件(.pro)里加入TRANSLATIONS标签，例如：TRANSLATIONS += myproject_zh.ts</p>
+</li>
+<li><p>在命令行下调用: lupdate myproject.pro，生成.ts文件（lupdate命令如果提示不存在，说明该lupdate.exe文件路径没配到系统的环境变量path，该目录是qt安装的bin）</p>
+</li>
+<li><p>启动Qt Linguist进行翻译。</p>
+</li>
+<li><p>在命令行下调用：lrelease myproject.pro，生成.qm文件（多语言可发布多个qm文件）</p>
+</li>
+<li><p>在需要切换语言的地方写：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">QTranslator *translator = <span class="keyword">new</span> QTranslator(<span class="keyword">this</span>);</span><br><span class="line"><span class="keyword">if</span>( translator-&gt;load(<span class="string">"myproject_zh.qm"</span>))</span><br><span class="line">    qApp-&gt;installTranslator(translator);</span><br></pre></td></tr></table></figure>
+<p>如果要实时切换，可以关闭并重新创建窗体，或者干脆重新启动进程。</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Qt</category>
+      </categories>
+      <tags>
+        <tag>多语言</tag>
+        <tag>国际化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>QT中文乱码关键几点强调</title>
+    <url>/2016/08/10/QT%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E5%85%B3%E9%94%AE%E5%87%A0%E7%82%B9%E5%BC%BA%E8%B0%83/</url>
+    <content><![CDATA[<p>QT,相信使用的人很多用在跨平台上，然而要保证Windows、Linux同用一份源码，就不得不考虑源代码编码问题了，在编码发展上，我打赌未来肯定是要舍弃Ansi转向Unicode编码的，Unicode又有多种编码方式GBK(GB2312的升级版)，BIG5，utf8，utf16等。</p>
+<a id="more"></a>
+<p>Win下默认GBK,Linux（ubuntu）默认utf8，然而QT呢？QTCreator文本编辑器默认也是utf8文件格式,BOM目前存在则保留。所以通常设置</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">QTextCodec *codec = TextCodec::codecForName(<span class="string">"utf8"</span>);</span><br><span class="line">QTextCodec::setCodecForTr(codec);</span><br><span class="line">QTextCodec::setCodecForCStrings(codec);</span><br><span class="line">QTextCodec::setCodecForLocale(codec);</span><br></pre></td></tr></table></figure>
+<p>就能解决大部分问题，通常很多人犯的错误，包括我接触过的别人写的项目都是各种文件格式Ansi、utf8、gbk糅合在一个项目中（估计都是直接从网上download的代码，自己没整理就直接使用文件）。导致这里没乱码，那里有乱码，这种现象。<br>在某些情况下也是有问题的，因为程序可能读到系统的中文路径，或者调用中文路径下的外部程序，这时候如果系统是gb2312就有问题了。因为中文路径的编码是采用utf-8存到QString里的，系统读中文路径解码的时候采用的却是系统的gb2312，所以会调不起带中文路径的外部程序。</p>
+<p>以上问题下面方法可以解决：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">QTextCodec *codec =QTextCodec::codecForName(<span class="string">"UTF-8"</span>);</span><br><span class="line">QTextCodec::setCodecForTr(codec);</span><br><span class="line">QTextCodec::setCodecForLocale(QTextCodec::codecForLocale());</span><br><span class="line">QTextCodec::setCodecForCStrings(QTextCodec::codecForLocale());</span><br></pre></td></tr></table></figure>
+<p>对于外部字符串编码解码全部采用本地编码。</p>
+<p>还有一种乱码叫编码乱码，比如说，源代码utf8编码，<br><code>QTextCodec *codec =QTextCodec::codecForName(&quot;GBK&quot;);</code><br>就会导致乱码，反之亦然，故源代码与程序中使用必须统一，其实这一点是所有编译器都应该遵循的原则。因此，</p>
+<p>Windows环境下,Qt Creator+VS编译器</p>
+<p>1、如果该工程不需要跨平台使用(只在win),那么工程设置请使用GBK的编码方式.</p>
+<p>2、如果该工程要跨平台使用(win+linux),那么工程设置请使用UTF-8+BOM的编码方式.</p>
+<p>Linux环境下,Qt Creator+gcc,</p>
+<p>默认是UTF-8(无BOM)编码方式,</p>
+<p>综上：<strong>不考虑跨平台的话可以用默认设置，考虑到跨平台,建议选择UTF-8+BOM的编码方式.</strong>具体设置如下图<br><img src="20160902135607560.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>Qt</category>
+      </categories>
+      <tags>
+        <tag>qt</tag>
+        <tag>中文乱码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Powershell的使用</title>
+    <url>/2016/08/04/Powershell%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<p>由于最近项目需要使用windows脚本编程，发现普通批处理又不太好使，习惯了linux的命令行ls，cp等，总觉得windows的命令行太难玩，可编程性还不如linux的shell（本来linux shell 可编程性就不是很好）。于是上网查找资料发现powershell这个东西。研究了一天也算是达到了项目的要求，power本来就是一个很不低调的词，微软敢这么取名，肯定不是几天能完全掌握的，功能强大就不多说了。记录一下以供入门的人学习。</p>
+<a id="more"></a>
+<p><code>Windows PowerShell</code> 是一种命令行外壳程序和脚本环境，使命令行用户和脚本编写者可以利用 <code>.NET Framework</code>的强大功能。它引入了许多非常有用的新概念，<br>从而进一步扩展了您在 Windows 命令提示符和 Windows Script Host 环境中获得的知识和创建的脚本。通过解决长期存在的问题并添加一些新的功能，<br>Windows PowerShell 旨在改进命令行和脚本环境。PowerShell以.NET Framework为平台，接收和返回.NET对象，此举为管理和配置微软系统带来了新的方法和工具。<br>在Windows 操作系统里，点击开始-&gt;运行-&gt;输入PowerShell，进入windows PowerShell。在Windows 7中内置了PowerShell2.0, Windows 8中内置了PowerShell3.0。<br>如果本机没有添加，可在网上下载安装包进行安装，或者下载WebPI，通过WebPI安装PowerShell。</p>
+<ol>
+<li><a href="http://www.pstips.net/powershell-online-tutorials/" target="_blank" rel="noopener">在线教程</a>中文的还带例子，本人也是看这个学的，powershell社区也有了，总之很nice的一个网站。</li>
+<li>个人写的一个小<a href="http://download.csdn.net/detail/evil_119/9595255" target="_blank" rel="noopener">demo</a>源码提供并附了注释，可自由下载。</li>
+<li>C程序中调用脚本<br>powershell脚本文件以<code>*.sh1</code>命名，有点奇怪，后缀而已没关系。执行命令是：<code>system(&quot;powershell yourshell.ps1&quot;)</code>;<br>普通批处理执行命令是：<code>system(&quot;yourshell.bat&quot;)</code>;</li>
+<li>微软提供了一个很好的编辑器——<code>powershell_ise.exe</code><br>新建文本文件后，修改后缀为sh1，右击-》编辑即可打开。否则命令行输入<code>powershell_ise.exe</code>打开，如下图:<br><img src="20160804190244607.png" alt="powershell" title="powershell"></li>
+</ol>
+<p>这两天安装了个windows版本的github客户端，右击打开<code>git bash here</code>，发现一个有趣的现象，请看图不解释：<br><img src="20160810142045880.png" alt="gitbash" title="git bash"></p>
+]]></content>
+      <categories>
+        <category>vc</category>
+      </categories>
+      <tags>
+        <tag>powershell</tag>
+        <tag>shell</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>跨进程通信之WM_COPYDATA</title>
+    <url>/2016/04/22/%E8%B7%A8%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E4%B9%8BWM_COPYDATA/</url>
+    <content><![CDATA[<h2 id="MSDN提供："><a href="#MSDN提供：" class="headerlink" title="MSDN提供："></a>MSDN提供：</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WM_COPYDATA                     0x004A</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>数据结构：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">tagCOPYDATASTRUCT</span> &#123;</span></span><br><span class="line">  ULONG_PTR dwData;</span><br><span class="line">  DWORD     cbData;</span><br><span class="line">  PVOID     lpData;</span><br><span class="line">&#125; COPYDATASTRUCT, *PCOPYDATASTRUCT;</span><br></pre></td></tr></table></figure>
+<p><strong>dwData</strong><br>Type:** ULONG_PTR**</p>
+<p>The data to be passed to the receiving application.</p>
+<p><strong>cbData</strong><br>Type:** DWORD**</p>
+<p>The size, <span style=color:red>in bytes（此处我用红色标示，就是重要警告）</span>, of the data pointed to by the <strong>lpData</strong> member.</p>
+<p><strong>lpData</strong><br>Type:** PVOID**</p>
+<p>The data to be passed to the receiving application. This member can be <strong>NULL</strong>.</p>
+<h2 id="使用方法："><a href="#使用方法：" class="headerlink" title="使用方法："></a>使用方法：</h2><p>操作系统对该消息做了特殊处理。<br>1.只能使用<code>SendMessage</code>（不能使用<code>PostMessage</code>），阻塞，等待<code>bool OnCopyData(CWnd* pWnd, COPYDATASTRUCT* pCopyDataStruct)</code>执行后返回，故可以发送局部指针变量；<br>2.<code>::SendMessage(hWnd,WM_COPYDATA,NULL（该参数为发送端窗口句柄）,(LPARAM)&amp;dsSend(该参数为COPYDATASTRUCT*))</code>;</p>
+<h2 id="注意："><a href="#注意：" class="headerlink" title="注意："></a><span style=color:red>注意：</span></h2><p>1.使用WCHAR<em>的时候，cbData不是WCHAR的个数，而是:`sizeof(WCHAR)</em>(wcslen(str)+1)` 解析：宽字符串的字节长度+‘\0’;<br>2.如果是发送结构体，成员变量是CString 或者LPWSTR等都是不合适的（除非自己计算sizeof），使用固定长度的char型数组，会使代码可读性，及效率上更好。<br>3.该消息与Clipborad不同，不是共享内存的，可以通过比较发送端首地址、接收端首地址发现并不一样。只是跨进程做了一个内存拷贝。所以cbData的值一定不能小于其实际sizeof的值，否则，接收端接收到的指针解析不出来。</p>
+<p>而且MSDN中的事例：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ************ Globals ************</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MYDISPLAY 1</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">tagMYREC</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">   <span class="keyword">char</span>  s1[<span class="number">80</span>];</span><br><span class="line">   <span class="keyword">char</span>  s2[<span class="number">80</span>];</span><br><span class="line">   DWORD n;</span><br><span class="line">&#125; MYREC;</span><br><span class="line">COPYDATASTRUCT MyCDS;</span><br><span class="line">MYREC MyRec;</span><br><span class="line">HRESULT hResult;</span><br><span class="line"><span class="function">BOOL CALLBACK <span class="title">InfoDlgProc</span><span class="params">( HWND, UINT, WPARAM, LPARAM )</span></span>;</span><br><span class="line"><span class="comment">// ************ Code fragment ****************</span></span><br><span class="line"><span class="comment">// Get data from user. InfoDlgProc stores the information in MyRec.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">   DialogBox( ghInstance, <span class="string">"InfoDlg"</span>, hWnd, (DLGPROC) InfoDlgProc );</span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Copy data into structure to be passed via WM_COPYDATA.</span></span><br><span class="line"><span class="comment">// Also, we assume that truncation of the data is acceptable.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">   hResult = StringCbCopy( MyRec.s1, <span class="keyword">sizeof</span>(MyRec.s1), szFirstName );</span><br><span class="line">   <span class="keyword">if</span> (hResult != S_OK)</span><br><span class="line">   		<span class="keyword">return</span> False;</span><br><span class="line">   hResult = StringCbCopy( MyRec.s2, <span class="keyword">sizeof</span>(MyRec.s2), szLastName );</span><br><span class="line">   <span class="keyword">if</span> (hResult != S_OK)</span><br><span class="line">   		<span class="keyword">return</span> False;</span><br><span class="line">   MyRec.n = nAge;</span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Fill the COPYDATA structure</span></span><br><span class="line"><span class="comment">// </span></span><br><span class="line">   MyCDS.dwData = MYPRINT;          <span class="comment">// function identifier</span></span><br><span class="line">   MyCDS.cbData = <span class="keyword">sizeof</span>( MyRec );  <span class="comment">// size of data</span></span><br><span class="line">   MyCDS.lpData = &amp;MyRec;           <span class="comment">// data structure</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Call function, passing data in &amp;MyCDS</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">   hwDispatch = FindWindow( <span class="string">"Disp32Class"</span>, <span class="string">"Hidden Window"</span> );</span><br><span class="line">   <span class="keyword">if</span>( hwDispatch != <span class="literal">NULL</span> )</span><br><span class="line">      SendMessage( hwDispatch,</span><br><span class="line">                   WM_COPYDATA,</span><br><span class="line">                   (WPARAM)(HWND) hWnd,</span><br><span class="line">                   (LPARAM) (LPVOID) &amp;MyCDS );</span><br><span class="line">   <span class="keyword">else</span></span><br><span class="line">      MessageBox( hWnd, <span class="string">"Can't send WM_COPYDATA"</span>, <span class="string">"MyApp"</span>, MB_OK );</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>vc</category>
+      </categories>
+      <tags>
+        <tag>WM_COPYDATA</tag>
+        <tag>进程间通信</tag>
+        <tag>clipborad</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>NSIS笔记</title>
+    <url>/2015/12/23/NSIS%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h2 id="关于-NSIS"><a href="#关于-NSIS" class="headerlink" title="关于 NSIS"></a>关于 NSIS</h2><p>在用户使用你的应用程序之前首先会体验到你的安装程序。慢慢悠悠的或不成功的软件安装是很恼人的问题。一个快速友好的安装程序是展示你的软件产品品质的一部分。<a id="more"></a></p>
+<p>NSIS (Nullsoft Scriptable Install System) 是 Windows 下的一个工具，它允许程序员来创建这样的安装程序。它发布于一个开源的协议并且对于<a href="https://blog.csdn.net/evil_119/article/details/50385678" target="_blank" rel="noopener">任何使用者来说都是完全免费的</a>。</p>
+<p>NSIS 创建的安装程序能够安装、卸载、设置系统设置、解压文件等等。因为它基于脚本文件，你可以完全的控制安装程序的每一部分。脚本语言支持变量、函数、字串操作，就像一个普通的程序语言一样 - 但是设计来创建安装程序。即使有那么多的特性，NSIS 仍然是最小的安装程序系统。在默认选项下，它仅增加了 34 KB 的开销。</p>
+<p>总结：<br>    优点，开源 精巧含脚本向导灵活语法简单<br>    缺点，自己编码。</p>
+<h2 id="NSIS脚本结构"><a href="#NSIS脚本结构" class="headerlink" title="NSIS脚本结构"></a>NSIS脚本结构</h2><p>一个NSIS脚本文件包括 安装属性（Installer Attributes）、区段（Sections）和函数（Functions），此外还可以使用编译命令来对编译过程进行控制。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>先通过“文件”-》新建脚本：向导-》完成。再修改脚本。很多命令是在区段、函数中使用的，当然编译过程也会提示。<br>编译成功会有exe生成。</p>
+<p>暂未发现单步调试等任何Debug模式。</p>
+<p>注意在执行命令时，文件路径最好用双引号，否则有可能因路径中含有空格等特殊符号导致命令执行失败。</p>
+<p>语法规则等参考<a href="http://download.csdn.net/detail/evil_119/9373553" target="_blank" rel="noopener">使用手册</a></p>
+<p>另外，微软有一款InstallShield，很图形化界面很微软风，只是收费，当然也可破解；现在用<code>inno setup</code>的也很多。</p>
+<p>或者使用解压软件如winrar/好压等生成自解压文件。</p>
+]]></content>
+      <categories>
+        <category>其它</category>
+      </categories>
+      <tags>
+        <tag>nsis</tag>
+        <tag>inno</tag>
+        <tag>installshield</tag>
+        <tag>打包</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mssoap与gsoap访问WebService的使用</title>
+    <url>/2015/07/31/mssoap%E4%B8%8Egsoap%E8%AE%BF%E9%97%AEWebService%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="mssoap使用"><a href="#mssoap使用" class="headerlink" title="mssoap使用"></a>mssoap使用</h2><p>本人win7 x64 vs2010测试机，包含头，引用库，命名空间<a id="more"></a></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"windows.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"msxml4.dll"</span></span></span><br><span class="line"><span class="comment">//using namespace MSXML2;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"msxml.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"C:/Program Files (x86)/Common Files/MSSoap/Binaries/mssoap30.dll"</span> exclude(<span class="meta-string">"IStream"</span>, <span class="meta-string">"IErrorInfo"</span>, <span class="meta-string">"ISequentialStream"</span>, <span class="meta-string">"_LARGE_INTEGER"</span>, <span class="meta-string">"_ULARGE_INTEGER"</span>, <span class="meta-string">"tagSTATSTG"</span>, <span class="meta-string">"_FILETIME"</span>)</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> MSSOAPLib30;</span><br></pre></td></tr></table></figure>
+<p>测试代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CMFCTestDlg::OnBnClickedBtOutput</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> 在此添加控件通知处理程序代码</span></span><br><span class="line">    CoInitialize(<span class="literal">NULL</span>);</span><br><span class="line">    ISoapSerializerPtr Serializer;</span><br><span class="line">    ISoapReaderPtr Reader;</span><br><span class="line">    ISoapConnectorPtr Connector;</span><br><span class="line"></span><br><span class="line">    HRESULT hr=Connector.CreateInstance(__uuidof(HttpConnector30)); <span class="comment">//创建连接实例</span></span><br><span class="line">    <span class="keyword">if</span>(!SUCCEEDED(hr))</span><br><span class="line">    &#123;  </span><br><span class="line">        MessageBox(_T(<span class="string">"error"</span>));</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//服务所在地址和端口;</span></span><br><span class="line">    Connector-&gt;Property[<span class="string">"EndPointURL"</span>] = <span class="string">"http://www.webxml.com.cn/WebServices/TranslatorWebService.asmx?wsdl"</span>;<span class="comment">//网上找到webservice网址</span></span><br><span class="line">    Connector-&gt;Connect();</span><br><span class="line"><span class="comment">//	Connector-&gt;Property["SoapAction"] = "http://www.webxml.com.cn/WebServices/TranslatorWebService.asmx?wsdl";</span></span><br><span class="line">    Connector-&gt;BeginMessage();</span><br><span class="line">    Serializer.CreateInstance(__uuidof(SoapSerializer30));</span><br><span class="line">    Serializer-&gt;Init(<span class="keyword">_variant_t</span>((IUnknown*)Connector-&gt;InputStream));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    Serializer-&gt;StartEnvelope(<span class="string">"soap"</span>,<span class="string">""</span>,<span class="string">""</span>);<span class="comment">//</span></span><br><span class="line">    Serializer-&gt;SoapAttribute(<span class="string">"xsi"</span>, <span class="string">""</span>, <span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span>, <span class="string">"xmlns"</span>);   </span><br><span class="line">    Serializer-&gt;SoapAttribute(<span class="string">"xsd"</span>, <span class="string">""</span>, <span class="string">"http://www.w3.org/2001/XMLSchema"</span>, <span class="string">"xmlns"</span>);</span><br><span class="line"><span class="comment">//	Serializer-&gt;SoapAttribute("soap12", "", "http://schemas.xmlsoap.org/soap/envelope/", "xmlns");</span></span><br><span class="line">    Serializer-&gt;SoapAttribute(<span class="string">"soapenc"</span>,<span class="string">""</span>,<span class="string">"http://schemas.xmlsoap.org/soap/encoding/"</span>,<span class="string">"xmlns"</span>);</span><br><span class="line">    Serializer-&gt;SoapAttribute(<span class="string">"tns"</span>,<span class="string">""</span>,<span class="string">"http://www.webxml.com.cn/"</span>,<span class="string">"xmlns"</span>);</span><br><span class="line">    Serializer-&gt;SoapAttribute(<span class="string">"types"</span>,<span class="string">""</span>,<span class="string">"http://www.webxml.com.cn/encodedTypes"</span>,<span class="string">"xmlns"</span>);</span><br><span class="line">    Serializer-&gt;StartBody(<span class="string">L"NONE"</span>);</span><br><span class="line"></span><br><span class="line">    Serializer-&gt;StartElement(<span class="string">"getEnCnTwoWayTranslator"</span>,<span class="string">"http://WebXml.com.cn/"</span>,<span class="string">"NONE"</span>,<span class="string">"xmlns"</span>); <span class="comment">// 开放的接口</span></span><br><span class="line"></span><br><span class="line">    Serializer-&gt;StartElement(<span class="string">"Word"</span>,<span class="string">"http://WebXml.com.cn/"</span>,<span class="string">"NONE"</span>,<span class="string">""</span>);<span class="comment">//参数</span></span><br><span class="line">    Serializer-&gt;SoapAttribute(<span class="string">"xsi:type"</span>,<span class="string">""</span>,<span class="string">"xsd:string"</span>,<span class="string">""</span>);</span><br><span class="line">    Serializer-&gt;WriteString(<span class="string">"hello"</span>); <span class="comment">//传参</span></span><br><span class="line">    Serializer-&gt;EndElement();</span><br><span class="line"></span><br><span class="line">    Serializer-&gt;EndElement();</span><br><span class="line"></span><br><span class="line">    Serializer-&gt;EndBody();</span><br><span class="line">    Serializer-&gt;EndEnvelope();</span><br><span class="line"></span><br><span class="line">    Connector-&gt;EndMessage(); </span><br><span class="line"></span><br><span class="line">    Reader.CreateInstance(__uuidof(SoapReader30));</span><br><span class="line"></span><br><span class="line">    Reader-&gt;Load(<span class="keyword">_variant_t</span>((IUnknown*)Connector-&gt;OutputStream),<span class="string">""</span>);</span><br><span class="line"></span><br><span class="line">    SetDlgItemText(IDC_EDIT1, Reader-&gt;RpcResult-&gt;xml);<span class="comment">//(const char*)</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="gsoap使用"><a href="#gsoap使用" class="headerlink" title="gsoap使用"></a>gsoap使用</h2><p>首先官网下载windows版zip解压，在bin目录下有两个exe，命令行中使用<code>wsdl2h</code>或<code>soapcpp2 -h</code>可查看可使用命令。<br><code>wsdl2h.exe</code>  解析WebService的wsdl文件或者相应的URL ,本测试-o导出到*.h.（-s 不指定这个需要有stlvector.h头文件，多个wsdl文件用空格隔开）</p>
+<blockquote>
+<p>例：<code>wsdl2h.exe -s -o out.h a.wsdl b.wsdl</code></p>
+</blockquote>
+<p><code>soapcpp2.exe</code> 编译WebService代码,编译解析后得到的*.h文件.<br>生成文件较多。如果是客户端使用可加参数 -C编译。</p>
+<blockquote>
+<p>例：<code>soapcpp2.exe -C out.h</code></p>
+</blockquote>
+<p>（-h查看更多命令）<br>包含头：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"sf/soapStub.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"sf/soapH.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"sf/procSMSSoapBinding.nsmap"</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CMFCTestDlg::OnBnClickedButton1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> 在此添加控件通知处理程序代码</span></span><br><span class="line">    soap sService;</span><br><span class="line">    _ns1__getEnCnTwoWayTranslator *pTrans = <span class="keyword">new</span> _ns1__getEnCnTwoWayTranslator;</span><br><span class="line">    <span class="function">CString <span class="title">strWord</span><span class="params">(_T(<span class="string">"word"</span>))</span></span>;</span><br><span class="line">    pTrans-&gt;Word = <span class="keyword">new</span> <span class="built_in">std</span>::<span class="built_in">string</span>(UnicodeToUTF8(strWord));</span><br><span class="line">    _ns1__getEnCnTwoWayTranslatorResponse TransResp;</span><br><span class="line">    soap_init(&amp;sService);</span><br><span class="line">    soap_set_mode(&amp;sService,SOAP_C_UTFSTRING);<span class="comment">//SOAP_C_UTFSTRING,SOAP_C_MBSTRING</span></span><br><span class="line">    soap_call___ns1__getEnCnTwoWayTranslator(&amp;sService,</span><br><span class="line">        <span class="string">"http://www.webxml.com.cn/WebServices/TranslatorWebService.asmx?wsdl"</span>,</span><br><span class="line">        <span class="string">"http://www.webxml.com.cn/WebServices/TranslatorWebService.asmx/"</span>,</span><br><span class="line">        pTrans,</span><br><span class="line">        TransResp);</span><br><span class="line">    ns1__ArrayOfString* pAS = TransResp.getEnCnTwoWayTranslatorResult;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> strXml;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt;::iterator it = pAS-&gt;<span class="built_in">string</span>.<span class="built_in">begin</span>();</span><br><span class="line">    <span class="keyword">while</span> (it != pAS-&gt;<span class="built_in">string</span>.<span class="built_in">end</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        strXml += *it;</span><br><span class="line">        strXml += <span class="string">"\n"</span>;</span><br><span class="line">        it++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">CString <span class="title">strMsg</span><span class="params">(UTF8ToUnicode(strXml.c_str()))</span></span>;</span><br><span class="line"></span><br><span class="line">    SetDlgItemText(IDC_EDIT1, strMsg);<span class="comment">//(const char*)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>两者调用都不复杂，但，个人表示，mssoap可封装性好过gsoap，当网址、接口更改时，gsoap需要重新编译生成接口文件，而mssoap只需相应调整参数即可。但mssoap往往需要自家的xml解析类，不如gsoap纯净的感觉。而且gsoap编译生成的接口文件是纯C/C++的文件，应该是跨平台的。</p>
+]]></content>
+      <categories>
+        <category>c/c++</category>
+      </categories>
+      <tags>
+        <tag>mssoap</tag>
+        <tag>gsoap</tag>
+        <tag>WebService</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ActiveX控件编写</title>
+    <url>/2015/06/24/ActiveX%E6%8E%A7%E4%BB%B6%E7%BC%96%E5%86%99/</url>
+    <content><![CDATA[<p>本文主要讲述用VS编写ActiveX控件。在工业自动化中，我们可能会经常遇到使用COM(组建对象模型)来编写插件的方式。COM提供了一套统一的编码规则，从而实现了一个跨语言组件框架。</p>
+<a id="more"></a>
+<h2 id="ActiveX控件编写："><a href="#ActiveX控件编写：" class="headerlink" title="ActiveX控件编写："></a>ActiveX控件编写：</h2><p>由MFC向导直接生成ActiveX控件。编译即可得<code>*.ocx</code>控件。并注册到系统。</p>
+<h2 id="如需显示自定义对话框："><a href="#如需显示自定义对话框：" class="headerlink" title="如需显示自定义对话框："></a>如需显示自定义对话框：</h2><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//消息处理程序 </span></span><br><span class="line"><span class="built_in">int</span> ::OnCreate(LPCREATESTRUCT lpCreateStruct)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (COleControl::OnCreate(lpCreateStruct) == <span class="number">-1</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// <span class="doctag">TODO:</span>  在此添加您专用的创建代码</span></span><br><span class="line">	m_dlgMain.Create(IDD_DLG_MAIN,<span class="keyword">this</span>);<span class="comment">//创建</span></span><br><span class="line">	m_dlgMain.ShowWindow(SW_SHOW);</span><br><span class="line"> 	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">void</span> CMyCtrl::OnDraw(</span><br><span class="line">			CDC* pdc, <span class="keyword">const</span> CRect&amp; rcBounds, <span class="keyword">const</span> CRect&amp; rcInvalid)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (!pdc)</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line"> </span><br><span class="line">	<span class="comment">// <span class="doctag">TODO:</span> 用您自己的绘图代码替换下面的代码。</span></span><br><span class="line">	m_dlgMain.m_strTitle = m_StrTitleName;<span class="comment">//更改标题</span></span><br><span class="line">	m_dlgMain.MoveWindow(rcBounds);<span class="comment">//将自定义对话框Move到该控件视即可</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="添加自定义属性"><a href="#添加自定义属性" class="headerlink" title="添加自定义属性"></a>添加自定义属性</h2><p>本人不建议手动添加，除非对微软的封装了解的比较透彻，否则还是用向导吧如下图。孙鑫的书上写的是类向导，搞死我了，找到类视图，找到相应接口，右击添加属性、方法等。<br>​​​​<img src="20150625095431604.png" alt="img"></p>
+<h2 id="属性页添加属性持久化及获取"><a href="#属性页添加属性持久化及获取" class="headerlink" title="属性页添加属性持久化及获取"></a>属性页添加属性持久化及获取</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">CMyCtrl* <span class="title">CMyPropPage::GetControlClass</span><span class="params">()</span><span class="comment">//获取控件类指针，这是微软官方给的代码</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	CAlarmsDisplayCtrl *pMyCtrl;</span><br><span class="line">	ULONG Ulong;</span><br><span class="line"> </span><br><span class="line">	<span class="comment">// Get the array of IDispatch pointers that is stored in the property page.</span></span><br><span class="line">	LPDISPATCH FAR *lpDispatch = GetObjectArray(&amp;Ulong);</span><br><span class="line"> </span><br><span class="line">	<span class="comment">// Get the CCmdTarget object that is associated with any one of the previous</span></span><br><span class="line">	<span class="comment">// array elements.</span></span><br><span class="line">	pMyCtrl = (CAlarmsDisplayCtrl*)FromIDispatch(lpDispatch[<span class="number">0</span>]);</span><br><span class="line">    <span class="comment">// Cleanup</span></span><br><span class="line">	<span class="keyword">return</span> pMyCtrl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://support.microsoft.com/zh-cn/kb/143432/en-us" target="_blank" rel="noopener">微软官方解决办法</a></p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">void CMyPropPage::<span class="constructor">DoDataExchange(CDataExchange<span class="operator">*</span> <span class="params">pDX</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(pDX-&gt;m_bSaveAndValidate==<span class="number">0</span>)<span class="comment">//初始化,load</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// Get the array of IDispatchs stored in the property page</span></span><br><span class="line">		CMyCtrl *pCtrl = <span class="constructor">GetControlClass()</span>;</span><br><span class="line">		<span class="keyword">if</span> (pCtrl)</span><br><span class="line">		&#123;</span><br><span class="line">			m_strTitle = pCtrl-&gt;m_StrTitleName;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="constructor">DDP_PostProcessing(<span class="params">pDX</span>)</span>;</span><br><span class="line">	<span class="constructor">DDX_Control(<span class="params">pDX</span>, IDC_EDIT_TITLE, <span class="params">m_edtTitle</span>)</span>;</span><br><span class="line"> </span><br><span class="line">	<span class="constructor">DDP_Text(<span class="params">pDX</span>,IDC_EDIT_TITLE,<span class="params">m_strTitle</span>,<span class="params">_T</span>(<span class="string">"StrTitleName"</span>)</span>);</span><br><span class="line"> </span><br><span class="line">	<span class="constructor">DDX_Text(<span class="params">pDX</span>,IDC_EDIT_TITLE,<span class="params">m_strTitle</span>)</span>;</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">if</span>(pDX-&gt;m_bSaveAndValidate !=<span class="number">0</span>)<span class="comment">//结束保存</span></span><br><span class="line">	&#123;</span><br><span class="line">		CMyCtrl *pCtrl = <span class="constructor">GetControlClass()</span>;</span><br><span class="line">		<span class="keyword">if</span>(pCtrl)</span><br><span class="line">		&#123;</span><br><span class="line">			pCtrl-&gt;m_StrTitleName = m_strTitle;</span><br><span class="line">			pCtrl-&gt;<span class="constructor">SetModifiedFlag()</span>;</span><br><span class="line"> 			pCtrl-&gt;<span class="constructor">Invalidate()</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果获取到的控件指针一直是NULL请在控件的构造函数中添加：</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">CMyCtrl:</span>:CMyCtrl()</span><br><span class="line">&#123;</span><br><span class="line">	InitializeIIDs(<span class="variable">&amp;</span>IID_DMy, <span class="variable">&amp;</span>IID_DMyEvents);</span><br><span class="line">	<span class="comment">// <span class="doctag">TODO:</span> 在此初始化控件的实例数据。</span></span><br><span class="line">	m_xInnerUnknown = <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至此ActiveX基本框架搭建就完成了，剩下的业务接口就是C++的事情了。</p>
+<h2 id="注意："><a href="#注意：" class="headerlink" title="注意："></a><span style=color:red>注意：</span></h2><p>如果控件中包含其他的ActiveX控件如<code>MS Web Browser</code>导致的<code>Create</code>失败，请在<code>InitInstance</code>中添加：<code>AfxEnableControlContainer()</code>。</p>
+]]></content>
+      <categories>
+        <category>vc</category>
+      </categories>
+      <tags>
+        <tag>ActiveX</tag>
+        <tag>ocx</tag>
+        <tag>vc</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vs编写ActiveX控件，无法运行调试配置</title>
+    <url>/2015/06/17/vs%E7%BC%96%E5%86%99ActiveX%E6%8E%A7%E4%BB%B6%EF%BC%8C%E6%97%A0%E6%B3%95%E8%BF%90%E8%A1%8C%E8%B0%83%E8%AF%95%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<p>在VS中开发MFC ActiveX控件，开发完后，通常使用VS自带的容器<code>ActiveX Control Test Container</code>来运行ActiveX控件。<a id="more"></a>此容器在VS安装后的文件中是找不到的，需要自己手动获取。如下所述：<br>    （1）按照你的VS所安装的路径，找到VCxxxxSamples.zip这个压缩文件，其在Samples下的名为2052文件夹中,如在我的电脑上，其所在路径为：<code>C:\Program Files\Microsoft Visual Studio 10.0\Samples\2052\VC2010Samples.zip</code>。<br>    （2）找到这个压缩文件后，将其减压得到一个C++项目目录。<br>    （3）进入\C++\MFC\ole找到TstCon这个文件夹。打开这个文件夹，打开*.sln解决方案,可发现有工程项目TCProps和TstCon。<br>    （4）编译完后，就可在TstCon文件夹下的Debug文件夹中看到TstCon.exe文件。该exe即是vc6下相同的那个ActiveX容器，可以打开你新项目中生成的ocx控件。</p>
+<p>配置vs，2010为例：<br>该菜单开始是灰的，因为其路径，对应的exe不存在，将生成的TstCon.exe拷贝到其路径，修改该项对应的路径文件名即可。以后，只需直接点击该菜单。</p>
+<p>另一种方式：<br>在对应项目中配置运行的exe，打开项目属性，配置工作目录为TstCon.exe的目录即可。</p>
+]]></content>
+      <categories>
+        <category>vc</category>
+      </categories>
+      <tags>
+        <tag>activex</tag>
+        <tag>container</tag>
+        <tag>com</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VC将对话框缩小到托盘</title>
+    <url>/2015/06/05/VC%E5%B0%86%E5%AF%B9%E8%AF%9D%E6%A1%86%E7%BC%A9%E5%B0%8F%E5%88%B0%E6%89%98%E7%9B%98/</url>
+    <content><![CDATA[<h2 id="一、托盘简介"><a href="#一、托盘简介" class="headerlink" title="一、托盘简介"></a>一、托盘简介</h2><p>所谓的“托盘”，在Windows系统界面中，指的就是windows系统任务条右侧，有系统时间等等的标志的那一部分。在程序最小化或挂起时，但有不希望占据任务栏的时候，就可以把程序放到托盘区。其实，托盘区的编程很简单，下面简要阐述。<a id="more"></a></p>
+<h2 id="二、托盘编程相关函数"><a href="#二、托盘编程相关函数" class="headerlink" title="二、托盘编程相关函数"></a>二、托盘编程相关函数</h2><p>其实呢，把程序放到托盘上的本质就是先在托盘区绘制一个图标，然后把程序隐藏不见，再对托盘的图标进行消息处理，就可以了。<br>绘制图标以及确定图标所传送消息的函数只有一个，那就是————<code>WINSHELLAPI BOOL WINAPI Shell_NotifyIcon(
+DWORD dwMessage, 
+PNOTIFYICONDATA pnid);</code><br>这个函数呢，负责向系统传递消息，以添加、修改或删除托盘区的图标。她的返回值呢，是个布尔类型的。就是说，如果返回0，那就是成仁啦，非0才成功。<br>参数<code>dwMessage</code>是表示这个函数的应用功能是哪一方面，是添加、删除，还是修改图标。如果是添加，则它的值为<code>NIM_ADD</code>；删除则是<code>NIM_DELETE</code>；而修改是<code>NIM_MODIFY</code>。参数<code>pnid</code>就是具体的和程序在托盘区的图标有关系的结构了。它的定义如下： </p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">NOTIFYICONDATA</span> &#123;</span> </span><br><span class="line">DWORD cbSize; </span><br><span class="line">HWND hWnd; </span><br><span class="line">UINT uID; </span><br><span class="line">UINT uFlags; </span><br><span class="line">UINT uCallbackMessage; </span><br><span class="line">HICON hIcon; </span><br><span class="line"><span class="keyword">char</span> szTip[<span class="number">64</span>]; </span><br><span class="line">&#125; NOTIFYICONDATA, *PNOTIFYICONDATA;</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、请看代码"><a href="#三、请看代码" class="headerlink" title="三、请看代码"></a>三、请看代码</h2><p>关键代码如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CMyDlg::ToTray</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    NOTIFYICONDATA nid;</span><br><span class="line">    nid.cbSize=(DWORD)<span class="keyword">sizeof</span>(NOTIFYICONDATA);</span><br><span class="line">    nid.hWnd=<span class="keyword">this</span>-&gt;m_hWnd;</span><br><span class="line">    nid.uID=IDR_MAINFRAME;</span><br><span class="line">    nid.uFlags=NIF_ICON|NIF_MESSAGE|NIF_TIP ;</span><br><span class="line">    nid.uCallbackMessage=WM_SHOWTASK;<span class="comment">//自定义的消息名称，消息映射用：ON_MESSAGE(WM_SHOWTASK,onShowTask)</span></span><br><span class="line">    nid.hIcon=LoadIcon(AfxGetInstanceHandle(),MAKEINTRESOURCE(IDR_MAINFRAME));</span><br><span class="line">    <span class="built_in">strcpy</span>(nid.szTip,<span class="string">"程序正在工作"</span>);<span class="comment">//信息提示条为“计划任务提醒”</span></span><br><span class="line">    Shell_NotifyIcon(NIM_ADD,&amp;nid);<span class="comment">//在托盘区添加图标</span></span><br><span class="line">    ShowWindow(SW_HIDE);<span class="comment">//隐藏主窗口</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function">LRESULT <span class="title">CMyDlg::onShowTask</span><span class="params">(WPARAM wParam,LPARAM lParam)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(wParam!=IDR_MAINFRAME)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">switch</span>(lParam)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span> WM_RBUTTONUP:<span class="comment">//右键起来时弹出快捷菜单，这里只有一个“关闭”</span></span><br><span class="line">        &#123; </span><br><span class="line">            </span><br><span class="line">            LPPOINT lpoint=<span class="keyword">new</span> tagPOINT;</span><br><span class="line">            ::GetCursorPos(lpoint);<span class="comment">//得到鼠标位置</span></span><br><span class="line">            CMenu menu;</span><br><span class="line">            menu.CreatePopupMenu();<span class="comment">//声明一个弹出式菜单</span></span><br><span class="line">            <span class="comment">//增加菜单项“退出”，点击则发送消息WM_DESTROY给主窗口（已</span></span><br><span class="line">            <span class="comment">//隐藏），将程序结束。</span></span><br><span class="line">            menu.AppendMenu(MF_STRING,WM_DESTROY,<span class="string">"退出"</span>); </span><br><span class="line">            <span class="comment">//确定弹出式菜单的位置</span></span><br><span class="line">            SetForegroundWindow();<span class="comment">//很重要，弹出菜单在失去焦点不能自动消失，这也是MSDN的官方解释</span></span><br><span class="line">            menu.TrackPopupMenu(TPM_LEFTALIGN,lpoint-&gt;x<span class="number">-120</span>,lpoint-&gt;y<span class="number">-30</span>,<span class="keyword">this</span>);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//资源回收</span></span><br><span class="line">            HMENU hmenu=menu.Detach();</span><br><span class="line">            menu.DestroyMenu();</span><br><span class="line">            <span class="keyword">delete</span> lpoint;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> WM_LBUTTONUP:<span class="comment">//单击恢复</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">this</span>-&gt;ShowWindow(SW_SHOW);<span class="comment">//显示主窗口</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CMyDlg::OnClose</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> Add your message handler code here and/or call default</span></span><br><span class="line">    ToTray();<span class="comment">//调用</span></span><br><span class="line">    <span class="comment">//CDialog::OnClose();不注释就直接退出了</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>vc</category>
+      </categories>
+      <tags>
+        <tag>托盘</tag>
+        <tag>vc</tag>
       </tags>
   </entry>
 </search>
