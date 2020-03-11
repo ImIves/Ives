@@ -43,6 +43,31 @@
   </entry>
   
   <entry>
+    <title>表达式计算</title>
+    <link href="https://icevil.cn/2019/12/24/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AE%A1%E7%AE%97/"/>
+    <id>https://icevil.cn/2019/12/24/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AE%A1%E7%AE%97/</id>
+    <published>2019-12-24T01:05:23.000Z</published>
+    <updated>2020-02-24T02:47:26.393Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="题：计算数学表达式-color-green-1-2-times-3-5-2"><a href="#题：计算数学表达式-color-green-1-2-times-3-5-2" class="headerlink" title="题：计算数学表达式 $\color{green}1+2\times(3-(5+2))=?$"></a>题：计算数学表达式 $\color{green}1+2\times(3-(5+2))=?$</h2><a id="more"></a><h2 id="解："><a href="#解：" class="headerlink" title="解："></a>解：</h2><h3 id="我们先了解两个概念"><a href="#我们先了解两个概念" class="headerlink" title="我们先了解两个概念"></a>我们先了解两个概念</h3><p>   任意一个数学表达式都可以用二叉树来表示，根节点表示运算符，叶子节点表示数值。</p><p><img src="image.png" alt=""></p><p>根据二叉树遍历方式，那么就有<code>前缀表达式</code>，<code>中缀表达式</code>与<code>后缀表达式</code>三种，人们常习惯用中缀表达式来表示，是因为其较好的可阅读性比较符合人类的思维习惯。但后缀表达式更有利于我们使用计算机来运算。</p><ul><li>中缀表达式：<br>   $a+b$</li><li>后缀表达式：<br>   $ab+$<h3 id="中缀表达式转后缀表达式"><a href="#中缀表达式转后缀表达式" class="headerlink" title="中缀表达式转后缀表达式"></a>中缀表达式转后缀表达式</h3>遍历将中缀表达式，<span style=color:red><strong>准备一个队列和一个临时空栈–&gt;遍历表达式–&gt;数值入队列–&gt;运算符入栈–&gt;匹配右边括号符`)`的时候需要将栈依次出栈到队列中直至出现左边括号符`(`-&gt;最后将栈2的所有符号都出栈到队列</strong></span>，最后就会得到一个队列即为后缀表达式，操作流程如下图，注意<code>括号是不入队列表达式的也就是说待计算的后缀表达式中是没有括号的</code>。<br><img src="image-1.png" alt=""><br><img src="image-2.png" alt=""><br><img src="image-3.png" alt=""><br><img src="image-4.png" alt=""><h3 id="后缀表达式计算"><a href="#后缀表达式计算" class="headerlink" title="后缀表达式计算"></a>后缀表达式计算</h3>后缀表达式计算就比较简单了，如下图：<br><span style=color:red><strong>准备一个空栈–&gt;表达式依次入栈–&gt;数值直接入栈–&gt;遇到运算符就出栈两个数运算-&gt;将计算出新的数值入栈</strong></span>，最后就会得到一个数值即为运算结果。<br><img src="image-5.png" alt=""></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;题：计算数学表达式-color-green-1-2-times-3-5-2&quot;&gt;&lt;a href=&quot;#题：计算数学表达式-color-green-1-2-times-3-5-2&quot; class=&quot;headerlink&quot; title=&quot;题：计算数学表达式 $\color{green}1+2\times(3-(5+2))=?$&quot;&gt;&lt;/a&gt;题：计算数学表达式 $\color{green}1+2\times(3-(5+2))=?$&lt;/h2&gt;
+    
+    </summary>
+    
+    
+      <category term="c/c++" scheme="https://icevil.cn/categories/c-c/"/>
+    
+    
+      <category term="算法" scheme="https://icevil.cn/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="栈" scheme="https://icevil.cn/tags/%E6%A0%88/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Linux gdb 调试core dump</title>
     <link href="https://icevil.cn/2019/10/18/Linux%20gdb%20%E8%B0%83%E8%AF%95core%20dump/"/>
     <id>https://icevil.cn/2019/10/18/Linux%20gdb%20%E8%B0%83%E8%AF%95core%20dump/</id>
@@ -115,9 +140,9 @@
       <category term="Qt" scheme="https://icevil.cn/categories/Qt/"/>
     
     
-      <category term="qt" scheme="https://icevil.cn/tags/qt/"/>
-    
       <category term="打包" scheme="https://icevil.cn/tags/%E6%89%93%E5%8C%85/"/>
+    
+      <category term="qt" scheme="https://icevil.cn/tags/qt/"/>
     
       <category term="windeployqt" scheme="https://icevil.cn/tags/windeployqt/"/>
     
@@ -504,36 +529,11 @@
       <category term="Qt" scheme="https://icevil.cn/categories/Qt/"/>
     
     
+      <category term="qt" scheme="https://icevil.cn/tags/qt/"/>
+    
       <category term="model" scheme="https://icevil.cn/tags/model/"/>
     
       <category term="view" scheme="https://icevil.cn/tags/view/"/>
-    
-      <category term="qt" scheme="https://icevil.cn/tags/qt/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>QT5如何打包到Ubuntu16</title>
-    <link href="https://icevil.cn/2018/06/20/QT5%E5%A6%82%E4%BD%95%E6%89%93%E5%8C%85%E5%88%B0Ubuntu16/"/>
-    <id>https://icevil.cn/2018/06/20/QT5%E5%A6%82%E4%BD%95%E6%89%93%E5%8C%85%E5%88%B0Ubuntu16/</id>
-    <published>2018-06-20T04:16:12.000Z</published>
-    <updated>2020-02-18T01:48:06.917Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近一个跨平台的项目打包折腾的够呛，所以记录一波。没有用打包工具也正好从原理层分析讲解。qt自带的打包工具其实会方便但是冗余依赖库也挺多。具体看需求了。</p><a id="more"></a><p><code>ldd 应用程序名</code></p><p>可以查看该应用程序名下面的所有依赖库，所以该命令很重要。网上有人利用该命令去导出所以依赖库，附代码如下：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"> </span><br><span class="line">exe=<span class="string">"./appname"</span></span><br><span class="line"><span class="comment">#发布的程序名</span></span><br><span class="line">des=<span class="string">"/home/myname/Qt5.9/"</span></span><br><span class="line"><span class="comment">#目标路径</span></span><br><span class="line"> </span><br><span class="line">deplist=$(ldd <span class="variable">$exe</span> | awk <span class="string">'&#123;if (match($3,"/")) &#123; printf("%s "),$3 &#125; &#125;'</span>)</span><br><span class="line">cp <span class="variable">$deplist</span> <span class="variable">$des</span></span><br></pre></td></tr></table></figure><p>看上去很完美，当程序依旧运行不了的时候，才发现人家的东西毕竟不是自己的，所以追本溯源才是重要的。根据程序报错来解决呗。</p><ol><li>报错QT_5库no found：</li></ol><p>进入开发机的qt安装目录如：<code>/opt/qt5.9.4/5.9.4/gcc_64/（本人是64位系统）</code>，几个目录简要说明：</p><p><code>bin/</code>    属于qt的一些运行文件如qmake,moc,designer等等</p><p>（附加说明一下，该目录下有一个qt.conf文件，该文件是用来指定程序路径结构的）</p><p><code>include/</code>    包含了所有qt的头文件</p><p><code>doc/</code>    帮助文档等</p><p><code>translation/</code>    qtcreate支持的所有语言语种</p><p><code>mkspecs/</code>    qt支持的所有编译器</p><p><code>phrasebooks/</code>    qt常用语手册，多国语言</p><p><code>qml/</code>    qml相关</p><p><code>lib/</code>    所有qt程序依赖库</p><p><code>plugins/</code>    所有qt插件</p><p>有平台相关，图片相关，多媒体，qml，sql，xcb等等。</p><p>拷贝lib目录下的程序依赖库到lib文件夹，到时候直接拷贝整个文件夹到目标机中即可。</p><p>根据错误提示，基本</p><p><code>cp -a libQt5Core.so* libQt5Widget.so* libQt5Gui.so* libQt5Netword.so* libQt5Svg.so* libQt5Sql.so* libQt5SerialPort.so* 目标路径/lib</code></p><p>为什么要用*结尾，目的是连软链接一起拷贝走，否则，系统还是用自带的qt库，所以我们需要<code>libQt5Core.so.5</code>这样的软链接被新版本覆盖掉，还有一种方式就是重命名所有的依赖库，linux下的动态库可是有一串的版本相关，这点上windows显得更精简。</p><p>最后将目标路径/lib拷贝到目标机的 <code>/usr/lib/x86...(64位机)</code>，运行报错不一样了，说明依赖的qt库有作用了。</p><ol start="2"><li>继续报错qt5，但库明显不一样了。</li></ol><p>步骤同上：</p><p><code>cp -a libicui18n.so* libicuuc.so* libicudata.so* 目标路径/lib</code></p><p>这次报错不一样了</p><ol start="3"><li>“xcb”平台相关xcb no found</li></ol><p>xcb相关的东西是真多，好在系统已经自带了一部，我们只需拷贝qt相关的就好了</p><p><code>cp -a libQt5DBus.so* libQt5XcbQpa.so.5*目标路径/lib</code></p><p><code>cp -a plugins/platforms plugins/xcbglintegrations 目标路径/plugins</code>（将qt的xcb插件拷贝到目标机，目标路径为运行文件所在路径）</p><p>此处花费时间最长，网上各种说法，真是五花八门。其实很简单就能解决的。linux就是很多这种看似很复杂实际很简单的操作，被人们用的太乱导致的。</p><p>此时程序终于可以爬起来了。但是</p><ol start="4"><li>程序图标不显示</li></ol><p>第一反应是images/目录没拷贝过来，是不是像win程序那样要加载资源，cp，然而一样，才醒悟过来，编译的时候就已经编译进去了。后面这点在开发机得以证实，是不需要images的。仔细查看运行中的程序发现是部分图片没显示，对比发现ico能显示正常，png显示不了，发现qt插件中还有个imageformats文件夹呢，一试，果然好了，此时程序基本ok了。</p><p><code>cp -a plugins/imageformats 目标路径/plugins</code>（这里发现iconengines与sqldrivers等居然可以不要拷贝？嗯，后续遇到再拷贝过来吧。本程序是有用ico，sql的哦）</p><ol start="5"><li>不能播放声音</li></ol><p>呵，简单了，<code>cp -a plugins/mediaservice playlistformats 目标路径/plugins</code></p><p>然而并没有用！！！baidu。果然没什么卵用。基本就是说gstreame/dsengine,后面才知道这两个一个是linux的开源多媒体引擎，一个是win平台的多媒体引擎。对比两平台的mediaservice插件，果然win是<code>dsengine.dll</code>. linux是<code>libgst*.so.</code>那就看看这些库依赖的库呗。目标机执行</p><p><code>ldd libgst*.so.</code>    呵呵，no found <code>libQt5MultiMedia</code> 。。等等。统统cp一下。GAME START!完美！</p><p><strong>补充：</strong></p><ol><li>linux系统提供的共享库目录是<code>/lib</code>，<code>/usr/lib (64位是/usr/lib/x86_64-linux-gun)</code>。如何添加新的搜索目录？</li><li>添加的搜索路径默认是放在<code>/etc/ld.so.conf.d/</code>目录下的所有文件中的，所以只需要在该目录下新建一个文件比如说<code>opencv.conf</code>，然后在该文件中加入.so文件的路径，比如<code>/usr/local/lib</code> 就可以了。切记，添加完后执行<code>ldconfig</code>使命令生效。</li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近一个跨平台的项目打包折腾的够呛，所以记录一波。没有用打包工具也正好从原理层分析讲解。qt自带的打包工具其实会方便但是冗余依赖库也挺多。具体看需求了。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Qt" scheme="https://icevil.cn/categories/Qt/"/>
-    
-    
-      <category term="qt" scheme="https://icevil.cn/tags/qt/"/>
-    
-      <category term="打包" scheme="https://icevil.cn/tags/%E6%89%93%E5%8C%85/"/>
     
   </entry>
   

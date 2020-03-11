@@ -26,6 +26,26 @@
       </tags>
   </entry>
   <entry>
+    <title>表达式计算</title>
+    <url>/2019/12/24/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AE%A1%E7%AE%97/</url>
+    <content><![CDATA[<h2 id="题：计算数学表达式-color-green-1-2-times-3-5-2"><a href="#题：计算数学表达式-color-green-1-2-times-3-5-2" class="headerlink" title="题：计算数学表达式 $\color{green}1+2\times(3-(5+2))=?$"></a>题：计算数学表达式 $\color{green}1+2\times(3-(5+2))=?$</h2><a id="more"></a>
+<h2 id="解："><a href="#解：" class="headerlink" title="解："></a>解：</h2><h3 id="我们先了解两个概念"><a href="#我们先了解两个概念" class="headerlink" title="我们先了解两个概念"></a>我们先了解两个概念</h3><p>   任意一个数学表达式都可以用二叉树来表示，根节点表示运算符，叶子节点表示数值。</p>
+<p><img src="image.png" alt=""></p>
+<p>根据二叉树遍历方式，那么就有<code>前缀表达式</code>，<code>中缀表达式</code>与<code>后缀表达式</code>三种，人们常习惯用中缀表达式来表示，是因为其较好的可阅读性比较符合人类的思维习惯。但后缀表达式更有利于我们使用计算机来运算。</p>
+<ul>
+<li>中缀表达式：<br>   $a+b$</li>
+<li>后缀表达式：<br>   $ab+$<h3 id="中缀表达式转后缀表达式"><a href="#中缀表达式转后缀表达式" class="headerlink" title="中缀表达式转后缀表达式"></a>中缀表达式转后缀表达式</h3>遍历将中缀表达式，<span style=color:red><strong>准备一个队列和一个临时空栈–&gt;遍历表达式–&gt;数值入队列–&gt;运算符入栈–&gt;匹配右边括号符`)`的时候需要将栈依次出栈到队列中直至出现左边括号符`(`-&gt;最后将栈2的所有符号都出栈到队列</strong></span>，最后就会得到一个队列即为后缀表达式，操作流程如下图，注意<code>括号是不入队列表达式的也就是说待计算的后缀表达式中是没有括号的</code>。<br><img src="image-1.png" alt=""><br><img src="image-2.png" alt=""><br><img src="image-3.png" alt=""><br><img src="image-4.png" alt=""><h3 id="后缀表达式计算"><a href="#后缀表达式计算" class="headerlink" title="后缀表达式计算"></a>后缀表达式计算</h3>后缀表达式计算就比较简单了，如下图：<br><span style=color:red><strong>准备一个空栈–&gt;表达式依次入栈–&gt;数值直接入栈–&gt;遇到运算符就出栈两个数运算-&gt;将计算出新的数值入栈</strong></span>，最后就会得到一个数值即为运算结果。<br><img src="image-5.png" alt=""></li>
+</ul>
+]]></content>
+      <categories>
+        <category>c/c++</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>栈</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux gdb 调试core dump</title>
     <url>/2019/10/18/Linux%20gdb%20%E8%B0%83%E8%AF%95core%20dump/</url>
     <content><![CDATA[<p>gdb使用两个推荐链接：<a href="https://www.cnblogs.com/mister-lv/p/6022841.html" target="_blank" rel="noopener">GDB中文手册</a> <a href="https://www.jianshu.com/p/b7896e9afeb7" target="_blank" rel="noopener">GDB常用命令</a></p>
@@ -106,8 +126,8 @@
         <category>Qt</category>
       </categories>
       <tags>
-        <tag>qt</tag>
         <tag>打包</tag>
+        <tag>qt</tag>
         <tag>windeployqt</tag>
       </tags>
   </entry>
@@ -532,9 +552,9 @@ rebase操作可以把本地未push的分叉提交历史整理成直线；</li>
         <category>Qt</category>
       </categories>
       <tags>
+        <tag>qt</tag>
         <tag>model</tag>
         <tag>view</tag>
-        <tag>qt</tag>
       </tags>
   </entry>
   <entry>
@@ -601,8 +621,8 @@ rebase操作可以把本地未push的分叉提交历史整理成直线；</li>
         <category>Qt</category>
       </categories>
       <tags>
-        <tag>qt</tag>
         <tag>打包</tag>
+        <tag>qt</tag>
       </tags>
   </entry>
   <entry>
