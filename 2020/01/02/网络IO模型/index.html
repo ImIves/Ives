@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/uploads/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/uploads/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"icevil.cn","root":"/","scheme":"Mist","version":"7.7.1","exturl":false,"sidebar":{"position":"left","width":310,"display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="网络 IO，会涉及到两个系统对象，一个是用户空间调用IO的进程或者线程，另一个是内核空间的内核系统，比如发生 IO 操作 read 时，它会经历两个阶段：   等待数据准备就绪  将数据从内核拷贝到进程或者线程中。  因为在以上两个阶段上各有不同的情况，所以出现了多种网络 IO 模型 。本文主要介绍五种网络IO模型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络IO模型">
+<meta property="og:url" content="https://icevil.cn/2020/01/02/%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Ives&#39;s Blog">
+<meta property="og:description" content="网络 IO，会涉及到两个系统对象，一个是用户空间调用IO的进程或者线程，另一个是内核空间的内核系统，比如发生 IO 操作 read 时，它会经历两个阶段：   等待数据准备就绪  将数据从内核拷贝到进程或者线程中。  因为在以上两个阶段上各有不同的情况，所以出现了多种网络 IO 模型 。本文主要介绍五种网络IO模型">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://icevil.cn/2020/01/02/%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B/blocking.png">
+<meta property="og:image" content="https://icevil.cn/2020/01/02/%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B/block.png">
+<meta property="og:image" content="https://icevil.cn/2020/01/02/%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B/multiThreadsvr.png">
+<meta property="og:image" content="https://icevil.cn/2020/01/02/%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B/non-blockingio.png">
+<meta property="og:image" content="https://icevil.cn/2020/01/02/%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B/non-blocking-single.png">
+<meta property="og:image" content="https://icevil.cn/2020/01/02/%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B/io-multiplexing.png">
+<meta property="og:image" content="https://icevil.cn/2020/01/02/%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B/select.png">
+<meta property="og:image" content="https://icevil.cn/2020/01/02/%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B/select-event.png">
+<meta property="og:image" content="https://icevil.cn/2020/01/02/%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B/asynchrIO.png">
+<meta property="og:image" content="https://icevil.cn/2020/01/02/%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B/singalIO.png">
+<meta property="og:image" content="https://icevil.cn/2020/01/02/%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B/reactor-class.png">
+<meta property="og:image" content="https://icevil.cn/2020/01/02/%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B/reactor.png">
+<meta property="og:image" content="https://icevil.cn/2020/01/02/%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B/proactor_uml.jpg">
+<meta property="og:image" content="https://icevil.cn/2020/01/02/%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B/proactor_flow.png">
+<meta property="og:image" content="https://icevil.cn/2020/01/02/%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B/11.png">
+<meta property="article:published_time" content="2020-01-02T07:38:33.000Z">
+<meta property="article:modified_time" content="2020-03-03T14:07:45.412Z">
+<meta property="article:author" content="Ives">
+<meta property="article:tag" content="c&#x2F;c++">
+<meta property="article:tag" content="socket">
+<meta property="article:tag" content="io">
+<meta property="article:tag" content="select">
+<meta property="article:tag" content="poll">
+<meta property="article:tag" content="epoll">
+<meta property="article:tag" content="iocp">
+<meta property="article:tag" content="network">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://icevil.cn/2020/01/02/%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B/blocking.png">
+
+<link rel="canonical" href="https://icevil.cn/2020/01/02/%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>网络IO模型 | Ives's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Ives's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta custom-logo">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ives's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Reading maketh a full man; conference a ready man; and writing an exact man. --Fransis Bacon</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404.html" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/" class="github-corner" title="去全球最大同性交友网站，走！" aria-label="去全球最大同性交友网站，走！" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2020/01/02/%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ives">
+      <meta itemprop="description" content="程序员要学的真是没完没了...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ives's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          网络IO模型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-02 15:38:33" itemprop="dateCreated datePublished" datetime="2020-01-02T15:38:33+08:00">2020-01-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c-c/" itemprop="url" rel="index">
+                    <span itemprop="name">c/c++</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>网络 IO，会涉及到两个系统对象，<span style=color:#ff3366>一个是用户空间调用IO的进程或者线程，另一个是内核空间的内核系统</span>，比如发生 IO 操作 read 时，它会经历两个阶段： </p>
+<ol>
+<li>等待数据准备就绪 </li>
+<li>将数据从内核拷贝到进程或者线程中。</li>
+</ol>
+<p>因为在以上两个阶段上各有不同的情况，所以出现了多种网络 IO 模型 。本文主要介绍五种网络IO模型</p>
+<a id="more"></a>
+<h2 id="阻塞IO-blocking-io"><a href="#阻塞IO-blocking-io" class="headerlink" title="阻塞IO(blocking io)"></a>阻塞IO(blocking io)</h2><p>在 linux 中，默认情况下所有的 socket 都是 blocking，一个典型的读操作流程<br><img src="blocking.png" alt="" title="blocking io"><br>当用户进程调用了 read 这个系统调用，kernel 就开始了 IO 的第一个阶段：准备数据。对于 <code>network io</code> 来说，很多时候数据在一开始还没有到达（比如，还没有收到一个完整的数据包）， 这个时候 kernel 就要等待足够的数据到来。而在用户进程这边，整个进程会被阻塞。当 kernel 一直等到数据准备好了，它就会将数据从 kernel 中拷贝到用户内存，然后 kernel 返回结果， 用户进程才解除 block 的状态，重新运行起来。<br>所以，<span style=color:#ff3366>blocking IO 的特点就是在 IO 执行的两个阶段（等待数据和拷贝数据两个阶段）都被 block 了</span>。<br>一般程序员接触到的网络编程都是从 <code>listen()</code>、<code>send()</code>、<code>recv()</code> 等接口开始的， 这些接口都是阻塞型的。使用这些接口可以很方便的构建服务器/客户机的模型。下面是一 个简单地“一问一答”的服务器。<br><img src="block.png" alt="" title="一问一答服务器"><br>大部分的 <code>socket</code> 接口都是阻塞型的。所谓阻塞型接口是指系统调用（一般是 IO 接口） 不返回调用结果并让当前线程一直阻塞，只有当该系统调用获得结果或者超时出错时才返 回。 实际上，除非特别指定，几乎所有的 IO 接口 ( 包括 <code>socket</code> 接口 ) 都是阻塞型的。这给 网络编程带来了一个很大的问题，如在调用 <code>send()</code>的同时，线程将被阻塞，在此期间，线程 将无法执行任何运算或响应任何的网络请求。 一个简单的改进方案是在服务器端使用多线程（或多进程）。<span style=color:#ff3366><strong>多线程（或多进程）的目的是让每个连接都拥有独立的线程（或进程），这样任何一个连接的阻塞都不会影响其他的连接</strong></span>。具体使用多进程还是多进程，并没有一个特定的模式。</p>
+<blockquote>
+<p>多线程还是多进程的选择：<br>传统意义上，进程的开销要远远大于线程，所以如果需要同时为较多的客户机提供服务，则不推荐使用多进程；如果单个服务执行体需要消耗较多的CPU资源，譬如需要进行大规模或长时间的数据运算或文件访问， 则进程较为安全。通常，使用 <code>pthread_create ()</code>创建新线程，<code>fork()</code>创建新进程。 </p>
+</blockquote>
+<p>我们让服务器同时为多个客户机提供一问一答的服务。于是有了如下的模型<br><img src="multiThreadsvr.png" alt=""></p>
+<center>多线程服务器模型</center>
+
+<blockquote>
+<p>在上述的<code>线程/时间</code>图例中，主线程持续等待客户端的连接请求，如果有连接，则创建新线程，并在新线程中提供为前例同样的问答服务。 很多初学者可能不明白为何一个 socket 可以 accept 多次。实际上 socket 的设计者 可能特意为多客户机的情况留下了伏笔，让 accept()能够返回一个新的 socket。下面是 accept 接口的原型：<code>int accept(int s, struct sockaddr *addr, socklen_t *addrlen);</code><br> 输入参数 s 是从 <code>socket()</code>，<code>bind()</code>和 <code>listen()</code>中沿用下来的 socket 句柄。执行完 <code>bind()</code>和 <code>listen()</code>后，操作系统已经开始在指定的端口处监听所有的连接请求，如果有请求，则将该连接请求加入请求队列。调用 <code>accept()</code>接口正是从 <code>socket s</code> 的请求队列抽 取第一个连接信息，创建一个与 <code>s</code> 同类的新的 <code>socket</code> 返回句柄。新的 <code>socket</code> 句柄即是后 续 <code>read()</code>和 <code>recv()</code>的输入参数。如果请求队列当前没有请求，则 <code>accept()</code> 将进入阻塞 状态直到有请求进入队列。</p>
+</blockquote>
+<p> <strong>上述多线程的服务器模型似乎完美的解决了为多个客户机提供问答服务的要求，但其实 并不尽然。如果要同时响应成百上千路的连接请求，则无论多线程还是多进程都会严重占据 系统资源，降低系统对外界响应效率，而线程与进程本身也更容易进入假死状态。</strong> </p>
+<p> 很多程序员可能会考虑使用“线程池”或“连接池”。“线程池”旨在<span style=color:#ff3366>减少创建和销毁线程的频率</span>，其维持一定合理数量的线程，并让空闲的线程重新承担新的执行任务。“连接池”维持连接的缓存池，尽量重用已有的连接,<span style=color:#ff3366>减少创建和关闭连接的频率</span>。这两种技术都可以很好的降低系统开销，都被广泛应用很多大型系统，如 <code>websphere</code>、<code>tomcat</code> 和各种<code>数据库</code>等。 但是，“线程池”和“连接池”技术也只是在一定程度上缓解了频繁调用 <code>IO</code> 接口带来的资源占用。而且，所谓“池”始终有其上限，当请求大大超过上限时，“池”构成的系统对外界的响应并不比没有池的时候效果好多少。所以使用“池”必须考虑其面临的响应规模，并根据响应规模调整“池”的大小。</p>
+<p>对应上例中的所面临的可能同时出现的上千甚至上万次的客户端请求，“线程池”或“连接池”或许可以缓解部分压力，但是不能解决所有问题。<strong>总之，多线程模型可以方便高效的 解决小规模的服务请求，但面对大规模的服务请求，多线程模型也会遇到瓶颈，可以用非阻塞接口来尝试解决这个问题。</strong></p>
+<h2 id="非阻塞-IO（non-blocking-IO）"><a href="#非阻塞-IO（non-blocking-IO）" class="headerlink" title="非阻塞 IO（non-blocking IO）"></a>非阻塞 IO（non-blocking IO）</h2><p>Linux 下，可以通过设置 <code>socket</code> 使其变为 <code>non-blocking</code>。当对一个 <code>non-blocking socket</code> 执行读 操作时，流程是这个样子:<br><img src="non-blockingio.png" alt=""></p>
+<center>非阻塞 IO</center>
+
+<blockquote>
+<p>从图中可以看出，当用户进程发出 read 操作时，如果 <code>kernel</code> 中的数据还没有准备好，那 么它并不会 <code>block</code> 用户进程，而是立刻返回一个 <code>error</code>。从用户进程角度讲 ，它发起一个 <code>read</code> 操作后，并不需要等待，而是马上就得到了一个结果。用户进程判断结果是一个 <code>error</code> 时，它就知道数据还没有准备好，于是它可以再次发送 <code>read</code> 操作。一旦 <code>kernel</code> 中的数据 准备好了，并且又再次收到了用户进程的 <code>system call</code>，那么它马上就将数据拷贝到了用 户内存，然后返回，所以，在<code>非阻塞式 IO</code> 中，用户进程其实是需要不断的主动询问 <code>kernel</code> 数据准备好了没有。 在非阻塞状态下，<code>recv()</code> 接口在被调用后立即返回，返回值代表了不同的含义。如在本例中， </p>
+</blockquote>
+<ul>
+<li>recv() 返回值大于 0，表示接受数据完毕，返回值即是接受到的字节数； </li>
+<li>recv() 返回 0，表示连接已经正常断开； </li>
+<li>recv() 返回 -1，且 <code>errno</code> 等于 <code>EAGAIN</code>，表示 <code>recv</code> 操作还没执行完成； </li>
+<li>recv() 返回 -1，且 <code>errno</code> 不等于 <code>EAGAIN</code>，表示 <code>recv</code> 操作遇到系统错误 <code>errno</code>。</li>
+</ul>
+<p><strong>非阻塞的接口相比于阻塞型接口的显著差异在于，在被调用之后立即返回。</strong>使用如下 的函数可以将某句柄 <code>fd</code> 设为非阻塞状态。<br><code>fcntl( fd, F_SETFL, O_NONBLOCK );</code><br>下面将给出只用一个线程，但能够同时从多个连接中检测数据是否送达，并且接受数据的模型。<br><img src="non-blocking-single.png" alt=""></p>
+<center>使用非阻塞io的单线程服务器</center>
+
+<blockquote>
+<p>可以看到服务器线程可以通过循环调用 <code>recv()</code>接口，可以在单个线程内实现对所有连 接的数据接收工作。但是上述模型绝不被推荐。因为，循环调用 <code>recv()</code>将大幅度推高 CPU 占用率；此外，在这个方案中 <code>recv()</code>更多的是起到检测“操作是否完成”的作用，实际操作系统提供了更为高效的检测“操作是否完成“作用的接口，例如 <code>select()多路复用模式</code>， 可以一次检测多个连接是否活跃。 </p>
+</blockquote>
+<h2 id="多路复用IO（IO-multiplexing）"><a href="#多路复用IO（IO-multiplexing）" class="headerlink" title="多路复用IO（IO multiplexing）"></a>多路复用IO（IO multiplexing）</h2><p><code>IO multiplexing</code> 这个词可能有点陌生，但是提到 <code>select/epoll</code>，大概就都能明白了。有些地方 也称这种 <code>IO</code> 方式为事件驱动 <code>IO</code>(<code>event driven IO</code>)。我们都知道，<code>select/epoll</code> 的好处就在于单个 <code>process</code> 就可以同时处理多个网络连接的 IO。它的基本原理就是 <code>select/epoll</code> 这个 <code>function</code> 会不断的轮询所负责的所有 <code>socket</code>，当某个 <code>socket</code> 有数据到达了，就通知用户进程。它的流程如图：<br><img src="io-multiplexing.png" alt=""></p>
+<center>IO多路复用</center>
+
+<blockquote>
+<p>当用户进程调用了 <code>select</code>，那么整个进程会被 <code>block</code>，而同时，<code>kernel</code> 会“监视”所有 <code>select</code> 负责的 <code>socket</code>，当任何一个 <code>socket</code> 中的数据准备好了，<code>select</code> 就会返回。这个时候用户进程再调用 <code>read</code> 操作，将数据从 <code>kernel</code> 拷贝到用户进程。 这个图和 <code>blocking IO</code> 的图其实并没有太大的不同，事实上还更差一些。因为这里需要使用两个系统调用(<code>select</code> 和 <code>read</code>)，而 <code>blocking IO</code> 只调用了一个系统调用(<code>read</code>)。 但是使用 <code>select</code> 以后最大的优势是用户可以在一个线程内同时处理多个 <code>socket</code> 的 <code>IO 请求</code>。用户可以注册多个 <code>socket</code>，然后不断地调用 <code>select</code> 读取被激活的 <code>socket</code>，即可达到 在同一个线程内同时处理多个 <code>IO</code> 请求的目的。而在同步阻塞模型中，必须通过多线程的方式才能达到这个目的。（多说一句：所以，如果处理的连接数不是很高的话，使用 <code>select/epoll</code> 的 <code>web server</code> 不一定比使用 <code>multi-threading</code> + <code>blocking IO</code> 的 <code>web server</code> 性能更好，可能延迟还更大。<code>select/epoll</code> 的优势并不是对于单个连接能处理得更快，而是在于能处理更多的连接。）<br>在多路复用模型中，对于每一个 <code>socket</code>，一般都设置成为 <code>non-blocking</code>，但是，上图所示，整个用户的 <code>process</code> 其实是一直被 <code>block</code> 的。只不过 <code>process</code> 是被 <code>select</code> 这 个函数 <code>block</code>，而不是被 <code>socket IO</code> 给 <code>block</code>。因此 <code>select()</code>与<code>非阻塞IO</code> 类似。<br>大部分 Unix/Linux 都支持 select 函数，该函数用于探测多个文件句柄的状态变化。 下面给出 select 接口的原型：</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FD_ZERO(<span class="keyword">int</span> fd, fd_set* fds)      </span><br><span class="line">FD_SET(<span class="keyword">int</span> fd, fd_set* fds)      </span><br><span class="line">FD_ISSET(<span class="keyword">int</span> fd, fd_set* fds)      </span><br><span class="line">FD_CLR(<span class="keyword">int</span> fd, fd_set* fds)     </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(<span class="keyword">int</span> nfds, fd_set *readfds, fd_set *writefds</span></span></span><br><span class="line"><span class="function"><span class="params">    , fd_set *exceptfds, struct timeval *timeout)</span></span></span><br></pre></td></tr></table></figure>
+<p>这里，<code>fd_set</code> 类型可以简单的理解为按 <code>bit</code> 位标记句柄的队列，例如要在某 <code>fd_set</code> 中标记一个值为 16 的句柄，则该 <code>fd_set</code> 的第 16 个 bit 位被标记为 1。具体的置位、验证 可使用 <code>FD_SET</code>、<code>FD_ISSET</code> 等宏实现。在 <code>select()</code>函数中，<code>readfds</code>、<code>writefds</code> 和 <code>exceptfds</code> 同时作为输入参数和输出参数。如果输入的 <code>readfds</code> 标记了 16 号句柄，则 <code>select()</code>将检测 16 号句柄是否可读。在 <code>select()</code>返回后，可以通过检查 <code>readfds</code> 有否标 记 16 号句柄，来判断该“可读”事件是否发生。另外，用户可以设置 <code>timeout</code> 时间。 下面将重新模拟上例中从多个客户端接收数据的模型。<br><img src="select.png" alt=""></p>
+<center>select 模型</center>
+
+<blockquote>
+<p>上述模型只是描述了使用 <code>select()</code>接口同时从多个客户端接收数据的过程；由于 <code>select()</code> 接口可以同时对多个句柄进行读状态、写状态和错误状态的探测，所以可以很容易构建为多个客户端提供独立问答服务的服务器系统。 </p>
+</blockquote>
+<p><img src="select-event.png" alt=""></p>
+<center>基于事件驱动的select模型</center>
+
+<blockquote>
+<p>这里需要指出的是，客户端的一个 <code>connect()</code> 操作，将在服务器端激发一个“可读事件”，所以 <code>select()</code> 也能探测来自客户端的 <code>connect()</code> 行为。 </p>
+</blockquote>
+<p>上述模型中，最关键的地方是如何动态维护 <code>select()</code>的三个参数 <code>readfds</code>、<code>writefds</code> 和 <code>exceptfds</code>。作为输入参数，<code>readfds</code> 应该标记所有的需要探测的“可读事件”的句柄， 其中永远包括那个探测 <code>connect()</code> 的那个“母”句柄；同时，<code>writefds</code> 和 <code>exceptfds</code> 应 该标记所有需要探测的“可写事件”和“错误事件”的句柄 ( 使用 <code>FD_SET()</code> 标记 )。 作为输出参数，<code>readfds</code>、<code>writefds</code> 和 <code>exceptfds</code> 中的保存了 <code>select()</code> 捕捉到的所有事件的句柄值。程序员需要检查的所有的标记位 ( 使用 <code>FD_ISSET()</code>检查 )，以确定到底哪些句柄发生了事件。</p>
+<p>上述模型主要模拟的是“一问一答”的服务流程，所以如果 <code>select()</code>发现某句柄捕捉到了“可读事件”，服务器程序应及时做<code>recv()</code>操作，并根据接收到的数据准备好待发送数据， 并将对应的句柄值加入 <code>writefds</code>，准备下一次的“可写事件”的 <code>select()</code>探测。同样，如果 <code>select()</code>发现某句柄捕捉到“可写事件”，则程序应及时做 <code>send()</code>操作，并准备好下一 次的“可读事件”探测准备。<br><strong>这种模型的特征在于每一个执行周期都会探测一次或一组事件，一个特定的事件会触发 某个特定的响应。我们可以将这种模型归类为“事件驱动模型”。</strong><br>相比其他模型，使用 <code>select()</code> 的事件驱动模型只用单线程（进程）执行，占用资源少，不消耗太多 CPU，同时能够为多客户端提供服务。如果试图建立一个简单的事件驱动的服务器程序，这个模型有一定的参考价值。 </p>
+<p>但这个模型依旧有着很多问题。</p>
+<ol>
+<li>首先 <code>select()</code>接口并不是实现“事件驱动”的最好选择。 因为当需要探测的句柄值较大时，<code>select()</code>接口本身需要消耗大量时间去轮询各个句柄。 很多操作系统提供了更为高效的接口，如<code>linux</code>提供了<code>epoll</code>，<code>BSD</code>提供了<code>kqueue</code>，<code>Solaris</code> 提供了<code>/dev/poll</code>，…。如果需要实现更高效的服务器程序，类似 epoll 这样的接口更被推 荐。遗憾的是不同的操作系统特供的 epoll 接口有很大差异，所以使用类似于 epoll 的接 口实现具有较好跨平台能力的服务器会比较困难。 </li>
+<li>其次，该模型将事件探测和事件响应夹杂在一起，一旦事件响应的执行体庞大，则对整 个模型是灾难性的。如，庞大的执行体 1 将直接导致响应事件 2 的执行体迟迟得不到执行，并在很大程度上降低了事件探测的及时性。 </li>
+</ol>
+<p>幸运的是，有很多高效的事件驱动库可以屏蔽上述的困难，常见的事件驱动库有 <code>libevent</code> 库，还有作为 <code>libevent</code> 替代者的 <code>libev</code> 库。这些库会根据操作系统的特点选择 最合适的事件探测接口，并且加入了信号(<code>signal</code>) 等技术以支持异步响应，这使得这些库成为构建事件驱动模型的不二选择。下章将介绍如何使用 <code>libev</code> 库替换 <code>select</code> 或 <code>epoll</code> 接口，实现高效稳定的服务器模型。<br>实际上，<code>Linux</code> 内核从 2.6 开始，也引入了支持异步响应的 IO 操作，如 <code>aio_read</code>, <code>aio_write</code>，这就是异步IO。</p>
+<h2 id="异步IO（Asynchronous-I-O）"><a href="#异步IO（Asynchronous-I-O）" class="headerlink" title="异步IO（Asynchronous I/O）"></a>异步IO（Asynchronous I/O）</h2><p>Linux 下的 asynchronous IO 用在磁盘 IO 读写操作，不用于网络 IO，从内核 2.6 版本才开始引 入。先看一下它的流程<br><img src="asynchrIO.png" alt=""></p>
+<center>异步IO</center>
+
+<blockquote>
+<p>用户进程发起 <code>read</code> 操作之后，立刻就可以开始去做其它的事。而另一方面，从 <code>kernel</code> 的角度，当它受到一个 <code>asynchronous read</code> 之后，首先它会立刻返回，所以不会对用户进程产生任何 <code>block</code>。然后，<code>kernel</code> 会等待数据准备完成，然后将数据拷贝到用户内存，当这一切都完成之后，kernel 会给用户进程发送一个 <code>signal</code>，告诉它 <code>read</code> 操作完成了。 </p>
+</blockquote>
+<p><strong>异步 IO 是真正非阻塞的，它不会对请求进程产生任何的阻塞，因此对高并发的网络服务器实现至关重要。</strong></p>
+<p>到目前为止，已经将四个 IO 模型都介绍完了。<font size=4>现在回过头来回答最初的两个问题： <code>blocking</code> 和 <code>non-blocking</code> 的区别在哪?<code>synchronous IO</code> 和 <code>asynchronous IO</code> 的区别在哪?</font></p>
+<blockquote>
+<p>先回答最简单的这个：<code>blocking</code> 与 <code>non-blocking</code>。前面的介绍中其实已经很明确的 说明了这两者的区别。调用 <code>blocking IO</code> 会一直 <code>block</code> 住对应的进程直到操作完成，而 <code>non-blocking IO</code> 在 <code>kernel</code> 还在准备数据的情况下会立刻返回。<br>两者的区别就在于 <code>synchronous IO</code> 做<font color=red>“IO operation”</font>的时候会将 <code>process</code> 阻塞。 按照这个定义，之前所述的 <code>blocking IO</code>，<code>non-blocking IO</code>，<code>IO multiplexing</code> 都属于 <code>synchronous IO</code>。有人可能会说，<code>non-blocking IO</code>并没有被 <code>block</code> 啊。这里有个非常 “狡猾”的地方，<font color=red>定义中所指的”IO operation”是指真实的 IO 操作，就是例子中的 read 这个系统调用。</font><code>non-blocking IO</code> 在执行 <code>read</code> 这个系统调用的时候，如果 <code>kernel</code> 的数据没有准备好，这时候不会 <code>block</code> 进程。但是当 <code>kernel</code> 中数据准备好的时候，<code>read</code> 会将数据 从 <code>kernel</code> 拷贝到用户内存中，这个时候进程是被 <code>block</code> 了，在这段时间内进程是被 <code>block</code> 的。而 <code>asynchronous IO</code> 则不一样，当进程发起 IO 操作之后，就直接返回再也不理睬了， 直到<code>kernel</code>发送一个信号，告诉进程说IO完成。在这整个过程中，进程完全没有被<code>block</code>。</p>
+</blockquote>
+<h2 id="信号驱动IO（signal-driven-I-O，-SIGIO）"><a href="#信号驱动IO（signal-driven-I-O，-SIGIO）" class="headerlink" title="信号驱动IO（signal driven I/O， SIGIO）"></a>信号驱动IO（signal driven I/O， SIGIO）</h2><p>首先我们允许套接口进行信号驱动 I/O,并安装一个信号处理函数，进程继续运行并不阻 塞。当数据准备好时，进程会收到一个 SIGIO 信号，可以在信号处理函数中调用 I/O 操作函 数处理数据。当数据报准备好读取时，内核就为该进程产生一个 SIGIO 信号。我们随后既可 以在信号处理函数中调用 read 读取数据报，并通知主循环数据已准备好待处理，也可以立 即通知主循环，让它来读取数据报。无论如何处理 SIGIO 信号，这种模型的优势在于等待数 据报到达(第一阶段)期间，进程可以继续执行，不被阻塞。免去了 select 的阻塞与轮询，当 有活跃套接字时，由注册的 handler 处理。<br><img src="singalIO.png" alt=""></p>
+<center>信号驱动IO</center>
+
+<blockquote>
+<p>经过上面的介绍，会发现 <code>non-blocking IO</code> 和 <code>asynchronous IO</code> 的区别还是很明显的。在 <code>non-blocking IO</code> 中，虽然进程大部分时间都不会被 <code>block</code>，但是它仍然要求进程去主动的 <code>check，</code> 并且当数据准备完成以后，也需要进程主动的再次调用<code>recvfrom</code>来将数据拷贝到用户内存。而 <code>asynchronous IO</code> 则完全不同。它就像是用户进程将整个 <code>IO</code> 操作交给了他人（<code>kernel</code>）完 成，然后他人做完后发信号通知。在此期间，用户进程不需要去检查 IO 操作的状态，也不需要主动的去拷贝数据.</p>
+</blockquote>
+<h2 id="服务器模型-Reactor-与-Proactor"><a href="#服务器模型-Reactor-与-Proactor" class="headerlink" title="服务器模型 Reactor 与 Proactor"></a>服务器模型 Reactor 与 Proactor</h2><p>对高并发编程，网络连接上的消息处理，可以分为两个阶段：等待消息准备、消息处理。当使用默认的阻塞套接字时（例如上面提到的 1 个线程捆绑处理 1 个连接），往往是把 这两个阶段合而为一，这样操作套接字的代码所在的线程就得睡眠来等待消息准备好，这导致了高并发下线程会频繁的睡眠、唤醒，从而影响了 CPU 的使用效率。<br>高并发编程方法当然就是把两个阶段分开处理。即，等待消息准备好的代码段，与处理消息的代码段是分离的。当然，这也要求套接字必须是非阻塞的，否则，处理消息的代码段 很容易导致条件不满足时，所在线程又进入了睡眠等待阶段。那么问题来了，<strong>等待消息准备好这个阶段怎么实现？</strong>它毕竟还是等待，这意味着线程还是要睡眠的！解决办法就是，线程主动查询，或者让 1 个线程为所有连接而等待！这就是 IO 多路复用了。多路复用就是处理 等待消息准备好这件事的，但它可以同时处理多个连接！它也可能“等待”，所以它也会导致 线程睡眠，然而这不要紧，因为它一对多、它可以监控所有连接。这样，当我们的线程被唤醒执行时，就一定是有一些连接准备好被我们的代码执行了。<br>作为一个高性能服务器程序通常需要考虑处理三类事件： <strong>I/O 事件，定时事件及信号</strong>。 下面介绍两种高效的事件处理模型：Reactor 和 Proactor。</p>
+<h3 id="Reactor-模型"><a href="#Reactor-模型" class="headerlink" title="Reactor 模型"></a>Reactor 模型</h3><p>首先来回想一下普通函数调用的机制：程序调用某函数，函数执行，程序等待，函数将 结果和控制权返回给程序，程序继续处理。Reactor 释义“反应堆”，是一种事件驱动机制。 和普通函数调用的不同之处在于：应用程序不是主动的调用某个 API 完成处理，而是恰恰相反，Reactor 逆置了事件处理流程，<font color=red>应用程序需要提供相应的接口并注册到 Reactor 上， 如果相应的时间发生，Reactor 将主动调用应用程序注册的接口，这些接口又称为“回调函数”。</font><br><img src="reactor-class.png" alt=""></p>
+<center>reactor模式uml图</center>
+Reactor 模式是处理并发 I/O 比较常见的一种模式，用于同步 I/O，中心思想是将所有要处理的 I/O 事件注册到一个中心 I/O 多路复用器上，同时主线程/进程阻塞在多路复用器上； 一旦有 I/O 事件到来或是准备就绪(文件描述符或 socket 可读、写)，多路复用器返回并将事 先注册的相应 I/O 事件分发到对应的处理器中。 
+
+<p><strong>Reactor 模型有三个重要的组件：</strong> </p>
+<ul>
+<li>多路复用器：由操作系统提供，在 linux 上一般是 select, poll, epoll 等系统调用。 </li>
+<li>事件分发器：将多路复用器中返回的就绪事件分到对应的处理函数中。 </li>
+<li>事件处理器：负责处理特定事件的处理函数。 </li>
+</ul>
+<p><img src="reactor.png" alt=""></p>
+<center>reactor模式时序图</center>
+
+<p>具体流程如下： </p>
+<ol>
+<li>注册读就绪事件和相应的事件处理器；  </li>
+<li>事件分离器等待事件； </li>
+<li>事件到来，激活分离器，分离器调用事件对应的处理器； </li>
+<li>事件处理器完成实际的读操作，处理读到的数据，注册新的事件，然后返还控制权。</li>
+</ol>
+<p>Reactor 模式是编写高性能网络服务器的必备技术之一，它具有如下的优点： </p>
+<ul>
+<li>响应快，不必为单个同步时间所阻塞，虽然 Reactor 本身依然是同步的； </li>
+<li>编程相对简单，可以最大程度的避免复杂的多线程及同步问题，并且避免了多线程/进 程的切换开销；</li>
+<li>可扩展性，可以方便的通过增加 Reactor 实例个数来充分利用 CPU 资源； </li>
+<li>可复用性，reactor 框架本身与具体事件处理逻辑无关，具有很高的复用性；</li>
+</ul>
+<p>Reactor 模型开发效率上比起直接使用 IO 复用要高，它通常是单线程的，设计目标是希望单线程使用一颗 CPU 的全部资源，但也有附带优点，即每个事件处理中很多时候可以不考虑共享资源的互斥访问。可是缺点也是明显的，现在的硬件发展，已经不再遵循摩尔定律，CPU 的频率受制于材料的限制不再有大的提升，而改为是从核数的增加上提升能力，当程序需要使用多核资源时，Reactor 模型就会悲剧, 为什么呢？<br>如果程序业务很简单，例如只是简单的访问一些提供了并发访问的服务，就可以直接开启多个反应堆，每个反应堆对应一颗 CPU 核心，这些反应堆上跑的请求互不相关，这是完全可以利用多核的。例如: Nginx 这样的 http 静态服务器。 </p>
+<h3 id="Proactor-模型"><a href="#Proactor-模型" class="headerlink" title="Proactor 模型"></a>Proactor 模型</h3><p><img src="proactor_uml.jpg" alt=""></p>
+<center>proactor模式uml图</center>
+
+<p><img src="proactor_flow.png" alt=""></p>
+<center>proactor模式时序图</center>
+
+<p><code>Proactor</code>译作“前摄器模式”是设计模式中重要的一种，具体流程如下： </p>
+<ol>
+<li>处理器发起异步操作，并关注 I/O 完成事件 </li>
+<li>事件分离器等待操作完成事件 </li>
+<li>分离器等待过程中，内核并行执行实际的 I/O 操作，并将结果数据存入用户自定义缓冲区，最后通知事件分离器读操作完成 </li>
+<li>I/O 完成后，通过事件分离器呼唤处理器 </li>
+<li>事件处理器处理用户自定义缓冲区中的数据 </li>
+</ol>
+<p>从上面的处理流程，我们可以发现 <code>proactor</code> 模型最大的特点就是 <code>Proactor</code> 最大的特点是使用异步 I/O。所有的 I/O 操作都交由系统提供的异步 I/O 接口去执行。工作线程仅仅负责业务逻辑。在 Proactor 中，用户函数启动一个异步的文件操作。同时将这个操作注册到多路复用器上。多路复用器并不关心文件是否可读或可写而是关心这个异步读操作是否完成。异步操作是操作系统完成，用户程序不需要关心。多路复用器等待直到有完成通知到来。当操 作系统完成了读文件操作——将读到的数据复制到了用户先前提供的缓冲区之后，通知多路复用器相关操作已完成。多路复用器再调用相应的处理程序，处理数据。       </p>
+<blockquote>
+<p><code>Proactor</code> 增加了编程的复杂度，但给工作线程带来了更高的效率。<code>Proactor</code> 可以在 系统态将读写优化，利用 I/O 并行能力，提供一个高性能单线程模型。在 <code>windows</code> 上， 由于没有 <code>epoll</code> 这样的机制，因此提供了 <code>IOCP</code> 来支持高并发， 由于操作系统做了较好的优化，<code>windows</code> 较常采用 <code>Proactor</code> 的模型利用完成端口来实现服务器。在 <code>linux</code> 上，在 2.6 内核出现了 <code>aio</code> 接口，但 <code>aio</code> 实际效果并不理想，它的出现，主要是解决 <code>poll</code> 性能不佳的问题，但实际上经过测试，<code>epoll</code> 的性能高于 <code>poll+aio</code>，并且 <code>aio</code> 不能处理 <code>accept</code>， 因此 linux 主要还是以 <code>Reactor</code> 模型为主。</p>
+</blockquote>
+<p>在不使用操作系统提供的异步 I/O 接口的情况下，还可以使用 <code>Reactor</code> 来模拟 <code>Proactor</code>， 差别是：使用异步接口可以利用系统提供的读写并行能力，而在模拟的情况下，这需要在用户态实现。具体的做法如下： </p>
+<ol>
+<li>注册读事件（同时再提供一段缓冲区） </li>
+<li>事件分离器等待可读事件 </li>
+<li>事件到来，激活分离器，分离器（立即读数据，写缓冲区）调用事件处理器 </li>
+<li>事件处理器处理数据，删除事件(需要再用异步接口注册)            </li>
+</ol>
+<p>我们知道，<code>Boost.asio</code> 库采用的即为 <code>Proactor</code> 模型。不过 <code>Boost.asio</code> 库在 <code>Linux</code> 平台采用 <code>epoll</code> 实现的 <code>Reactor</code> 来模拟 <code>Proactor</code>，并且另外开了一个线程来完成读写调度。 </p>
+<h3 id="同步-I-O-模拟-Proactor-模型"><a href="#同步-I-O-模拟-Proactor-模型" class="headerlink" title="同步 I/O 模拟 Proactor 模型"></a>同步 I/O 模拟 Proactor 模型</h3><p><img src="11.png" alt=""></p>
+<center>proactor模式流程图</center>
+
+<ol>
+<li>主线程往 epoll 内核事件表中注册 socket 上的读就绪事件。 </li>
+<li>主线程调用 epoll_wait 等待 socket 上有数据可读。 </li>
+<li>当 socket 上有数据可读时，epoll_wait 通知主线程。主线程从 socket 循环读取数据， 直到没有更多数据可读，然后将读取到的数据封装成一个请求对象并插入请求队列。</li>
+<li>睡眠在请求队列上的某个工作线程被唤醒，它获得请求对象并处理客户请求，然后 往 epoll 内核事件表中注册 socket 上的写就绪事件。</li>
+<li>主线程调用 epoll_wait 等待 socket 可写。 </li>
+<li>当 socket 可写时，epoll_wait 通知主线程。主线程往 socket 上写入服务器处理客户 请求的结果。 </li>
+</ol>
+<p>两个模式的相同点，<font color=red>都是对某个 IO 事件的事件通知(即告诉某个模块，这个 IO 操作可以进行或已经完成)。在结构上两者也有相同点：demultiplexor 负责提交 IO 操作(异步)、 查询设备是否可操作(同步)，然后当条件满足时，就回调注册处理函数。</font> </p>
+<p>不同点在于，<font color=red>异步情况下(Proactor)，当回调注册的处理函数时，表示 IO 操作已经完成；同步情况下(Reactor)，回调注册的处理函数时，表示 IO 设备可以进行某个操作(can read or can write)，注册的处理函数这个时候开始提交操作。 </font></p>
+<p><strong>本文参考链接</strong></p>
+<p>本文reactor/proactor盗图自<a href="https://tech.youzan.com/yi-bu-wang-luo-mo-xing/" target="_blank" rel="noopener">xieshuang-异步网络模型</a></p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/uploads/wechatpay.png" alt="Ives 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Ives
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://icevil.cn/2020/01/02/%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B/" title="网络IO模型">https://icevil.cn/2020/01/02/网络IO模型/</a>                   
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="https://twitter.com/Ives">
+                <span class="icon">
+                  <i class="fa fa-twitter"></i>
+                </span>
+
+                <span class="label">Twitter</span>
+              </a>
+            </div>
+
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="/images/wechat.png">
+                <span class="icon">
+                  <i class="fa fa-wechat"></i>
+                </span>
+
+                <span class="label">WeChat</span>
+              </a>
+            </div>
+
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="/atom.xml">
+                <span class="icon">
+                  <i class="fa fa-rss"></i>
+                </span>
+
+                <span class="label">RSS</span>
+              </a>
+            </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/c-c/" rel="tag"><i class="fa fa-tag"></i> c/c++</a>
+              <a href="/tags/socket/" rel="tag"><i class="fa fa-tag"></i> socket</a>
+              <a href="/tags/io/" rel="tag"><i class="fa fa-tag"></i> io</a>
+              <a href="/tags/select/" rel="tag"><i class="fa fa-tag"></i> select</a>
+              <a href="/tags/poll/" rel="tag"><i class="fa fa-tag"></i> poll</a>
+              <a href="/tags/epoll/" rel="tag"><i class="fa fa-tag"></i> epoll</a>
+              <a href="/tags/iocp/" rel="tag"><i class="fa fa-tag"></i> iocp</a>
+              <a href="/tags/network/" rel="tag"><i class="fa fa-tag"></i> network</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/24/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AE%A1%E7%AE%97/" rel="prev" title="表达式计算">
+      <i class="fa fa-chevron-left"></i> 表达式计算
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/01/17/linux%E5%86%85%E6%A0%B8%E7%BC%96%E8%AF%91%E4%B8%8E%E5%8D%87%E7%BA%A7/" rel="next" title="linux内核编译与升级">
+      linux内核编译与升级 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#阻塞IO-blocking-io"><span class="nav-number">1.</span> <span class="nav-text">阻塞IO(blocking io)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非阻塞-IO（non-blocking-IO）"><span class="nav-number">2.</span> <span class="nav-text">非阻塞 IO（non-blocking IO）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多路复用IO（IO-multiplexing）"><span class="nav-number">3.</span> <span class="nav-text">多路复用IO（IO multiplexing）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步IO（Asynchronous-I-O）"><span class="nav-number">4.</span> <span class="nav-text">异步IO（Asynchronous I&#x2F;O）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信号驱动IO（signal-driven-I-O，-SIGIO）"><span class="nav-number">5.</span> <span class="nav-text">信号驱动IO（signal driven I&#x2F;O， SIGIO）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器模型-Reactor-与-Proactor"><span class="nav-number">6.</span> <span class="nav-text">服务器模型 Reactor 与 Proactor</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Reactor-模型"><span class="nav-number">6.1.</span> <span class="nav-text">Reactor 模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Proactor-模型"><span class="nav-number">6.2.</span> <span class="nav-text">Proactor 模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步-I-O-模拟-Proactor-模型"><span class="nav-number">6.3.</span> <span class="nav-text">同步 I&#x2F;O 模拟 Proactor 模型</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ives"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Ives</p>
+  <div class="site-description" itemprop="description">程序员要学的真是没完没了...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">117</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:somepure@foxmail.com" title="E-Mail → mailto:somepure@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+    <!--插入外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" height=240 src="//music.163.com/outchain/player?type=0&id=4866221043&auto=0&height=430"></iframe>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">版权归原作者Ives所有，转载请标注。</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">102k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:33</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

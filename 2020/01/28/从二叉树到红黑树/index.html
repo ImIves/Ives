@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/uploads/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/uploads/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"icevil.cn","root":"/","scheme":"Mist","version":"7.7.1","exturl":false,"sidebar":{"position":"left","width":310,"display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="树有很多种，二叉树，多叉树(B-树，B+树)等，本文主要针对几种较为常用的树，做精要记录，梳理逻辑便于长时间之后的理解与记忆。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从二叉树到红黑树">
+<meta property="og:url" content="https://icevil.cn/2020/01/28/%E4%BB%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91/index.html">
+<meta property="og:site_name" content="Ives&#39;s Blog">
+<meta property="og:description" content="树有很多种，二叉树，多叉树(B-树，B+树)等，本文主要针对几种较为常用的树，做精要记录，梳理逻辑便于长时间之后的理解与记忆。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://icevil.cn/2020/01/28/%E4%BB%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91/rotate.png">
+<meta property="og:image" content="https://icevil.cn/2020/01/28/%E4%BB%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-4996bbfb4017a3b2.png">
+<meta property="og:image" content="https://icevil.cn/2020/01/28/%E4%BB%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-abedf3ecc733ccd5.webp">
+<meta property="og:image" content="https://icevil.cn/2020/01/28/%E4%BB%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-7521866b50683a24.webp">
+<meta property="og:image" content="https://icevil.cn/2020/01/28/%E4%BB%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-fa2b78271263d2c8.webp">
+<meta property="og:image" content="https://icevil.cn/2020/01/28/%E4%BB%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-edaf96e55f08c198.webp">
+<meta property="article:published_time" content="2020-01-28T03:05:00.000Z">
+<meta property="article:modified_time" content="2020-02-29T03:09:11.659Z">
+<meta property="article:author" content="Ives">
+<meta property="article:tag" content="tree">
+<meta property="article:tag" content="rbtree">
+<meta property="article:tag" content="红黑树">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://icevil.cn/2020/01/28/%E4%BB%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91/rotate.png">
+
+<link rel="canonical" href="https://icevil.cn/2020/01/28/%E4%BB%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>从二叉树到红黑树 | Ives's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Ives's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta custom-logo">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ives's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Reading maketh a full man; conference a ready man; and writing an exact man. --Fransis Bacon</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404.html" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/" class="github-corner" title="去全球最大同性交友网站，走！" aria-label="去全球最大同性交友网站，走！" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2020/01/28/%E4%BB%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ives">
+      <meta itemprop="description" content="程序员要学的真是没完没了...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ives's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          从二叉树到红黑树
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-28 11:05:00" itemprop="dateCreated datePublished" datetime="2020-01-28T11:05:00+08:00">2020-01-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c-c/" itemprop="url" rel="index">
+                    <span itemprop="name">c/c++</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>树有很多种，二叉树，多叉树(B-树，B+树)等，本文主要针对几种较为常用的树，做精要记录，梳理逻辑便于长时间之后的理解与记忆。</p>
+<a id="more"></a>
+<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><p>在计算机科学中，二叉树是每个结点最多有两个子树的树结构。通常子树被称作“左子树”（<code>left subtree</code>）和“右子树”（<code>right subtree</code>）。二叉树常被用于实现二叉查找树和二叉堆。</p>
+<h3 id="二叉树特点"><a href="#二叉树特点" class="headerlink" title="二叉树特点"></a>二叉树特点</h3><p>由二叉树的定义，以及图中所示的二叉树的分析可以得出二叉树具有以下几个特点：</p>
+<ol>
+<li>每个结点最多有两颗子树，所以二叉树中不存在度大于2的结点。</li>
+<li>左子树和右子树是有顺序的，次序不能任意颠倒。</li>
+<li>即使树中某结点只有一棵子树，也要区分它是左子树还是右子树。<h3 id="二叉树存储方式"><a href="#二叉树存储方式" class="headerlink" title="二叉树存储方式"></a>二叉树存储方式</h3>除数据域外，主要区别体现形式是左右子树的表示不同</li>
+<li>链式存储<br>用数组表示二叉树，左右子树用数组下标表示<ul>
+<li>优点：查找速度更快</li>
+<li>缺点：不为<code>满二叉树</code>时，浪费了空间，扩展性差或者说插入新数据慢。</li>
+</ul>
+</li>
+<li>链表存储<br>用链表表示二叉树，左右子树用结点指针表示<ul>
+<li>优点：无空间浪费，扩展性好，插入数据快。</li>
+<li>缺点：查找速度略慢。</li>
+</ul>
+</li>
+</ol>
+<h2 id="满二叉树"><a href="#满二叉树" class="headerlink" title="满二叉树"></a>满二叉树</h2><p>记住一句话即可。</p>
+<blockquote>
+<p>所有叶子结点都在最下层</p>
+</blockquote>
+<h2 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h2><p>对一颗具有n个结点的二叉树按层编号，如果编号为i(1&lt;=i&lt;=n)的结点与同样深度的 <strong><code>满二叉树</code></strong> 中编号为i的结点在二叉树中位置完全相同，则这棵二叉树称为完全二叉树。</p>
+<blockquote>
+<p>所有叶子结点都在最下层与次下层</p>
+</blockquote>
+<h2 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h2><p>左右子树的高度相差不超过1的树为平衡二叉树，也叫AVL树。<br>注意点：<strong>实现了树的自平衡以提升树的查找效率</strong><br>如何做到自平衡的：<br><img src="rotate.png" alt="" title="自平衡操作"></p>
+<ol>
+<li>左旋<blockquote>
+<p>1.结点的右孩子替代此结点位置<br>2.右孩子的左子树变为该结点的右子树<br>3.结点本身变为右孩子的左子树</p>
+</blockquote>
+</li>
+<li>右旋<blockquote>
+<p>1.结点的左孩子代表此结点<br>2.结点的左孩子的右子树变为结点的左子树<br>3.将此结点作为左孩子结点的右子树</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rbtree_left_rotate</span><span class="params">(rbtree *T, rbtree_node *x)</span> </span>&#123;</span><br><span class="line">   <span class="comment">//y是x的右子结点</span></span><br><span class="line">    rbtree_node *y = x-&gt;right;  <span class="comment">// x  --&gt; y  ,  y --&gt; x,   right --&gt; left,  left --&gt; right</span></span><br><span class="line"></span><br><span class="line">    x-&gt;right = y-&gt;left; <span class="comment">//1 1</span></span><br><span class="line">    <span class="keyword">if</span> (y-&gt;left != T-&gt;nil) &#123; <span class="comment">//1 2</span></span><br><span class="line">        y-&gt;left-&gt;parent = x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    y-&gt;parent = x-&gt;parent; <span class="comment">//1 3</span></span><br><span class="line">    <span class="keyword">if</span> (x-&gt;parent == T-&gt;nil) &#123; <span class="comment">//1 4</span></span><br><span class="line">        T-&gt;root = y;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (x == x-&gt;parent-&gt;left) &#123;</span><br><span class="line">        x-&gt;parent-&gt;left = y;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        x-&gt;parent-&gt;right = y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    y-&gt;left = x; <span class="comment">//1 5</span></span><br><span class="line">    x-&gt;parent = y; <span class="comment">//1 6</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rbtree_right_rotate</span><span class="params">(rbtree *T, rbtree_node *y)</span> </span>&#123;</span><br><span class="line">   <span class="comment">//x为y的左子结点</span></span><br><span class="line">    rbtree_node *x = y-&gt;left;</span><br><span class="line"></span><br><span class="line">    y-&gt;left = x-&gt;right;</span><br><span class="line">    <span class="keyword">if</span> (x-&gt;right != T-&gt;nil) &#123;</span><br><span class="line">        x-&gt;right-&gt;parent = y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    x-&gt;parent = y-&gt;parent;</span><br><span class="line">    <span class="keyword">if</span> (y-&gt;parent == T-&gt;nil) &#123;</span><br><span class="line">        T-&gt;root = x;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (y == y-&gt;parent-&gt;right) &#123;</span><br><span class="line">        y-&gt;parent-&gt;right = x;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        y-&gt;parent-&gt;left = x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    x-&gt;right = y;</span><br><span class="line">    y-&gt;parent = x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h2>红黑树是一种非常重要且应用广泛的数据结构。它是在AVL树的基础上加以改进优化得出的一个高效算法。它虽然是复杂的，但它的最坏情况运行时间也是非常良好的，并且在实践中是高效的：<strong>它可以在O(log n)时间内做查找，插入和删除</strong>。<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3>红黑树是每个结点都带有颜色属性的二叉查找树，颜色或红色或黑色。<h3 id="应用举例"><a href="#应用举例" class="headerlink" title="应用举例"></a>应用举例</h3></li>
+</ol>
+<ul>
+<li>Linux进程调度CFS</li>
+<li>Nginx Timer事件管理</li>
+<li>Epoll事件块的管理</li>
+<li>STL中set, multiset, map, multimap的实现<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3></li>
+</ul>
+<ol>
+<li>结点是红色或黑色</li>
+<li>根结点是黑色</li>
+<li>每个叶子结点(nil)是黑色</li>
+<li>每个红色结点的两个子结点都是黑色(从每个叶子到根的所有路径上不能有两个连续的红色结点)</li>
+<li><strong>从任一结点到其每个叶子的所有路径都包含相同数目的黑色结点</strong><br>从性质5可以知道：如果一个结点存在黑子结点，那么该结点肯定有两个子结点<br>下图Nil为叶子结点，并且它的颜色一定是黑色的。<br><img src="2392382-4996bbfb4017a3b2.png" alt="一颗简单的红黑树" title="一颗简单的红黑树"><br>由图可见，红黑树并不是一个<code>完美平衡二叉查找树</code>,根结点P的左子树显然比右子树高，但左子树和右子树的黑结点的层数是相等的，也即任意一个结点到到每个叶子结点的路径都包含数量相同的黑结点(性质5)。所以我们叫红黑树这种平衡为<code>黑高平衡</code>。<br>为了后面讲解不至于混淆，我们还需要来约定下红黑树一些结点的叫法，如下图<br><img src="2392382-abedf3ecc733ccd5.webp" alt="结点的叫法" title="结点的叫法"></li>
+</ol>
+<h3 id="红黑树插入"><a href="#红黑树插入" class="headerlink" title="红黑树插入"></a>红黑树插入</h3><p>插入操作包括两部分工作：一查找插入的位置；二插入后自平衡。从根结点开始查找；</p>
+<blockquote>
+<p>若根结点为空，那么插入结点作为根结点，结束。<br>若根结点不为空，那么把根结点作为当前结点；<br>若当前结点为null，返回当前结点的父结点，结束。<br>若当前结点key等于查找key，那么该key所在结点就是插入结点，更新结点的值，结束。<br>若当前结点key大于查找key，把当前结点的左子结点设置为当前结点，重复步骤4；<br>若当前结点key小于查找key，把当前结点的右子结点设置为当前结点，重复步骤4；</p>
+</blockquote>
+<p><img src="2392382-7521866b50683a24.webp" alt="数据插入" title="数据插入"></p>
+<p>插入完成后，但插入结点是应该设置成什么颜色呢？<br>答案是<strong>红色</strong>。<em>因为红色在父结点（如果存在）为黑色结点时，红黑树的黑色平衡没被破坏，不需要做自平衡操作。但如果插入结点是黑色，那么插入位置所在的子树黑色结点总是多1，必须做自平衡</em>。</p>
+<p><img src="2392382-fa2b78271263d2c8.webp" alt="插入操作脑图" title="插入操作脑图"></p>
+<h3 id="红黑树删除"><a href="#红黑树删除" class="headerlink" title="红黑树删除"></a>红黑树删除</h3><p>红黑树插入已经够复杂了，但删除更复杂，也是红黑树最复杂的操作了。<br>红黑树的删除操作也包括两部分工作：一查找目标结点；而删除后自平衡，最后调色。<br>二叉树删除结点找替代结点有3种情情景：</p>
+<p>情景1：若删除结点无子结点，直接删除<br>情景2：若删除结点只有一个子结点，用子结点替换删除结点<br>情景3：若删除结点有两个子结点，用后继结点（大于删除结点的最小结点）替换删除结点</p>
+<p>同样的，我们也是先来总体看下删除操作的所有情景，如图所示。<br><img src="2392382-edaf96e55f08c198.webp" alt="插入操作脑图" title="插入操作脑图"></p>
+<h3 id="红黑树插入删除代码："><a href="#红黑树插入删除代码：" class="headerlink" title="红黑树插入删除代码："></a>红黑树插入删除代码：</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rbtree_insert_fixup</span><span class="params">(rbtree *T, rbtree_node *z)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (z-&gt;parent-&gt;color == RED) &#123; <span class="comment">//z ---&gt; RED</span></span><br><span class="line">        <span class="keyword">if</span> (z-&gt;parent == z-&gt;parent-&gt;parent-&gt;left) &#123;</span><br><span class="line">            rbtree_node *y = z-&gt;parent-&gt;parent-&gt;right;<span class="comment">//y是z的叔父结点</span></span><br><span class="line">            <span class="keyword">if</span> (y-&gt;color == RED) &#123;</span><br><span class="line">                z-&gt;parent-&gt;color = BLACK;</span><br><span class="line">                y-&gt;color = BLACK;</span><br><span class="line">                z-&gt;parent-&gt;parent-&gt;color = RED;</span><br><span class="line"></span><br><span class="line">                z = z-&gt;parent-&gt;parent; <span class="comment">//z --&gt; RED</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (z == z-&gt;parent-&gt;right) &#123;</span><br><span class="line">                    z = z-&gt;parent;</span><br><span class="line">                    rbtree_left_rotate(T, z);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                z-&gt;parent-&gt;color = BLACK;</span><br><span class="line">                z-&gt;parent-&gt;parent-&gt;color = RED;</span><br><span class="line">                rbtree_right_rotate(T, z-&gt;parent-&gt;parent);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            rbtree_node *y = z-&gt;parent-&gt;parent-&gt;left;</span><br><span class="line">            <span class="keyword">if</span> (y-&gt;color == RED) &#123;</span><br><span class="line">                z-&gt;parent-&gt;color = BLACK;</span><br><span class="line">                y-&gt;color = BLACK;</span><br><span class="line">                z-&gt;parent-&gt;parent-&gt;color = RED;</span><br><span class="line"></span><br><span class="line">                z = z-&gt;parent-&gt;parent; <span class="comment">//z --&gt; RED</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (z == z-&gt;parent-&gt;left) &#123;</span><br><span class="line">                    z = z-&gt;parent;</span><br><span class="line">                    rbtree_right_rotate(T, z);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                z-&gt;parent-&gt;color = BLACK;</span><br><span class="line">                z-&gt;parent-&gt;parent-&gt;color = RED;</span><br><span class="line">                rbtree_left_rotate(T, z-&gt;parent-&gt;parent);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    T-&gt;root-&gt;color = BLACK;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rbtree_insert</span><span class="params">(rbtree *T, rbtree_node *z)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    rbtree_node *y = T-&gt;nil;</span><br><span class="line">    rbtree_node *x = T-&gt;root;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (x != T-&gt;nil) &#123;</span><br><span class="line">        y = x;</span><br><span class="line">        <span class="keyword">if</span> (z-&gt;key &lt; x-&gt;key) &#123;</span><br><span class="line">            x = x-&gt;left;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (z-&gt;key &gt; x-&gt;key) &#123;</span><br><span class="line">            x = x-&gt;right;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; <span class="comment">//Exist</span></span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    z-&gt;parent = y;</span><br><span class="line">    <span class="keyword">if</span> (y == T-&gt;nil) &#123;</span><br><span class="line">        T-&gt;root = z;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (z-&gt;key &lt; y-&gt;key) &#123;</span><br><span class="line">        y-&gt;left = z;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        y-&gt;right = z;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    z-&gt;left = T-&gt;nil;</span><br><span class="line">    z-&gt;right = T-&gt;nil;</span><br><span class="line">    z-&gt;color = RED;</span><br><span class="line"></span><br><span class="line">    rbtree_insert_fixup(T, z);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rbtree_delete_fixup</span><span class="params">(rbtree *T, rbtree_node *x)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> ((x != T-&gt;root) &amp;&amp; (x-&gt;color == BLACK)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (x == x-&gt;parent-&gt;left) &#123;</span><br><span class="line">         <span class="comment">//w是x的叔父结点   </span></span><br><span class="line">            rbtree_node *w= x-&gt;parent-&gt;right;</span><br><span class="line">            <span class="keyword">if</span> (w-&gt;color == RED) &#123;</span><br><span class="line">                w-&gt;color = BLACK;</span><br><span class="line">                x-&gt;parent-&gt;color = RED;</span><br><span class="line"></span><br><span class="line">                rbtree_left_rotate(T, x-&gt;parent);</span><br><span class="line">                w = x-&gt;parent-&gt;right;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> ((w-&gt;left-&gt;color == BLACK) &amp;&amp; (w-&gt;right-&gt;color == BLACK)) &#123;</span><br><span class="line">                w-&gt;color = RED;</span><br><span class="line">                x = x-&gt;parent;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (w-&gt;right-&gt;color == BLACK) &#123;</span><br><span class="line">                    w-&gt;left-&gt;color = BLACK;</span><br><span class="line">                    w-&gt;color = RED;</span><br><span class="line">                    rbtree_right_rotate(T, w);</span><br><span class="line">                    w = x-&gt;parent-&gt;right;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                w-&gt;color = x-&gt;parent-&gt;color;</span><br><span class="line">                x-&gt;parent-&gt;color = BLACK;</span><br><span class="line">                w-&gt;right-&gt;color = BLACK;</span><br><span class="line">                rbtree_left_rotate(T, x-&gt;parent);</span><br><span class="line"></span><br><span class="line">                x = T-&gt;root;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">            rbtree_node *w = x-&gt;parent-&gt;left;</span><br><span class="line">            <span class="keyword">if</span> (w-&gt;color == RED) &#123;</span><br><span class="line">                w-&gt;color = BLACK;</span><br><span class="line">                x-&gt;parent-&gt;color = RED;</span><br><span class="line">                rbtree_right_rotate(T, x-&gt;parent);</span><br><span class="line">                w = x-&gt;parent-&gt;left;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> ((w-&gt;left-&gt;color == BLACK) &amp;&amp; (w-&gt;right-&gt;color == BLACK)) &#123;</span><br><span class="line">                w-&gt;color = RED;</span><br><span class="line">                x = x-&gt;parent;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (w-&gt;left-&gt;color == BLACK) &#123;</span><br><span class="line">                    w-&gt;right-&gt;color = BLACK;</span><br><span class="line">                    w-&gt;color = RED;</span><br><span class="line">                    rbtree_left_rotate(T, w);</span><br><span class="line">                    w = x-&gt;parent-&gt;left;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                w-&gt;color = x-&gt;parent-&gt;color;</span><br><span class="line">                x-&gt;parent-&gt;color = BLACK;</span><br><span class="line">                w-&gt;left-&gt;color = BLACK;</span><br><span class="line">                rbtree_right_rotate(T, x-&gt;parent);</span><br><span class="line"></span><br><span class="line">                x = T-&gt;root;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    x-&gt;color = BLACK;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">rbtree_node *<span class="title">rbtree_delete</span><span class="params">(rbtree *T, rbtree_node *z)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    rbtree_node *y = T-&gt;nil;</span><br><span class="line">    rbtree_node *x = T-&gt;nil;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ((z-&gt;left == T-&gt;nil) || (z-&gt;right == T-&gt;nil)) &#123;</span><br><span class="line">        y = z;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        y = rbtree_successor(T, z);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (y-&gt;left != T-&gt;nil) &#123;</span><br><span class="line">        x = y-&gt;left;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (y-&gt;right != T-&gt;nil) &#123;</span><br><span class="line">        x = y-&gt;right;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    x-&gt;parent = y-&gt;parent;</span><br><span class="line">    <span class="keyword">if</span> (y-&gt;parent == T-&gt;nil) &#123;</span><br><span class="line">        T-&gt;root = x;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (y == y-&gt;parent-&gt;left) &#123;</span><br><span class="line">        y-&gt;parent-&gt;left = x;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        y-&gt;parent-&gt;right = x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (y != z) &#123;</span><br><span class="line">        z-&gt;key = y-&gt;key;</span><br><span class="line">        z-&gt;value = y-&gt;value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (y-&gt;color == BLACK) &#123;</span><br><span class="line">        rbtree_delete_fixup(T, x);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="我们需要知道的是红黑树也许不是最优解但是绝对是一个较优解"><a href="#我们需要知道的是红黑树也许不是最优解但是绝对是一个较优解" class="headerlink" title="我们需要知道的是红黑树也许不是最优解但是绝对是一个较优解"></a>我们需要知道的是红黑树也许不是最优解但是绝对是一个较优解</h3><p><span style=color:red><strong>红黑树有着目前算法中内存读写综合性能最好的数据结构</strong></span>代码要求：不要求能盲打，但是最好能对照定义敲出。另外红黑树的算法论证见算法导论。</p>
+<ol>
+<li>查询速度仅次于hash，但是比hash省空间，几乎等于AVL树</li>
+<li>搜索稳定性能最佳，算法耗时稳定<code>O(long n)</code>（不会出现最长搜索时间，最短搜索时间）</li>
+<li>伸缩性好，写操作也能很快</li>
+<li>红黑树的查询性能略微逊色于AVL树，因为他比avl树会稍微不平衡最多一层，也就是说红黑树的查询性能只比相同内容的avl树最多多一次比较</li>
+<li>红黑树在插入和删除上优于avl树，avl树每次插入删除会进行大量的平衡度计算，而红黑树为了维持红黑性质所做的红黑变换和旋转的开销，相较于avl树为了维持平衡的开销要小得多<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><a href="https://www.jianshu.com/p/e136ec79235c" target="_blank" rel="noopener">红黑树图片引用原文链接</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/uploads/wechatpay.png" alt="Ives 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Ives
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://icevil.cn/2020/01/28/%E4%BB%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91/" title="从二叉树到红黑树">https://icevil.cn/2020/01/28/从二叉树到红黑树/</a>                   
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="https://twitter.com/Ives">
+                <span class="icon">
+                  <i class="fa fa-twitter"></i>
+                </span>
+
+                <span class="label">Twitter</span>
+              </a>
+            </div>
+
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="/images/wechat.png">
+                <span class="icon">
+                  <i class="fa fa-wechat"></i>
+                </span>
+
+                <span class="label">WeChat</span>
+              </a>
+            </div>
+
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="/atom.xml">
+                <span class="icon">
+                  <i class="fa fa-rss"></i>
+                </span>
+
+                <span class="label">RSS</span>
+              </a>
+            </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/tree/" rel="tag"><i class="fa fa-tag"></i> tree</a>
+              <a href="/tags/rbtree/" rel="tag"><i class="fa fa-tag"></i> rbtree</a>
+              <a href="/tags/%E7%BA%A2%E9%BB%91%E6%A0%91/" rel="tag"><i class="fa fa-tag"></i> 红黑树</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"><i class="fa fa-tag"></i> 数据结构</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/25/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="prev" title="几种经典排序算法">
+      <i class="fa fa-chevron-left"></i> 几种经典排序算法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/02/B%E6%A0%91%E4%B8%8EB+%E6%A0%91/" rel="next" title="B树与B+树">
+      B树与B+树 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树"><span class="nav-number">1.</span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树特点"><span class="nav-number">1.1.</span> <span class="nav-text">二叉树特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树存储方式"><span class="nav-number">1.2.</span> <span class="nav-text">二叉树存储方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#满二叉树"><span class="nav-number">2.</span> <span class="nav-text">满二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完全二叉树"><span class="nav-number">3.</span> <span class="nav-text">完全二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平衡二叉树"><span class="nav-number">4.</span> <span class="nav-text">平衡二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#红黑树"><span class="nav-number">5.</span> <span class="nav-text">红黑树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">5.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用举例"><span class="nav-number">5.2.</span> <span class="nav-text">应用举例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质"><span class="nav-number">5.3.</span> <span class="nav-text">性质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#红黑树插入"><span class="nav-number">5.4.</span> <span class="nav-text">红黑树插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#红黑树删除"><span class="nav-number">5.5.</span> <span class="nav-text">红黑树删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#红黑树插入删除代码："><span class="nav-number">5.6.</span> <span class="nav-text">红黑树插入删除代码：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我们需要知道的是红黑树也许不是最优解但是绝对是一个较优解"><span class="nav-number">5.7.</span> <span class="nav-text">我们需要知道的是红黑树也许不是最优解但是绝对是一个较优解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注释"><span class="nav-number">5.8.</span> <span class="nav-text">注释</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ives"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Ives</p>
+  <div class="site-description" itemprop="description">程序员要学的真是没完没了...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">117</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:somepure@foxmail.com" title="E-Mail → mailto:somepure@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+    <!--插入外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" height=240 src="//music.163.com/outchain/player?type=0&id=4866221043&auto=0&height=430"></iframe>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">版权归原作者Ives所有，转载请标注。</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">102k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:33</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+        loader: {
+          load: ['[tex]/mhchem']
+        },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

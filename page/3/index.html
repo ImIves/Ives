@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"icevil.cn","root":"/","scheme":"Mist","version":"7.7.1","exturl":false,"sidebar":{"position":"left","width":310,"display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"icevil.cn","root":"/","scheme":"Mist","version":"7.7.1","exturl":false,"sidebar":{"position":"left","width":310,"display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="程序员要学的真是没完没了...">
@@ -189,7 +189,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2018/06/20/QT5%E5%A6%82%E4%BD%95%E6%89%93%E5%8C%85%E5%88%B0Ubuntu16/">
+    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2018/12/24/%E5%86%8D%E8%B0%88qt5%E7%A8%8B%E5%BA%8F%E5%8F%91%E5%B8%83%E6%97%B6%E4%BE%9D%E8%B5%96%E5%BA%93%E9%97%AE%E9%A2%98%E8%BF%BD%E8%B8%AA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.jpg">
@@ -203,7 +203,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2018/06/20/QT5%E5%A6%82%E4%BD%95%E6%89%93%E5%8C%85%E5%88%B0Ubuntu16/" class="post-title-link" itemprop="url">QT5如何打包到Ubuntu16</a>
+            <a href="/2018/12/24/%E5%86%8D%E8%B0%88qt5%E7%A8%8B%E5%BA%8F%E5%8F%91%E5%B8%83%E6%97%B6%E4%BE%9D%E8%B5%96%E5%BA%93%E9%97%AE%E9%A2%98%E8%BF%BD%E8%B8%AA/" class="post-title-link" itemprop="url">再谈qt5程序发布时依赖库问题追踪</a>
         </h1>
 
         <div class="post-meta">
@@ -213,7 +213,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2018-06-20 12:16:12" itemprop="dateCreated datePublished" datetime="2018-06-20T12:16:12+08:00">2018-06-20</time>
+              <time title="创建时间：2018-12-24 17:52:50" itemprop="dateCreated datePublished" datetime="2018-12-24T17:52:50+08:00">2018-12-24</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -233,14 +233,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
+              <span>484</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -252,10 +252,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>最近一个跨平台的项目打包折腾的够呛，所以记录一波。没有用打包工具也正好从原理层分析讲解。qt自带的打包工具其实会方便但是冗余依赖库也挺多。具体看需求了。</p>
+          <p>程序打包后，发布到新的Ubuntu18，又出现了依赖库的问题。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/06/20/QT5%E5%A6%82%E4%BD%95%E6%89%93%E5%8C%85%E5%88%B0Ubuntu16/#more" rel="contents">
+              <a class="btn" href="/2018/12/24/%E5%86%8D%E8%B0%88qt5%E7%A8%8B%E5%BA%8F%E5%8F%91%E5%B8%83%E6%97%B6%E4%BE%9D%E8%B5%96%E5%BA%93%E9%97%AE%E9%A2%98%E8%BF%BD%E8%B8%AA/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -279,7 +279,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2018/05/04/qt5-9%E4%B8%AD%E8%99%9A%E6%8B%9F%E9%94%AE%E7%9B%98%E7%9A%84%E4%B8%AD%E6%96%87%E4%BD%BF%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2018/12/08/centOS7%E5%8D%87%E7%BA%A7python3.7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.jpg">
@@ -293,7 +293,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2018/05/04/qt5-9%E4%B8%AD%E8%99%9A%E6%8B%9F%E9%94%AE%E7%9B%98%E7%9A%84%E4%B8%AD%E6%96%87%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">qt5.9中虚拟键盘的中文使用</a>
+            <a href="/2018/12/08/centOS7%E5%8D%87%E7%BA%A7python3.7/" class="post-title-link" itemprop="url">centOS7升级python3.7</a>
         </h1>
 
         <div class="post-meta">
@@ -303,7 +303,97 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2018-05-04 11:59:10" itemprop="dateCreated datePublished" datetime="2018-05-04T11:59:10+08:00">2018-05-04</time>
+              <time title="创建时间：2018-12-08 15:37:21" itemprop="dateCreated datePublished" datetime="2018-12-08T15:37:21+08:00">2018-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux系统</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>978</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>1.python2不要卸载，因为yum依赖python2，谁叫Google不向下兼容</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/12/08/centOS7%E5%8D%87%E7%BA%A7python3.7/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ives">
+      <meta itemprop="description" content="程序员要学的真是没完没了...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ives's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">QT将事件执行moveToThread槽函数不响应问题</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-27 17:59:50" itemprop="dateCreated datePublished" datetime="2018-11-27T17:59:50+08:00">2018-11-27</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -323,7 +413,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>626</span>
+              <span>231</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -342,10 +432,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>qtvirtualkeyboard是qt基于qtquick的一个项目，源代码目录如下图：
+          <p>最近遇到这么个问题，想将写日志信息放到一个单独的线程中去执行，然而添加<code>movetothread</code>后程序就不进入槽函数了，</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/05/04/qt5-9%E4%B8%AD%E8%99%9A%E6%8B%9F%E9%94%AE%E7%9B%98%E7%9A%84%E4%B8%AD%E6%96%87%E4%BD%BF%E7%94%A8/#more" rel="contents">
+              <a class="btn" href="/2018/11/27/QT%E5%B0%86%E4%BA%8B%E4%BB%B6%E6%89%A7%E8%A1%8CmoveToThread%E6%A7%BD%E5%87%BD%E6%95%B0%E4%B8%8D%E5%93%8D%E5%BA%94%E9%97%AE%E9%A2%98/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -369,7 +459,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2018/04/03/Ubuntu-Windows%E4%BD%BF%E7%94%A8glog/">
+    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2018/11/21/linux%E7%9A%84ssh%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.jpg">
@@ -383,7 +473,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2018/04/03/Ubuntu-Windows%E4%BD%BF%E7%94%A8glog/" class="post-title-link" itemprop="url">Ubuntu/Windows使用glog</a>
+            <a href="/2018/11/21/linux%E7%9A%84ssh%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" class="post-title-link" itemprop="url">linux的ssh免密登录</a>
         </h1>
 
         <div class="post-meta">
@@ -393,7 +483,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2018-04-03 20:08:42" itemprop="dateCreated datePublished" datetime="2018-04-03T20:08:42+08:00">2018-04-03</time>
+              <time title="创建时间：2018-11-21 19:08:07" itemprop="dateCreated datePublished" datetime="2018-11-21T19:08:07+08:00">2018-11-21</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -401,8 +491,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%85%B6%E5%AE%83/" itemprop="url" rel="index">
-                    <span itemprop="name">其它</span>
+                  <a href="/categories/Linux%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux系统</span>
                   </a>
                 </span>
             </span>
@@ -413,7 +503,458 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.7k</span>
+              <span>450</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>ssh免密登录在很多运维环境都需要用到<br>FTP,SCP,SSH远程登录等。。。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/11/21/linux%E7%9A%84ssh%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2018/11/19/%E8%80%81%E6%AF%9B%E6%A1%83%E5%88%B6%E4%BD%9CLinuxU%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9B%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ives">
+      <meta itemprop="description" content="程序员要学的真是没完没了...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ives's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/19/%E8%80%81%E6%AF%9B%E6%A1%83%E5%88%B6%E4%BD%9CLinuxU%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9B%98/" class="post-title-link" itemprop="url">老毛桃制作LinuxU盘启动盘</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-19 10:13:59" itemprop="dateCreated datePublished" datetime="2018-11-19T10:13:59+08:00">2018-11-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%98%B2%E5%9D%91%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">防坑笔记</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>96</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>如果usb-hdd+的写入方式，系统制作完后，启动失败，所以需要在“便捷启动”中手动写入引导扇区即可，选择syslinux。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/11/19/%E8%80%81%E6%AF%9B%E6%A1%83%E5%88%B6%E4%BD%9CLinuxU%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9B%98/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2018/11/14/linux%E4%BF%AE%E6%94%B9%E5%9B%A0%E8%BD%AF%E4%BB%B6%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ives">
+      <meta itemprop="description" content="程序员要学的真是没完没了...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ives's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/14/linux%E4%BF%AE%E6%94%B9%E5%9B%A0%E8%BD%AF%E4%BB%B6%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">linux修改因软件版本升级不能使用的命令</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-14 10:48:05" itemprop="dateCreated datePublished" datetime="2018-11-14T10:48:05+08:00">2018-11-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux系统</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>416</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>linux部分版本会内置一些常用软件命令，如python /qt等。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/11/14/linux%E4%BF%AE%E6%94%B9%E5%9B%A0%E8%BD%AF%E4%BB%B6%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2018/10/30/Gnome%E9%9A%90%E8%97%8F%E4%B8%8A%E8%BE%B9%E6%A0%8F%EF%BC%8CUbuntu18%20hide%20top%20bar/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ives">
+      <meta itemprop="description" content="程序员要学的真是没完没了...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ives's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/10/30/Gnome%E9%9A%90%E8%97%8F%E4%B8%8A%E8%BE%B9%E6%A0%8F%EF%BC%8CUbuntu18%20hide%20top%20bar/" class="post-title-link" itemprop="url">Gnome隐藏上边栏，Ubuntu18 hide top bar</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-30 15:44:13" itemprop="dateCreated datePublished" datetime="2018-10-30T15:44:13+08:00">2018-10-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux系统</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>755</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Ubuntu18LTS，UI已经回归gnome了。Unity被弃！</p>
+<p>那么本文就将已Ubuntu18为例讲解怎么隐藏顶部状态栏及任务栏。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/10/30/Gnome%E9%9A%90%E8%97%8F%E4%B8%8A%E8%BE%B9%E6%A0%8F%EF%BC%8CUbuntu18%20hide%20top%20bar/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2018/10/30/vm14%E5%8D%A1%E9%A1%BF%E5%8F%8A%E5%AE%89%E8%A3%85linux%E9%BB%91%E5%B1%8F%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ives">
+      <meta itemprop="description" content="程序员要学的真是没完没了...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ives's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/10/30/vm14%E5%8D%A1%E9%A1%BF%E5%8F%8A%E5%AE%89%E8%A3%85linux%E9%BB%91%E5%B1%8F%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">vm14卡顿及安装linux黑屏问题</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-30 15:05:43" itemprop="dateCreated datePublished" datetime="2018-10-30T15:05:43+08:00">2018-10-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%98%B2%E5%9D%91%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">防坑笔记</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>889</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>因工作需要按照了vm运行Linux，当然按照64位系统了，vm14+Ubuntu18/16LTS都有，安装很简单默认点击下一步就完了，也很顺利。但是发现奇慢无比，我将系统移到C盘固态硬盘会好很多。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/10/30/vm14%E5%8D%A1%E9%A1%BF%E5%8F%8A%E5%AE%89%E8%A3%85linux%E9%BB%91%E5%B1%8F%E9%97%AE%E9%A2%98/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2018/10/26/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E8%A7%A3%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ives">
+      <meta itemprop="description" content="程序员要学的真是没完没了...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ives's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/10/26/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E8%A7%A3%E6%9E%90/" class="post-title-link" itemprop="url">git常用命令及解析</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-26 17:57:08" itemprop="dateCreated datePublished" datetime="2018-10-26T17:57:08+08:00">2018-10-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux系统</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -432,12 +973,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>本文glog版本位0.3.5。</p>
-<h2 id="glog获取"><a href="#glog获取" class="headerlink" title="glog获取"></a>glog获取</h2><pre><code>`git clone [https://github.com/google/glog.git](https://github.com/google/glog.git)`
-或者直接网页下载下来，`tar -xzvf google-master*.gz`</code></pre>
+          <p>本文是基于<a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">原教程地址</a>学习后的一个笔记记录，感谢原作者的无私分享！github遵守开源协议，fork后的仓库代码可以读写，甚至可以pull request给官方仓库来贡献代码。 </p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/04/03/Ubuntu-Windows%E4%BD%BF%E7%94%A8glog/#more" rel="contents">
+              <a class="btn" href="/2018/10/26/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E8%A7%A3%E6%9E%90/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -461,7 +1000,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2018/10/24/Qt%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99keyboad%E8%99%9A%E6%8B%9F%E9%94%AE%E7%9B%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.jpg">
@@ -475,7 +1014,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">CEF3的使用说明及CMake使用</a>
+            <a href="/2018/10/24/Qt%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99keyboad%E8%99%9A%E6%8B%9F%E9%94%AE%E7%9B%98/" class="post-title-link" itemprop="url">Qt自己编写keyboad虚拟键盘</a>
         </h1>
 
         <div class="post-meta">
@@ -485,7 +1024,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-12-08 16:48:16" itemprop="dateCreated datePublished" datetime="2017-12-08T16:48:16+08:00">2017-12-08</time>
+              <time title="创建时间：2018-10-24 18:53:32" itemprop="dateCreated datePublished" datetime="2018-10-24T18:53:32+08:00">2018-10-24</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -493,8 +1032,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/c-c/" itemprop="url" rel="index">
-                    <span itemprop="name">c/c++</span>
+                  <a href="/categories/Qt/" itemprop="url" rel="index">
+                    <span itemprop="name">Qt</span>
                   </a>
                 </span>
             </span>
@@ -505,187 +1044,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="CEF简介"><a href="#CEF简介" class="headerlink" title="CEF简介"></a>CEF简介</h2><p>Chromium Embedded Framework (CEF)是个基于Google Chromium项目的开源Web browser控件，支持Windows, Linux, Mac平台。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/12/08/CEF3%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E5%8F%8ACMake%E4%BD%BF%E7%94%A8/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2017/11/24/%E5%BC%80%E5%8F%91%E7%95%8C%E9%9D%A2%E4%B9%8B%E7%AA%97%E5%8F%A3%E8%BE%B9%E6%A1%86%E9%87%8D%E7%BB%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-      <meta itemprop="name" content="Ives">
-      <meta itemprop="description" content="程序员要学的真是没完没了...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ives's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/11/24/%E5%BC%80%E5%8F%91%E7%95%8C%E9%9D%A2%E4%B9%8B%E7%AA%97%E5%8F%A3%E8%BE%B9%E6%A1%86%E9%87%8D%E7%BB%98/" class="post-title-link" itemprop="url">开发界面之窗口边框重绘</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-11-24 11:00:35" itemprop="dateCreated datePublished" datetime="2017-11-24T11:00:35+08:00">2017-11-24</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vc/" itemprop="url" rel="index">
-                    <span itemprop="name">vc</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>5.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>基于上篇已经解决了富图软件窗口child的效果。这边主要仿照其重绘边框——即活动窗口边框高亮，本文不讲标题栏与border重绘（难度是比Client绘制要难，但是社区也有人做了相应的demo），基于富图考虑，它不要标题栏，我们也用无边框窗口绘制就好了。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/11/24/%E5%BC%80%E5%8F%91%E7%95%8C%E9%9D%A2%E4%B9%8B%E7%AA%97%E5%8F%A3%E8%BE%B9%E6%A1%86%E9%87%8D%E7%BB%98/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2017/11/21/%E5%AD%90%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E6%A0%87%E9%A2%98%E6%A0%8F%E5%B1%9E%E6%80%A7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-      <meta itemprop="name" content="Ives">
-      <meta itemprop="description" content="程序员要学的真是没完没了...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ives's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/11/21/%E5%AD%90%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E6%A0%87%E9%A2%98%E6%A0%8F%E5%B1%9E%E6%80%A7/" class="post-title-link" itemprop="url">子窗口与弹出窗口不可忽视的标题栏属性</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-11-21 18:31:54" itemprop="dateCreated datePublished" datetime="2017-11-21T18:31:54+08:00">2017-11-21</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vc/" itemprop="url" rel="index">
-                    <span itemprop="name">vc</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>599</span>
+              <span>899</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -704,370 +1063,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>之前写过一篇日志说child窗口edit不能输入。虽然解决了，但并不完美，后面发现能输入了，但是鼠标不能选择文字，键盘却可以。</p>
+          <p>由于项目中有需要用到虚拟键盘，首先想到的是系统自带的，笔者是Ubuntu16 + Qt5.9。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2017/11/21/%E5%AD%90%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%BC%B9%E5%87%BA%E7%AA%97%E5%8F%A3%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E6%A0%87%E9%A2%98%E6%A0%8F%E5%B1%9E%E6%80%A7/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2017/09/06/MFC%E7%8A%B6%E6%80%81%E6%A0%8F%E8%AE%BE%E7%BD%AE%E5%9B%BE%E6%A0%87%E8%87%AA%E5%8A%A8%E5%8F%98%E9%AB%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-      <meta itemprop="name" content="Ives">
-      <meta itemprop="description" content="程序员要学的真是没完没了...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ives's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/09/06/MFC%E7%8A%B6%E6%80%81%E6%A0%8F%E8%AE%BE%E7%BD%AE%E5%9B%BE%E6%A0%87%E8%87%AA%E5%8A%A8%E5%8F%98%E9%AB%98/" class="post-title-link" itemprop="url">MFC状态栏设置图标自动变高</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-09-06 14:44:39" itemprop="dateCreated datePublished" datetime="2017-09-06T14:44:39+08:00">2017-09-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vc/" itemprop="url" rel="index">
-                    <span itemprop="name">vc</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>595</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>状态栏被自动变高，清除字体，ico等可恢复到原始状态。给mdi状态栏添加图标，以显示实时网络连接状态。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/09/06/MFC%E7%8A%B6%E6%80%81%E6%A0%8F%E8%AE%BE%E7%BD%AE%E5%9B%BE%E6%A0%87%E8%87%AA%E5%8A%A8%E5%8F%98%E9%AB%98/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2017/08/04/%E5%86%99MFC%E7%A8%8B%E5%BA%8F%E8%BF%98%E6%98%AF%E5%85%88%E6%B3%A8%E9%87%8A%E5%86%99%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%88%96%E8%80%85%E5%85%88%E6%B8%85%E7%90%86%E6%B3%A8%E5%86%8C%E8%A1%A8%E5%90%A7%EF%BC%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-      <meta itemprop="name" content="Ives">
-      <meta itemprop="description" content="程序员要学的真是没完没了...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ives's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/08/04/%E5%86%99MFC%E7%A8%8B%E5%BA%8F%E8%BF%98%E6%98%AF%E5%85%88%E6%B3%A8%E9%87%8A%E5%86%99%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%88%96%E8%80%85%E5%85%88%E6%B8%85%E7%90%86%E6%B3%A8%E5%86%8C%E8%A1%A8%E5%90%A7%EF%BC%81/" class="post-title-link" itemprop="url">写MFC程序还是先注释写注册表或者先清理注册表吧！</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-08-04 18:45:26" itemprop="dateCreated datePublished" datetime="2017-08-04T18:45:26+08:00">2017-08-04</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vc/" itemprop="url" rel="index">
-                    <span itemprop="name">vc</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>血的教训，浪费了大把时间调试找问题，然而却不知道MFC自动写注册带来的巨坑有多坑。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/08/04/%E5%86%99MFC%E7%A8%8B%E5%BA%8F%E8%BF%98%E6%98%AF%E5%85%88%E6%B3%A8%E9%87%8A%E5%86%99%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%88%96%E8%80%85%E5%85%88%E6%B8%85%E7%90%86%E6%B3%A8%E5%86%8C%E8%A1%A8%E5%90%A7%EF%BC%81/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2017/07/25/mfc%E9%9D%9E%E6%A8%A1%E6%80%81%E5%AF%B9%E8%AF%9D%E6%A1%86Child%E7%AA%97%E5%8F%A3CEdit%E6%8E%A7%E4%BB%B6%E8%8E%B7%E5%8F%96%E4%B8%8D%E5%88%B0%E7%84%A6%E7%82%B9%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-      <meta itemprop="name" content="Ives">
-      <meta itemprop="description" content="程序员要学的真是没完没了...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ives's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/07/25/mfc%E9%9D%9E%E6%A8%A1%E6%80%81%E5%AF%B9%E8%AF%9D%E6%A1%86Child%E7%AA%97%E5%8F%A3CEdit%E6%8E%A7%E4%BB%B6%E8%8E%B7%E5%8F%96%E4%B8%8D%E5%88%B0%E7%84%A6%E7%82%B9%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">mfc非模态对话框Child窗口CEdit控件获取不到焦点问题</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-07-25 16:25:20" itemprop="dateCreated datePublished" datetime="2017-07-25T16:25:20+08:00">2017-07-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vc/" itemprop="url" rel="index">
-                    <span itemprop="name">vc</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>遇到的问题就是创建一个非模态的子窗口。发现子窗口上的edit控件总是不能被激活.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/07/25/mfc%E9%9D%9E%E6%A8%A1%E6%80%81%E5%AF%B9%E8%AF%9D%E6%A1%86Child%E7%AA%97%E5%8F%A3CEdit%E6%8E%A7%E4%BB%B6%E8%8E%B7%E5%8F%96%E4%B8%8D%E5%88%B0%E7%84%A6%E7%82%B9%E9%97%AE%E9%A2%98/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2017/07/17/%E7%94%B1Create%E4%B8%80%E4%B8%AAChild%E7%AA%97%E5%8F%A3%EF%BC%8C%E5%AF%BC%E5%87%BA%E7%9A%84z%E5%BA%8F%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-      <meta itemprop="name" content="Ives">
-      <meta itemprop="description" content="程序员要学的真是没完没了...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ives's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/07/17/%E7%94%B1Create%E4%B8%80%E4%B8%AAChild%E7%AA%97%E5%8F%A3%EF%BC%8C%E5%AF%BC%E5%87%BA%E7%9A%84z%E5%BA%8F%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">由Create一个Child窗口，导出的z序问题</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-07-17 18:13:35" itemprop="dateCreated datePublished" datetime="2017-07-17T18:13:35+08:00">2017-07-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vc/" itemprop="url" rel="index">
-                    <span itemprop="name">vc</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>首先遇到的情况，直接看图<br><img src="20170717165411414.png" alt=""></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/07/17/%E7%94%B1Create%E4%B8%80%E4%B8%AAChild%E7%AA%97%E5%8F%A3%EF%BC%8C%E5%AF%BC%E5%87%BA%E7%9A%84z%E5%BA%8F%E9%97%AE%E9%A2%98/#more" rel="contents">
+              <a class="btn" href="/2018/10/24/Qt%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99keyboad%E8%99%9A%E6%8B%9F%E9%94%AE%E7%9B%98/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1091,7 +1090,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1159,7 +1158,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1172,7 +1171,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">84</span>
+        <span class="site-state-item-count">117</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1222,12 +1221,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">51k</span>
+    <span title="站点总字数">102k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">46 分钟</span>
+    <span title="站点阅读时长">1:33</span>
 </div>
 
         
