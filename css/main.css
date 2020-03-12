@@ -1301,7 +1301,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #7effff;
+  background: #918eff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2157,8 +2157,6 @@ pre .javascript .function {
   color: #bbb;
   display: flex;
   flex-direction: column;
-  margin: 2em 0 1em 0;
-  padding: 1em 1.5em;
 }
 .followme .social-list {
   align-items: center;
