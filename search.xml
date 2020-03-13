@@ -504,8 +504,8 @@ commonweal: heartbeat</code></pre></li>
       </categories>
       <tags>
         <tag>git</tag>
-        <tag>github</tag>
         <tag>gitlab</tag>
+        <tag>github</tag>
       </tags>
   </entry>
   <entry>
@@ -1228,7 +1228,7 @@ Reactor 模式是处理并发 I/O 比较常见的一种模式，用于同步 I/O
 <p>在任意目录下创建如上所示的目录以及文件</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir   -p /root/mydeb                <span class="comment"># 在该目录下存放生成deb包的文件以及目录</span></span><br><span class="line">mkdir -p /root/mydeb/DEBIAN           <span class="comment">#目录名必须大写</span></span><br><span class="line">mkdir -p /root/mydeb/App<span class="string">'s path       # 将文件安装到目标目录下,路径从/根目录开始</span></span><br><span class="line"><span class="string">touch /root/mydeb/DEBIAN/control    # 必须要有该文件</span></span><br><span class="line"><span class="string">touch /root/mydeb/DEBIAN/postinst  # 软件安装完后，执行该Shell脚本</span></span><br><span class="line"><span class="string">touch /root/mydeb/DEBIAN/postrm    # 软件卸载后，执行该Shell脚本</span></span><br></pre></td></tr></table></figure>
 
-<p>control文件内容：<br>Package: my-deb   （软件名称，中间不能有空格）<br>Version: 1                  (软件版本)<br>Section: utils            （软件类别）<br>Priority: optional        （软件对于系统的重要程度）<br>Architecture: amd64   （软件所支持的平台架构）<br>Maintainer: xxxxxx <a href="mailto:&#120;&#120;&#x78;&#x78;&#120;&#x78;&#x78;&#120;&#x40;&#x78;&#x78;&#x78;&#120;&#46;&#x78;&#120;">&#120;&#120;&#x78;&#x78;&#120;&#x78;&#x78;&#120;&#x40;&#x78;&#x78;&#x78;&#120;&#46;&#x78;&#120;</a> （打包人和联系方式）<br>Description: my first deb （对软件所的描述）</p>
+<p>control文件内容：<br>Package: my-deb   （软件名称，中间不能有空格）<br>Version: 1                  (软件版本)<br>Section: utils            （软件类别）<br>Priority: optional        （软件对于系统的重要程度）<br>Architecture: amd64   （软件所支持的平台架构）<br>Maintainer: xxxxxx <a href="mailto:&#120;&#120;&#x78;&#120;&#120;&#120;&#120;&#120;&#64;&#120;&#x78;&#120;&#120;&#x2e;&#120;&#120;">&#120;&#120;&#x78;&#120;&#120;&#120;&#120;&#120;&#64;&#120;&#x78;&#120;&#120;&#x2e;&#120;&#120;</a> （打包人和联系方式）<br>Description: my first deb （对软件所的描述）</p>
 <p>postinst文件内容（ 软件安装完后，执行该Shell脚本，一般用来配置软件执行环境，必须以“<code>#!/bin/sh</code>”为首行，然后给该脚本赋予可执行权限：<code>chmod +x postinst</code>）：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"my deb"</span> &gt; /root/mydeb.log</span><br></pre></td></tr></table></figure>
 <p>postrm文件内容（ 软件卸载后，执行该Shell脚本，一般作为清理收尾工作，必须以“#!/bin/sh”为首行，然后给该脚本赋予可执行权限：<code>chmod +x postrm</code>）：</p>
@@ -1731,9 +1731,9 @@ rebase操作可以把本地未push的分叉提交历史整理成直线；</li>
         <category>Qt</category>
       </categories>
       <tags>
+        <tag>qt</tag>
         <tag>model</tag>
         <tag>view</tag>
-        <tag>qt</tag>
       </tags>
   </entry>
   <entry>
