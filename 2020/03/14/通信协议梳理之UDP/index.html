@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/uploads/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/uploads/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"icevil.cn","root":"/","scheme":"Mist","version":"7.7.1","exturl":false,"sidebar":{"position":"left","width":310,"display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="计划用两篇文章梳理一下ip，upd，tcp协议，重点放在后两者，因为后两者目前在应用上非常广，可编程性也大很多，本文将重点介绍UDP协议。 UDP介绍UDP又名用户数据报协议（User Datagram Protocol）。UDP 为应用程序提供了一种无需建立连接就可以发送封装的 IP 数据包的协议，可知UDP是基于IP协议的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通信协议梳理之UDP">
+<meta property="og:url" content="https://icevil.cn/2020/03/14/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E6%A2%B3%E7%90%86%E4%B9%8BUDP/index.html">
+<meta property="og:site_name" content="Ives&#39;s Blog">
+<meta property="og:description" content="计划用两篇文章梳理一下ip，upd，tcp协议，重点放在后两者，因为后两者目前在应用上非常广，可编程性也大很多，本文将重点介绍UDP协议。 UDP介绍UDP又名用户数据报协议（User Datagram Protocol）。UDP 为应用程序提供了一种无需建立连接就可以发送封装的 IP 数据包的协议，可知UDP是基于IP协议的。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://icevil.cn/2020/03/14/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E6%A2%B3%E7%90%86%E4%B9%8BUDP/osi.png">
+<meta property="og:image" content="https://icevil.cn/2020/03/14/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E6%A2%B3%E7%90%86%E4%B9%8BUDP/ipHead.jpg">
+<meta property="og:image" content="https://icevil.cn/2020/03/14/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E6%A2%B3%E7%90%86%E4%B9%8BUDP/udpHead.jpg">
+<meta property="og:image" content="https://icevil.cn/2020/03/14/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E6%A2%B3%E7%90%86%E4%B9%8BUDP/udp_peice.png">
+<meta property="article:published_time" content="2020-03-14T04:51:09.000Z">
+<meta property="article:modified_time" content="2020-03-15T01:28:24.379Z">
+<meta property="article:author" content="Ives">
+<meta property="article:tag" content="upd">
+<meta property="article:tag" content="通信协议">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://icevil.cn/2020/03/14/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E6%A2%B3%E7%90%86%E4%B9%8BUDP/osi.png">
+
+<link rel="canonical" href="https://icevil.cn/2020/03/14/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E6%A2%B3%E7%90%86%E4%B9%8BUDP/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>通信协议梳理之UDP | Ives's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Ives's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta custom-logo">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ives's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Reading maketh a full man; conference a ready man; and writing an exact man. --Fransis Bacon</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404.html" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/" class="github-corner" title="去全球最大同性交友网站，走！" aria-label="去全球最大同性交友网站，走！" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2020/03/14/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E6%A2%B3%E7%90%86%E4%B9%8BUDP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ives">
+      <meta itemprop="description" content="当你开始满于现状时，你正在错失世界的美好。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ives's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          通信协议梳理之UDP
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-14 12:51:09" itemprop="dateCreated datePublished" datetime="2020-03-14T12:51:09+08:00">2020-03-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c-c/" itemprop="url" rel="index">
+                    <span itemprop="name">c/c++</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>16k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>14 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>计划用两篇文章梳理一下ip，upd，tcp协议，重点放在后两者，因为后两者目前在应用上非常广，可编程性也大很多，本文将重点介绍UDP协议。</p>
+<h2 id="UDP介绍"><a href="#UDP介绍" class="headerlink" title="UDP介绍"></a>UDP介绍</h2><p>UDP又名用户数据报协议（User Datagram Protocol）。UDP 为应用程序提供了一种<strong>无需建立连接就可以发送封装的 IP 数据包的协议</strong>，可知UDP是基于IP协议的。</p>
+<a id="more"></a>
+
+<h3 id="UDP对应的网络层"><a href="#UDP对应的网络层" class="headerlink" title="UDP对应的网络层"></a>UDP对应的网络层</h3><p>OSI七层网络模型中：属于第4层——传输层协议</p>
+<p>TCP/IP四层模型中：属于第3层——运输层协议</p>
+<p>如下图：我们可以看出UDP和TCP是处于同一层的。<br><img src="osi.png" alt=""></p>
+<h3 id="UDP-IP协议头"><a href="#UDP-IP协议头" class="headerlink" title="UDP/IP协议头"></a>UDP/IP协议头</h3><p><img src="ipHead.jpg" alt="IP协议头" title="IP协议头"></p>
+<center>IP协议头</center>
+
+<p><img src="udpHead.jpg" alt="UDP协议头" title="UDP协议头"></p>
+<center>UDP协议头</center>
+
+<p>有上图可知一个完整的UDP头是由<code>20字节IP协议头</code> + <code>8字节UDP协议头</code>组成，总长度：28个字节。 </p>
+<blockquote>
+<p>16位源端口号：1 ~ 65535<br>16位目标端口号：1 ~ 65535<br>16位数据报长度：65535字节=64kb<br>16位校验和：目的是防止数据报被更改。</p>
+</blockquote>
+<p><font color=red>所以，一个UDP包长度不能超过64kb，超过64kb数据，我们必须分包发送。否则，多余的数据会被直接丢掉，导致接收端接收数据不完整。</font>那什么时候适合用UDP呢？</p>
+<h3 id="UDP的应用场景"><a href="#UDP的应用场景" class="headerlink" title="UDP的应用场景"></a>UDP的应用场景</h3><p>采用UDP有3个关键点：</p>
+<ul>
+<li>网络带宽需求较小，而实时性要求高；</li>
+<li>大部分应用无需维持连接； </li>
+<li>需要低功耗。</li>
+</ul>
+<p>应用场景：</p>
+<ul>
+<li>网页浏览：新浪微博就已经用了QUIC协议 </li>
+<li>流媒体：WebRTC就是基于UDP的， </li>
+<li>实时游戏：Unity3D采用的RakNet也是基于UDP的协议</li>
+</ul>
+<h3 id="尽量避免IP分片"><a href="#尽量避免IP分片" class="headerlink" title="尽量避免IP分片"></a>尽量避免IP分片</h3><p><strong>IP层是没有超时重传机制的</strong>，如果IP层对一个数据包进行了分片，只要有一个分片丢失了，只能依赖于 传输层进行重传，结果是所有的分片都要重传一遍，这个代价有点大；公网传输，需要经过多个网络设备，IP分片容易造成丢包。由此可见，IP分片会大大降低传输层传送数据的成功率，所以我们要避免IP分片。那我们只能重上层减少包大小，下面将介绍UDP如何分片和重组。</p>
+<h2 id="UDP分片与重组"><a href="#UDP分片与重组" class="headerlink" title="UDP分片与重组"></a>UDP分片与重组</h2><h3 id="UDP分片原理"><a href="#UDP分片原理" class="headerlink" title="UDP分片原理"></a>UDP分片原理</h3><ol>
+<li>对应用层的数据进行分片，以满足MTU传输的要求 </li>
+<li>在发送端给分片编号，在接收端重组分片，解决乱序数据包重组的问题</li>
+</ol>
+<h3 id="UDP和MTU的关系"><a href="#UDP和MTU的关系" class="headerlink" title="UDP和MTU的关系"></a>UDP和MTU的关系</h3><ul>
+<li>MTU（Maximum Transmission Unit）是指通信协议的链路层上面所能通过的最大数据包大小，LINUX默认1500字节。</li>
+<li>单个UDP传输的最大内容 <font color=red>$1472 = 1500 - 20 - 8$</font> 字节，但由于不同的网络中转设备设置的MTU值并不相同。 </li>
+<li><code>Internet</code>上的标准MTU值为 <font color=red>$576$</font> 字节，UDP的数据长度控制在 <font color=red>$548 = 576-8-20$</font> 字节以内； </li>
+<li>局域网环境下，UDP的数据长度控制在$1472$个字节以内。</li>
+</ul>
+<h3 id="UDP协议格式"><a href="#UDP协议格式" class="headerlink" title="UDP协议格式"></a>UDP协议格式</h3><table>
+<thead>
+<tr>
+<th>IP头</th>
+<th>UDP头</th>
+<th>报文</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>20字节</td>
+<td>8字节</td>
+<td>UDP数据</td>
+</tr>
+</tbody></table>
+<h3 id="UDP分片实现"><a href="#UDP分片实现" class="headerlink" title="UDP分片实现"></a>UDP分片实现</h3><p>如何实现分片？每个分片应该有哪些信息？下面我们用一个图来搞定。<br><img src="udp_peice.png" alt=""><br><font color=red>注意：如果同时接收多个client，上图分片有什么问题？</font></p>
+<p>两种处理方式：</p>
+<ol>
+<li>我们应该注意到每个<code>clientid</code>，都应该对应一个环形缓冲区才行。</li>
+<li>如果共用一个环形缓冲区，我们应该在分片的时候加上<code>clientid</code>以做区分。</li>
+</ol>
+<h3 id="源代码实现"><a href="#源代码实现" class="headerlink" title="源代码实现"></a>源代码实现</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//udp-piece.h</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _UDP_PIECE_H_</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _UDP_PIECE_H_</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdint.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"circular_buffer.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HEAD_POS_SYNC_WORD		0	<span class="comment">// 同步字</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HEAD_POS_TOTAL_SIZE 	2	<span class="comment">// 所有分片数据的大小（不包括HEAD） //total data length of all pieces</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HEAD_POS_TOTAL_PIECES 	4 	<span class="comment">// 所有分片的数量</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HEAD_POS_P_INDEX 		6 	<span class="comment">// 分片序号，从0开始</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HEAD_POS_P_LENGTH 		8 	<span class="comment">// 当前分片数据的大小</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HEAD_SIZE 				12	<span class="comment">// 头部大小</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PIECE_FIX_SIZE 			(576 - 8 - 20 - 12)UL 	<span class="comment">//internat MTU - UDP_head - IP_head - 分片头</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">udp_piece</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> recv_pieces;			<span class="comment">// 当前已经接收的分片数量</span></span><br><span class="line">    <span class="keyword">int</span> total_size;				<span class="comment">// 总数据大小</span></span><br><span class="line">    <span class="keyword">int</span> total_pieces;			<span class="comment">// 分片总数量</span></span><br><span class="line">    <span class="keyword">int</span> left;					<span class="comment">// 最后一片的大小</span></span><br><span class="line">    <span class="keyword">int</span> piece_size;				<span class="comment">// 分片大小</span></span><br><span class="line">    <span class="keyword">int</span> recv_len;				<span class="comment">// 接收数据的长度</span></span><br><span class="line">    <span class="keyword">uint8_t</span> *recv_buf;			<span class="comment">// 保存接收数据</span></span><br><span class="line">    <span class="keyword">uint8_t</span>	*send_ptr;			<span class="comment">// 指向发送数据的buffer</span></span><br><span class="line">    <span class="keyword">uint8_t</span> piece_buf[PIECE_FIX_SIZE+HEAD_SIZE+<span class="number">1</span>];	<span class="comment">//单帧的buffer</span></span><br><span class="line">    <span class="keyword">circular_buffer_t</span> *circular_buffer;	<span class="comment">// 环形缓存</span></span><br><span class="line">&#125;<span class="keyword">udp_piece_t</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 初始化资源</span></span><br><span class="line"><span class="comment"> * @param buf_size 设置环形缓冲区数据的最大长度</span></span><br><span class="line"><span class="comment"> * @return 成功则返回一个句柄，失败则返回NULL</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">udp_piece_t</span> *<span class="title">udp_piece_init</span><span class="params">(<span class="keyword">int</span> buf_size)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 释放资源</span></span><br><span class="line"><span class="comment"> * @param udp_piece 句柄</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">udp_piece_deinit</span><span class="params">(<span class="keyword">udp_piece_t</span> *udp_piece)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 重置，这里不会重新分配资源，只是讲部分参数重置到初始化状态</span></span><br><span class="line"><span class="comment"> * @param udp_piece 句柄</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">udp_piece_reset</span><span class="params">(<span class="keyword">udp_piece_t</span> *udp_piece)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 根据长度进行切割，返回切割后的分片数量</span></span><br><span class="line"><span class="comment"> * @param udp_piece 句柄</span></span><br><span class="line"><span class="comment"> * @param buf       要分片数据的指针</span></span><br><span class="line"><span class="comment"> * @param size      要分片数据的长度</span></span><br><span class="line"><span class="comment"> * @return 返回分片的数量</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">udp_piece_cut</span><span class="params">(<span class="keyword">udp_piece_t</span> *udp_piece, <span class="keyword">void</span> *buf, <span class="keyword">int</span> <span class="built_in">size</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 根据分片编号获取切片指针及分片数据大小</span></span><br><span class="line"><span class="comment"> * @param udp_piece 句柄</span></span><br><span class="line"><span class="comment"> * @param index     分片编号</span></span><br><span class="line"><span class="comment"> * @param got_piece_size 获取指定编号分片数据的长度</span></span><br><span class="line"><span class="comment"> * @return 返回指定分片编号的数据指针</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">uint8_t</span> *<span class="title">udp_piece_get</span><span class="params">(<span class="keyword">udp_piece_t</span> *udp_piece, <span class="keyword">int</span> index, <span class="keyword">int</span> *got_piece_size)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 重组分片</span></span><br><span class="line"><span class="comment"> * @param udp_piece 句柄</span></span><br><span class="line"><span class="comment"> * @param buf   分片数据的指针</span></span><br><span class="line"><span class="comment"> * @param size  分片数据的长度</span></span><br><span class="line"><span class="comment"> * @return  返回-1则重组失败，返回0则正在重组中，返回1则重组成功</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">udp_piece_merge</span><span class="params">(<span class="keyword">udp_piece_t</span> *udp_piece, <span class="keyword">void</span> *buf, <span class="keyword">int</span> <span class="built_in">size</span>)</span></span>;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 重组分片，使用环形缓存</span></span><br><span class="line"><span class="comment"> * @param udp_piece 句柄</span></span><br><span class="line"><span class="comment"> * @param buf   分片数据的指针</span></span><br><span class="line"><span class="comment"> * @param size  分片数据的长度</span></span><br><span class="line"><span class="comment"> * @return  返回-1则重组失败，返回0则正在重组中，返回1则重组成功</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">udp_piece_merge_ex</span><span class="params">(<span class="keyword">udp_piece_t</span> *udp_piece, <span class="keyword">void</span> *buf, <span class="keyword">int</span> <span class="built_in">size</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* end of __cplusplus */</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//udp_piece.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"udp-piece.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> UDP_ERR		printf</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> UDP_DEBUG	printf</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 初始化资源</span></span><br><span class="line"><span class="comment"> * @param buf_size 设置缓冲区数据的最大长度</span></span><br><span class="line"><span class="comment"> * @return 成功则返回一个句柄，失败则返回NULL</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">udp_piece_t</span>* <span class="title">udp_piece_init</span><span class="params">( <span class="keyword">int</span> buf_size )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">/*  */</span></span><br><span class="line">    <span class="keyword">udp_piece_t</span> *udp_piece = (<span class="keyword">udp_piece_t</span> *) <span class="built_in">malloc</span>( <span class="keyword">sizeof</span>(<span class="keyword">udp_piece_t</span>) );</span><br><span class="line">    <span class="keyword">if</span> ( !udp_piece )</span><br><span class="line">        <span class="keyword">return</span>(<span class="literal">NULL</span>);</span><br><span class="line">    <span class="built_in">memset</span>( udp_piece, <span class="number">0</span>, <span class="keyword">sizeof</span>(<span class="keyword">udp_piece_t</span>) );</span><br><span class="line"></span><br><span class="line">    udp_piece-&gt;circular_buffer = circular_buffer_init( buf_size );</span><br><span class="line">    <span class="keyword">if</span> ( !udp_piece-&gt;circular_buffer )</span><br><span class="line">        <span class="keyword">return</span>(<span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span>(udp_piece);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 释放资源</span></span><br><span class="line"><span class="comment"> * @param udp_piece 句柄</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">udp_piece_deinit</span><span class="params">( <span class="keyword">udp_piece_t</span> *udp_piece )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">/* 释放资源 */</span></span><br><span class="line">    <span class="keyword">if</span> ( udp_piece )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> ( udp_piece-&gt;recv_buf )</span><br><span class="line">            <span class="built_in">free</span>( udp_piece-&gt;recv_buf );</span><br><span class="line">        udp_piece-&gt;recv_buf	= <span class="literal">NULL</span>;</span><br><span class="line">        udp_piece-&gt;recv_pieces	= <span class="number">0</span>;</span><br><span class="line">        udp_piece-&gt;total_size	= <span class="number">0</span>;    <span class="comment">/* 总数据大小 */</span></span><br><span class="line">        udp_piece-&gt;total_pieces = <span class="number">0</span>;    <span class="comment">/* 分片总数量 */</span></span><br><span class="line">        udp_piece-&gt;left		= <span class="number">0</span>;    	<span class="comment">/* 最后一片的大小 */</span></span><br><span class="line">        udp_piece-&gt;piece_size	= <span class="number">0</span>;    <span class="comment">/* 分片大小 */</span></span><br><span class="line">        udp_piece-&gt;recv_len	= <span class="number">0</span>;</span><br><span class="line">        circular_buffer_deinit( udp_piece-&gt;circular_buffer );</span><br><span class="line">        udp_piece-&gt;circular_buffer = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 重置，这里不会重新分配资源，只是讲部分参数重置到初始化状态</span></span><br><span class="line"><span class="comment"> * @param udp_piece 句柄</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">udp_piece_reset</span><span class="params">( <span class="keyword">udp_piece_t</span> *udp_piece )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">/* 数据重置 */</span></span><br><span class="line">    <span class="keyword">if</span> ( udp_piece )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> ( udp_piece-&gt;recv_buf )</span><br><span class="line">            <span class="built_in">free</span>( udp_piece-&gt;recv_buf );</span><br><span class="line">        udp_piece-&gt;recv_buf	= <span class="literal">NULL</span>;</span><br><span class="line">        udp_piece-&gt;send_ptr		= <span class="literal">NULL</span>;</span><br><span class="line">        udp_piece-&gt;recv_pieces	= <span class="number">0</span>;</span><br><span class="line">        udp_piece-&gt;total_size	= <span class="number">0</span>;    <span class="comment">/* 总数据大小 */</span></span><br><span class="line">        udp_piece-&gt;total_pieces = <span class="number">0</span>;    <span class="comment">/* 分片总数量 */</span></span><br><span class="line">        udp_piece-&gt;left		= <span class="number">0</span>;    <span class="comment">/* 最后一片的大小 */</span></span><br><span class="line">        udp_piece-&gt;piece_size	= <span class="number">0</span>;    <span class="comment">/* 分片大小 */</span></span><br><span class="line">        udp_piece-&gt;recv_len	= <span class="number">0</span>;</span><br><span class="line">        circular_buffer_reset( udp_piece-&gt;circular_buffer );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 根据长度进行切割，返回切割后的分片数量</span></span><br><span class="line"><span class="comment"> * @param udp_piece 句柄</span></span><br><span class="line"><span class="comment"> * @param buf       要分片数据的指针</span></span><br><span class="line"><span class="comment"> * @param size      要分片数据的长度</span></span><br><span class="line"><span class="comment"> * @return 返回分片的数量</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">udp_piece_cut</span><span class="params">( <span class="keyword">udp_piece_t</span> *udp_piece, <span class="keyword">void</span> *buf, <span class="keyword">int</span> <span class="built_in">size</span> )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!udp_piece || <span class="built_in">size</span> &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    udp_piece-&gt;send_ptr = buf;</span><br><span class="line">    udp_piece-&gt;total_size = <span class="built_in">size</span>;</span><br><span class="line">    udp_piece-&gt;left = <span class="built_in">size</span> % PIECE_FIX_SIZE;	<span class="comment">// 最后一个分片数据的大小</span></span><br><span class="line">    udp_piece-&gt;total_pieces = </span><br><span class="line">        (udp_piece-&gt;left &gt; <span class="number">0</span>) ? (<span class="built_in">size</span> / PIECE_FIX_SIZE + <span class="number">1</span>) :(<span class="built_in">size</span> / PIECE_FIX_SIZE);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> udp_piece-&gt;total_pieces;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 根据分片编号获取切片指针及分片数据大小</span></span><br><span class="line"><span class="comment"> * @param udp_piece 句柄</span></span><br><span class="line"><span class="comment"> * @param index     分片编号</span></span><br><span class="line"><span class="comment"> * @param got_piece_size 获取指定编号分片数据的长度</span></span><br><span class="line"><span class="comment"> * @return 返回指定分片编号的数据指针</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">uint8_t</span> *<span class="title">udp_piece_get</span><span class="params">( <span class="keyword">udp_piece_t</span> *udp_piece, <span class="keyword">int</span> index, <span class="keyword">int</span> *got_piece_size )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> piece_size = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!udp_piece || !got_piece_size &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    *got_piece_size = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 分片大小</span></span><br><span class="line">    <span class="keyword">if</span>(((udp_piece-&gt;total_pieces - <span class="number">1</span>) == index)		<span class="comment">// 是不是最后一个分片</span></span><br><span class="line">        &amp;&amp; (udp_piece-&gt;left &gt; <span class="number">0</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        piece_size = udp_piece-&gt;left;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;	</span><br><span class="line">        piece_size = PIECE_FIX_SIZE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化为0</span></span><br><span class="line">    <span class="built_in">memset</span>( udp_piece-&gt;piece_buf, <span class="number">0</span>, <span class="keyword">sizeof</span>(udp_piece-&gt;piece_buf) );</span><br><span class="line">    <span class="comment">// 填充分片帧头</span></span><br><span class="line">    <span class="comment">// 同步字</span></span><br><span class="line">    udp_piece-&gt;piece_buf[HEAD_POS_SYNC_WORD] = <span class="number">0xAF</span>;</span><br><span class="line">    udp_piece-&gt;piece_buf[HEAD_POS_SYNC_WORD + <span class="number">1</span>] = <span class="number">0xAE</span>;</span><br><span class="line">    <span class="comment">// 所有分片数据的大小</span></span><br><span class="line">    udp_piece-&gt;piece_buf[HEAD_POS_TOTAL_SIZE] = udp_piece-&gt;total_size &gt;&gt; <span class="number">8</span>;</span><br><span class="line">    udp_piece-&gt;piece_buf[HEAD_POS_TOTAL_SIZE + <span class="number">1</span>] = (udp_piece-&gt;total_size &amp; <span class="number">0xff</span>);</span><br><span class="line">    <span class="comment">// 所有分片的数量</span></span><br><span class="line">    udp_piece-&gt;piece_buf[HEAD_POS_TOTAL_PIECES] = udp_piece-&gt;total_pieces &gt;&gt; <span class="number">8</span>;</span><br><span class="line">    udp_piece-&gt;piece_buf[HEAD_POS_TOTAL_PIECES + <span class="number">1</span>] = (udp_piece-&gt;total_pieces &amp; <span class="number">0xff</span>);</span><br><span class="line">    <span class="comment">// 分片编号，从0开始</span></span><br><span class="line">    udp_piece-&gt;piece_buf[HEAD_POS_P_INDEX] = index &gt;&gt; <span class="number">8</span>;</span><br><span class="line">    udp_piece-&gt;piece_buf[HEAD_POS_P_INDEX + <span class="number">1</span>] = (index &amp; <span class="number">0xff</span>);</span><br><span class="line">    <span class="comment">// 分片数据的大小</span></span><br><span class="line">    udp_piece-&gt;piece_buf[HEAD_POS_P_LENGTH] = piece_size &gt;&gt; <span class="number">8</span>;</span><br><span class="line">    udp_piece-&gt;piece_buf[HEAD_POS_P_LENGTH + <span class="number">1</span>] = (piece_size &amp; <span class="number">0xff</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 把用户数据拷贝到分片数据区</span></span><br><span class="line">    <span class="built_in">memcpy</span>(&amp;udp_piece-&gt;piece_buf[HEAD_SIZE], &amp;udp_piece-&gt;send_ptr[PIECE_FIX_SIZE * index], piece_size);</span><br><span class="line">    *got_piece_size = piece_size + HEAD_SIZE;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> udp_piece-&gt;piece_buf;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 重组分片</span></span><br><span class="line"><span class="comment"> * @param udp_piece 句柄</span></span><br><span class="line"><span class="comment"> * @param buf   分片数据的指针</span></span><br><span class="line"><span class="comment"> * @param size  分片数据的长度</span></span><br><span class="line"><span class="comment"> * @return  返回-1则重组失败，返回0则正在重组中，返回1则重组成功</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">udp_piece_merge</span><span class="params">( <span class="keyword">udp_piece_t</span> *udp_piece, <span class="keyword">void</span> *buf, <span class="keyword">int</span> <span class="built_in">size</span> )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">uint8_t</span> *piece_buf = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">int</span> temp_size = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> temp_total_size = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> temp_total_pieces = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> p_index = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> get_all_pieces = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 检测头部是否有同步字</span></span><br><span class="line">    piece_buf = buf;</span><br><span class="line">    temp_size = <span class="built_in">size</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">size</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>((piece_buf[<span class="number">0</span>] == <span class="number">0xAF</span>) &amp;&amp; (piece_buf[<span class="number">1</span>] == <span class="number">0xAE</span>))</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        piece_buf++;</span><br><span class="line">        temp_size--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果检测到同步字，且剩余数据长度还超过 分片帧头长度</span></span><br><span class="line">    <span class="keyword">while</span> (temp_size &gt; HEAD_SIZE)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 当前分片的数据长度</span></span><br><span class="line">        <span class="keyword">int</span> data_len = (piece_buf[HEAD_POS_P_LENGTH] &lt;&lt; <span class="number">8</span>) + (piece_buf[HEAD_POS_P_LENGTH+<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">if</span>(temp_size &gt;= (HEAD_SIZE + data_len))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 获取分片编号</span></span><br><span class="line">            p_index = (piece_buf[HEAD_POS_P_INDEX] &lt;&lt; <span class="number">8</span>) + (piece_buf[HEAD_POS_P_INDEX+<span class="number">1</span>]);</span><br><span class="line">            <span class="keyword">if</span>(udp_piece-&gt;total_size == <span class="number">0</span>)		<span class="comment">// 重置后第一次收到数据</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 获取分片数据的总大小</span></span><br><span class="line">                udp_piece-&gt;total_size = (piece_buf[HEAD_POS_TOTAL_SIZE] &lt;&lt; <span class="number">8</span>) + (piece_buf[HEAD_POS_TOTAL_SIZE+<span class="number">1</span>]);</span><br><span class="line">                <span class="comment">// 获取总的分片数量</span></span><br><span class="line">                udp_piece-&gt;total_pieces = (piece_buf[HEAD_POS_TOTAL_PIECES] &lt;&lt; <span class="number">8</span>) + (piece_buf[HEAD_POS_TOTAL_PIECES+<span class="number">1</span>]);</span><br><span class="line">                udp_piece-&gt;recv_len = <span class="number">0</span>;</span><br><span class="line">                udp_piece-&gt;recv_pieces  = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">if</span>(udp_piece-&gt;recv_buf)</span><br><span class="line">                    <span class="built_in">free</span>(udp_piece-&gt;recv_buf);</span><br><span class="line">                udp_piece-&gt;recv_buf = <span class="built_in">malloc</span>(udp_piece-&gt;total_size + <span class="number">1</span>);</span><br><span class="line">                <span class="keyword">if</span> ( !udp_piece-&gt;recv_buf )</span><br><span class="line">                &#123;</span><br><span class="line">                    UDP_ERR( <span class="string">"malloc recv_buf filed\n"</span>);</span><br><span class="line">                    <span class="keyword">return</span>(<span class="number">-1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            UDP_DEBUG( <span class="string">"buf size: %d, piece_data_len: %d, p_index: %d, recv_pieces: %d, total_size: %d, total_pieces: %d\n"</span>,</span><br><span class="line">                   temp_size, data_len, p_index, udp_piece-&gt;recv_pieces, udp_piece-&gt;total_size, udp_piece-&gt;total_pieces );</span><br><span class="line">            temp_total_size = (piece_buf[HEAD_POS_TOTAL_SIZE] &lt;&lt; <span class="number">8</span>) + (piece_buf[HEAD_POS_TOTAL_SIZE+<span class="number">1</span>]);</span><br><span class="line">            temp_total_pieces = (piece_buf[HEAD_POS_TOTAL_PIECES] &lt;&lt; <span class="number">8</span>) + (piece_buf[HEAD_POS_TOTAL_PIECES+<span class="number">1</span>]);</span><br><span class="line">            udp_piece-&gt;recv_pieces++;</span><br><span class="line">            <span class="comment">// 分析下新的分片是否和原来的分片组有区别</span></span><br><span class="line">            <span class="keyword">if</span>((temp_total_size != udp_piece-&gt;total_size) || (temp_total_pieces != udp_piece-&gt;total_pieces))</span><br><span class="line">            &#123;</span><br><span class="line">                udp_piece-&gt;total_size = temp_total_size;</span><br><span class="line">                udp_piece-&gt;total_pieces = temp_total_pieces;</span><br><span class="line">                udp_piece-&gt;recv_len = <span class="number">0</span>;</span><br><span class="line">                udp_piece-&gt;recv_pieces = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span>(udp_piece-&gt;recv_buf)</span><br><span class="line">                    <span class="built_in">free</span>(udp_piece-&gt;recv_buf);</span><br><span class="line">                udp_piece-&gt;recv_buf = <span class="built_in">malloc</span>(udp_piece-&gt;total_size + <span class="number">1</span>);</span><br><span class="line">                <span class="keyword">if</span> ( !udp_piece-&gt;recv_buf )</span><br><span class="line">                &#123;</span><br><span class="line">                    UDP_ERR( <span class="string">"malloc recv_buf filed\n"</span>);</span><br><span class="line">                    <span class="keyword">return</span>(<span class="number">-1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            piece_buf += HEAD_SIZE;</span><br><span class="line">            temp_size -= HEAD_SIZE;</span><br><span class="line">            <span class="built_in">memcpy</span>(&amp;udp_piece-&gt;recv_buf[PIECE_FIX_SIZE * p_index], piece_buf, data_len);</span><br><span class="line">            piece_buf += data_len;</span><br><span class="line">            temp_size -= data_len;</span><br><span class="line"></span><br><span class="line">            udp_piece-&gt;recv_len += data_len;		<span class="comment">// 分片数据的累加</span></span><br><span class="line">            <span class="keyword">if</span>(udp_piece-&gt;recv_pieces == udp_piece-&gt;total_pieces)</span><br><span class="line">            &#123;</span><br><span class="line">                udp_piece-&gt;total_pieces = <span class="number">0</span>;</span><br><span class="line">                udp_piece-&gt;recv_pieces = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">if</span>(udp_piece-&gt;recv_len == udp_piece-&gt;total_size)</span><br><span class="line">                &#123;</span><br><span class="line">                    get_all_pieces = <span class="number">1</span>;		<span class="comment">// 把所有分片组成完整的数据帧</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    UDP_ERR( <span class="string">"recv_len != total_size! recv_len: %d, total_size: %d"</span>, udp_piece-&gt;recv_len, udp_piece-&gt;total_size );</span><br><span class="line">                    get_all_pieces = <span class="number">-1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            temp_size = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> get_all_pieces;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 重组分片，使用环形缓存</span></span><br><span class="line"><span class="comment"> * @param udp_piece 句柄</span></span><br><span class="line"><span class="comment"> * @param buf   分片数据的指针</span></span><br><span class="line"><span class="comment"> * @param size  分片数据的长度</span></span><br><span class="line"><span class="comment"> * @return  返回-1则重组失败，返回0则正在重组中，返回1则重组成功</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">udp_piece_merge_ex</span><span class="params">( <span class="keyword">udp_piece_t</span> *udp_piece, <span class="keyword">void</span> *buf, <span class="keyword">int</span> <span class="built_in">size</span> )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span>	tmp_total_size		= <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span>	tmp_total_pieces	= <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span>	p_index	= <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span>	get_all_pieces = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span>	bytes_to_write = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span>	bytes_to_read  = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">uint8_t</span>		value0 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">uint8_t</span>		value1 = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    bytes_to_write = circular_buffer_write( udp_piece-&gt;circular_buffer, buf, <span class="built_in">size</span> );</span><br><span class="line">    <span class="keyword">if</span> ( bytes_to_write != <span class="built_in">size</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        UDP_ERR( <span class="string">"%s(%d) There is not enough space, only %d bytes, but need %d bytes\n"</span>,</span><br><span class="line">             __FUNCTION__, __LINE__, bytes_to_write, <span class="built_in">size</span> );</span><br><span class="line">        <span class="keyword">return</span>(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 从新收到的数据检测是否包含 片头</span></span><br><span class="line"><span class="comment">     * 检测头部</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">while</span> ( circular_buffer_size( udp_piece-&gt;circular_buffer ) &gt;= <span class="number">2</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        circular_buffer_get( udp_piece-&gt;circular_buffer, <span class="number">0</span>, &amp;value0 );          <span class="comment">/* 通过索引获取当前值 */</span></span><br><span class="line">        circular_buffer_get( udp_piece-&gt;circular_buffer, <span class="number">1</span>, &amp;value1 );</span><br><span class="line">        <span class="keyword">if</span> ( value0 == <span class="number">0xAF</span> &amp;&amp; value1 == <span class="number">0xAE</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>  </span><br><span class="line">        &#123;</span><br><span class="line">            circular_buffer_pop_front( udp_piece-&gt;circular_buffer, <span class="number">1</span>);        <span class="comment">/* 出队列一个元素 */</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 如果剩余的数据长度仍大于于 */</span></span><br><span class="line">    <span class="keyword">while</span> ( circular_buffer_size( udp_piece-&gt;circular_buffer ) &gt; HEAD_SIZE )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/* 当前分片的数据长度（不含帧头） */</span></span><br><span class="line">        circular_buffer_get( udp_piece-&gt;circular_buffer, HEAD_POS_P_LENGTH, &amp;value0 ); <span class="comment">/* 通过索引获取当前值 */</span></span><br><span class="line">        circular_buffer_get( udp_piece-&gt;circular_buffer, HEAD_POS_P_LENGTH + <span class="number">1</span>, &amp;value1 );</span><br><span class="line"></span><br><span class="line">        <span class="keyword">uint32_t</span> data_len = (value0 &lt;&lt; <span class="number">8</span>) + value1;</span><br><span class="line">        <span class="comment">//data_len	&lt;&lt;= 8;</span></span><br><span class="line">        <span class="comment">//data_len	+= value1;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">/* UDP_DEBUG("%s(%d)\n", __FUNCTION__, __LINE__); */</span></span><br><span class="line">        <span class="keyword">if</span> ( circular_buffer_size( udp_piece-&gt;circular_buffer ) &gt;= (HEAD_SIZE + data_len) )</span><br><span class="line">        &#123;</span><br><span class="line">            circular_buffer_get( udp_piece-&gt;circular_buffer, HEAD_POS_P_INDEX, &amp;value0 );                   <span class="comment">/* 通过索引获取当前值 */</span></span><br><span class="line">            circular_buffer_get( udp_piece-&gt;circular_buffer, HEAD_POS_P_INDEX + <span class="number">1</span>, &amp;value1 );</span><br><span class="line">            p_index = (value0 &lt;&lt; <span class="number">8</span>) + value1;</span><br><span class="line">            <span class="keyword">if</span> ( udp_piece-&gt;total_size == <span class="number">0</span> )                                                               <span class="comment">/* 重置后第一次收到分片 */</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">/* 计算当前分片所属分片组数据的总大小 */</span></span><br><span class="line">                circular_buffer_get( udp_piece-&gt;circular_buffer, HEAD_POS_TOTAL_SIZE, &amp;value0 );        <span class="comment">/* 通过索引获取当前值 */</span></span><br><span class="line">                circular_buffer_get( udp_piece-&gt;circular_buffer, HEAD_POS_TOTAL_SIZE + <span class="number">1</span>, &amp;value1 );</span><br><span class="line">                udp_piece-&gt;total_size = (value0 &lt;&lt; <span class="number">8</span>) + value1;</span><br><span class="line"></span><br><span class="line">                <span class="comment">/* 计算当前分片所属分片组的总分片数量 */</span></span><br><span class="line">                circular_buffer_get( udp_piece-&gt;circular_buffer, HEAD_POS_TOTAL_PIECES, &amp;value0 );      <span class="comment">/* 通过索引获取当前值 */</span></span><br><span class="line">                circular_buffer_get( udp_piece-&gt;circular_buffer, HEAD_POS_TOTAL_PIECES + <span class="number">1</span>, &amp;value1 );</span><br><span class="line">                udp_piece-&gt;total_pieces = (value0 &lt;&lt; <span class="number">8</span>) + value1;</span><br><span class="line"></span><br><span class="line">                <span class="comment">/* 重置当前接收分片的数量 */</span></span><br><span class="line">                udp_piece-&gt;recv_pieces = <span class="number">0</span>;</span><br><span class="line">                <span class="comment">/* 重置当前接收到的数据长度 */</span></span><br><span class="line">                udp_piece-&gt;recv_len = <span class="number">0</span>;</span><br><span class="line">                <span class="comment">/* 如果缓存区有数据则先释放 */</span></span><br><span class="line">                <span class="keyword">if</span> ( udp_piece-&gt;recv_buf )</span><br><span class="line">                    <span class="built_in">free</span>( udp_piece-&gt;recv_buf );</span><br><span class="line">                <span class="comment">/* 分配能够存储一个分片组所有的数据的空间 */</span></span><br><span class="line">                udp_piece-&gt;recv_buf = <span class="built_in">malloc</span>( udp_piece-&gt;total_size + <span class="number">1</span> );</span><br><span class="line">                <span class="keyword">if</span> ( !udp_piece-&gt;recv_buf )</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">return</span>(<span class="number">-1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            UDP_DEBUG( <span class="string">"buf size: %d, piece_data_len: %d, p_index: %d, recv_pieces: %d, total_size: %d, total_pieces: %d"</span>,</span><br><span class="line">                   circular_buffer_size( udp_piece-&gt;circular_buffer ), data_len, p_index, udp_piece-&gt;recv_pieces, udp_piece-&gt;total_size, udp_piece-&gt;total_pieces );</span><br><span class="line"></span><br><span class="line">            <span class="comment">/* 计算当前分片所属分片组数据的总大小 */</span></span><br><span class="line">            circular_buffer_get( udp_piece-&gt;circular_buffer, HEAD_POS_TOTAL_SIZE, &amp;value0 );        <span class="comment">/* 通过索引获取当前值 */</span></span><br><span class="line">            circular_buffer_get( udp_piece-&gt;circular_buffer, HEAD_POS_TOTAL_SIZE + <span class="number">1</span>, &amp;value1 );</span><br><span class="line">            tmp_total_size = (value0 &lt;&lt; <span class="number">8</span>) + value1;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/* 计算当前分片所属分片组的总分片数量 */</span></span><br><span class="line">            circular_buffer_get( udp_piece-&gt;circular_buffer, HEAD_POS_TOTAL_PIECES, &amp;value0 );      <span class="comment">/* 通过索引获取当前值 */</span></span><br><span class="line">            circular_buffer_get( udp_piece-&gt;circular_buffer, HEAD_POS_TOTAL_PIECES + <span class="number">1</span>, &amp;value1 );</span><br><span class="line">            tmp_total_pieces = (value0 &lt;&lt; <span class="number">8</span>) + value1;</span><br><span class="line">            udp_piece-&gt;recv_pieces++;</span><br><span class="line">            <span class="keyword">if</span> ( (tmp_total_pieces != udp_piece-&gt;total_pieces) || (tmp_total_size != udp_piece-&gt;total_size) )</span><br><span class="line">            &#123;</span><br><span class="line">                UDP_DEBUG( <span class="string">"Discard current frame, total_pieces:%d, cur_total_pieces:%d, recv_pieces:%d, total_size:%d, cur_total_size:%d\n"</span>,</span><br><span class="line">                       udp_piece-&gt;total_pieces, tmp_total_pieces, udp_piece-&gt;recv_pieces, udp_piece-&gt;total_size, tmp_total_size );</span><br><span class="line">                <span class="comment">/* one piece of a new frame is coming, reset the variables */</span></span><br><span class="line">                udp_piece-&gt;total_size	= tmp_total_size;</span><br><span class="line">                udp_piece-&gt;total_pieces = tmp_total_pieces;</span><br><span class="line">                udp_piece-&gt;recv_pieces	= <span class="number">1</span>;</span><br><span class="line">                udp_piece-&gt;recv_len	= <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">if</span> ( udp_piece-&gt;recv_buf )</span><br><span class="line">                    <span class="built_in">free</span>( udp_piece-&gt;recv_buf );</span><br><span class="line">                udp_piece-&gt;recv_buf = <span class="built_in">malloc</span>( udp_piece-&gt;total_size + <span class="number">1</span> );</span><br><span class="line">                <span class="keyword">if</span> ( !udp_piece-&gt;recv_buf )</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">return</span>(<span class="number">-1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 将帧头出队列</span></span><br><span class="line">            circular_buffer_pop_front( udp_piece-&gt;circular_buffer, HEAD_SIZE);</span><br><span class="line">            <span class="comment">// 读取分片数据</span></span><br><span class="line">            bytes_to_read = circular_buffer_read( udp_piece-&gt;circular_buffer,</span><br><span class="line">                                  &amp;udp_piece-&gt;recv_buf[PIECE_FIX_SIZE * p_index],</span><br><span class="line">                                  data_len );</span><br><span class="line">            <span class="keyword">if</span> ( bytes_to_read != data_len )</span><br><span class="line">            &#123;</span><br><span class="line">                UDP_ERR( <span class="string">"%s(%d) There is not enough space, only %d bytes, but need %d bytes\n"</span>,</span><br><span class="line">                     __FUNCTION__, __LINE__, bytes_to_write, <span class="built_in">size</span> );</span><br><span class="line">                <span class="keyword">return</span>(<span class="number">-1</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            UDP_DEBUG( <span class="string">"remain size = %d\n"</span>, circular_buffer_size( udp_piece-&gt;circular_buffer ) );</span><br><span class="line"></span><br><span class="line">            udp_piece-&gt;recv_len += data_len;</span><br><span class="line">            <span class="keyword">if</span> ( udp_piece-&gt;recv_pieces == udp_piece-&gt;total_pieces )</span><br><span class="line">            &#123;</span><br><span class="line">                udp_piece-&gt;total_pieces = <span class="number">0</span>;</span><br><span class="line">                udp_piece-&gt;recv_pieces	= <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">if</span> ( udp_piece-&gt;recv_len == udp_piece-&gt;total_size ) <span class="comment">/* current frame is received completely, call Process() */</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">/* 组成了一帧数据 */</span></span><br><span class="line">                    get_all_pieces = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span>  </span><br><span class="line">                &#123;</span><br><span class="line">                    UDP_ERR( <span class="string">"recv_len != total_size! recv_len: %d, total_size: %d"</span>, udp_piece-&gt;recv_len, udp_piece-&gt;total_size );</span><br><span class="line">                    get_all_pieces - <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>        </span><br><span class="line">        &#123;</span><br><span class="line">            UDP_DEBUG( <span class="string">"temp_size = %d, HEAD_SIZE + data_len = %d\n"</span>,</span><br><span class="line">                   circular_buffer_size( udp_piece-&gt;circular_buffer ), HEAD_SIZE + data_len );</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span>(get_all_pieces);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/uploads/wechatpay.png" alt="Ives 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Ives
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://icevil.cn/2020/03/14/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E6%A2%B3%E7%90%86%E4%B9%8BUDP/" title="通信协议梳理之UDP">https://icevil.cn/2020/03/14/通信协议梳理之UDP/</a>                   
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="https://twitter.com/Ives">
+                <span class="icon">
+                  <i class="fa fa-twitter"></i>
+                </span>
+
+                <span class="label">Twitter</span>
+              </a>
+            </div>
+
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="/images/wechat.png">
+                <span class="icon">
+                  <i class="fa fa-wechat"></i>
+                </span>
+
+                <span class="label">WeChat</span>
+              </a>
+            </div>
+
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="/atom.xml">
+                <span class="icon">
+                  <i class="fa fa-rss"></i>
+                </span>
+
+                <span class="label">RSS</span>
+              </a>
+            </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/upd/" rel="tag"><i class="fa fa-tag"></i> upd</a>
+              <a href="/tags/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE/" rel="tag"><i class="fa fa-tag"></i> 通信协议</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/11/Electron%E4%B9%8B%E8%AF%86/" rel="prev" title="Electron之识">
+      <i class="fa fa-chevron-left"></i> Electron之识
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/15/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E6%A2%B3%E7%90%86%E4%B9%8BTCP/" rel="next" title="通信协议梳理之TCP">
+      通信协议梳理之TCP <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#UDP介绍"><span class="nav-number">1.</span> <span class="nav-text">UDP介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP对应的网络层"><span class="nav-number">1.1.</span> <span class="nav-text">UDP对应的网络层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP-IP协议头"><span class="nav-number">1.2.</span> <span class="nav-text">UDP&#x2F;IP协议头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP的应用场景"><span class="nav-number">1.3.</span> <span class="nav-text">UDP的应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#尽量避免IP分片"><span class="nav-number">1.4.</span> <span class="nav-text">尽量避免IP分片</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDP分片与重组"><span class="nav-number">2.</span> <span class="nav-text">UDP分片与重组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP分片原理"><span class="nav-number">2.1.</span> <span class="nav-text">UDP分片原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP和MTU的关系"><span class="nav-number">2.2.</span> <span class="nav-text">UDP和MTU的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP协议格式"><span class="nav-number">2.3.</span> <span class="nav-text">UDP协议格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP分片实现"><span class="nav-number">2.4.</span> <span class="nav-text">UDP分片实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源代码实现"><span class="nav-number">2.5.</span> <span class="nav-text">源代码实现</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ives"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Ives</p>
+  <div class="site-description" itemprop="description">当你开始满于现状时，你正在错失世界的美好。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:somepure@foxmail.com" title="E-Mail → mailto:somepure@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+    <!--插入外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" height=240 src="//music.163.com/outchain/player?type=0&id=4866221043&auto=0&height=430"></iframe>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">版权归原作者Ives所有，转载请标注。</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">136k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:04</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+        loader: {
+          load: ['[tex]/mhchem']
+        },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
