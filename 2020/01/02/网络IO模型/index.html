@@ -43,7 +43,7 @@
 <meta property="og:image" content="https://icevil.cn/2020/01/02/%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B/proactor_flow.png">
 <meta property="og:image" content="https://icevil.cn/2020/01/02/%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B/11.png">
 <meta property="article:published_time" content="2020-01-02T07:38:33.000Z">
-<meta property="article:modified_time" content="2020-03-03T14:07:45.412Z">
+<meta property="article:modified_time" content="2020-03-17T08:13:45.724Z">
 <meta property="article:author" content="Ives">
 <meta property="article:tag" content="c&#x2F;c++">
 <meta property="article:tag" content="socket">
@@ -312,11 +312,12 @@
 <blockquote>
 <p>可以看到服务器线程可以通过循环调用 <code>recv()</code>接口，可以在单个线程内实现对所有连 接的数据接收工作。但是上述模型绝不被推荐。因为，循环调用 <code>recv()</code>将大幅度推高 CPU 占用率；此外，在这个方案中 <code>recv()</code>更多的是起到检测“操作是否完成”的作用，实际操作系统提供了更为高效的检测“操作是否完成“作用的接口，例如 <code>select()多路复用模式</code>， 可以一次检测多个连接是否活跃。 </p>
 </blockquote>
-<h2 id="多路复用IO（IO-multiplexing）"><a href="#多路复用IO（IO-multiplexing）" class="headerlink" title="多路复用IO（IO multiplexing）"></a>多路复用IO（IO multiplexing）</h2><p><code>IO multiplexing</code> 这个词可能有点陌生，但是提到 <code>select/epoll</code>，大概就都能明白了。有些地方 也称这种 <code>IO</code> 方式为事件驱动 <code>IO</code>(<code>event driven IO</code>)。我们都知道，<code>select/epoll</code> 的好处就在于单个 <code>process</code> 就可以同时处理多个网络连接的 IO。它的基本原理就是 <code>select/epoll</code> 这个 <code>function</code> 会不断的轮询所负责的所有 <code>socket</code>，当某个 <code>socket</code> 有数据到达了，就通知用户进程。它的流程如图：<br><img src="io-multiplexing.png" alt=""></p>
+<p><font color=red>综上两种方式，我们发现无论阻塞非阻塞，主线程与子线程都是一直占用着cpu的（空转，就算使用了sleep，也会定时唤醒线程）。对于高并发情景这绝不是一种合理的设计，我们期待一种更高效的由内核通知我们唤醒线程的方式，有数据读写时唤醒，无数据读写就保持挂起状态。</font></p>
+<h2 id="多路复用IO（IO-multiplexing）"><a href="#多路复用IO（IO-multiplexing）" class="headerlink" title="多路复用IO（IO multiplexing）"></a>多路复用IO（IO multiplexing）</h2><p><code>IO multiplexing</code> 这个词可能有点陌生，但是提到 <code>select/poll/epoll</code>，大概就都能明白了。有些地方 也称这种 <code>IO</code> 方式为事件驱动 <code>IO</code>(<code>event driven IO</code>)。我们都知道，<code>select/poll/epoll</code> 的好处就在于单个 <code>process</code> 就可以同时处理多个网络连接的 IO。它的基本原理就是 <code>select/poll/epoll</code> 这个 <code>function</code> 会不断的轮询所负责的所有 <code>socket</code>，当某个 <code>socket</code> 有数据到达了，就通知用户进程。它的流程如图：<br><img src="io-multiplexing.png" alt=""></p>
 <center>IO多路复用</center>
 
 <blockquote>
-<p>当用户进程调用了 <code>select</code>，那么整个进程会被 <code>block</code>，而同时，<code>kernel</code> 会“监视”所有 <code>select</code> 负责的 <code>socket</code>，当任何一个 <code>socket</code> 中的数据准备好了，<code>select</code> 就会返回。这个时候用户进程再调用 <code>read</code> 操作，将数据从 <code>kernel</code> 拷贝到用户进程。 这个图和 <code>blocking IO</code> 的图其实并没有太大的不同，事实上还更差一些。因为这里需要使用两个系统调用(<code>select</code> 和 <code>read</code>)，而 <code>blocking IO</code> 只调用了一个系统调用(<code>read</code>)。 但是使用 <code>select</code> 以后最大的优势是用户可以在一个线程内同时处理多个 <code>socket</code> 的 <code>IO 请求</code>。用户可以注册多个 <code>socket</code>，然后不断地调用 <code>select</code> 读取被激活的 <code>socket</code>，即可达到 在同一个线程内同时处理多个 <code>IO</code> 请求的目的。而在同步阻塞模型中，必须通过多线程的方式才能达到这个目的。（多说一句：所以，如果处理的连接数不是很高的话，使用 <code>select/epoll</code> 的 <code>web server</code> 不一定比使用 <code>multi-threading</code> + <code>blocking IO</code> 的 <code>web server</code> 性能更好，可能延迟还更大。<code>select/epoll</code> 的优势并不是对于单个连接能处理得更快，而是在于能处理更多的连接。）<br>在多路复用模型中，对于每一个 <code>socket</code>，一般都设置成为 <code>non-blocking</code>，但是，上图所示，整个用户的 <code>process</code> 其实是一直被 <code>block</code> 的。只不过 <code>process</code> 是被 <code>select</code> 这 个函数 <code>block</code>，而不是被 <code>socket IO</code> 给 <code>block</code>。因此 <code>select()</code>与<code>非阻塞IO</code> 类似。<br>大部分 Unix/Linux 都支持 select 函数，该函数用于探测多个文件句柄的状态变化。 下面给出 select 接口的原型：</p>
+<p>当用户进程调用了 <code>select</code>，那么整个进程会被 <code>block</code>，而同时，<code>kernel</code> 会“监视”所有 <code>select</code> 负责的 <code>socket</code>，当任何一个 <code>socket</code> 中的数据准备好了，<code>select</code> 就会返回。这个时候用户进程再调用 <code>read</code> 操作，将数据从 <code>kernel</code> 拷贝到用户进程。 这个图和 <code>blocking IO</code> 的图其实并没有太大的不同，事实上还更差一些。因为这里需要使用两个系统调用(<code>select</code> 和 <code>read</code>)，而 <code>blocking IO</code> 只调用了一个系统调用(<code>read</code>)。 但是使用 <code>select</code> 以后最大的优势是用户可以在一个线程内同时处理多个 <code>socket</code> 的 <code>IO 请求</code>。用户可以注册多个 <code>socket</code>，然后不断地调用 <code>select</code> 读取被激活的 <code>socket</code>，即可达到 在同一个线程内同时处理多个 <code>IO</code> 请求的目的。而在同步阻塞模型中，必须通过多线程的方式才能达到这个目的。（多说一句：所以，如果处理的连接数不是很高的话，使用 <code>select/epoll</code> 的 <code>web server</code> 不一定比使用 <code>multi-threading</code> + <code>blocking IO</code> 的 <code>web server</code> 性能更好，可能延迟还更大。<code>select/epoll</code> 的优势并不是对于单个连接能处理得更快，而是在于能处理更多的连接。）<br>在多路复用模型中，对于每一个 <code>socket</code>，一般都设置成为 <code>non-blocking</code>，但是，上图所示，整个用户的 <code>process</code> 其实是一直被 <code>block</code> 的。只不过 <code>process</code> 是被 <code>select</code> 这个函数 <code>block</code>，而不是被 <code>socket IO</code> 给 <code>block</code>。因此 <code>select()</code>与<code>非阻塞IO</code> 类似。<br>大部分 Unix/Linux 都支持 select 函数，该函数用于探测多个文件句柄的状态变化。 下面给出 select 接口的原型：</p>
 </blockquote>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FD_ZERO(<span class="keyword">int</span> fd, fd_set* fds)      </span><br><span class="line">FD_SET(<span class="keyword">int</span> fd, fd_set* fds)      </span><br><span class="line">FD_ISSET(<span class="keyword">int</span> fd, fd_set* fds)      </span><br><span class="line">FD_CLR(<span class="keyword">int</span> fd, fd_set* fds)     </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(<span class="keyword">int</span> nfds, fd_set *readfds, fd_set *writefds</span></span></span><br><span class="line"><span class="function"><span class="params">    , fd_set *exceptfds, struct timeval *timeout)</span></span></span><br></pre></td></tr></table></figure>
 <p>这里，<code>fd_set</code> 类型可以简单的理解为按 <code>bit</code> 位标记句柄的队列，例如要在某 <code>fd_set</code> 中标记一个值为 16 的句柄，则该 <code>fd_set</code> 的第 16 个 bit 位被标记为 1。具体的置位、验证 可使用 <code>FD_SET</code>、<code>FD_ISSET</code> 等宏实现。在 <code>select()</code>函数中，<code>readfds</code>、<code>writefds</code> 和 <code>exceptfds</code> 同时作为输入参数和输出参数。如果输入的 <code>readfds</code> 标记了 16 号句柄，则 <code>select()</code>将检测 16 号句柄是否可读。在 <code>select()</code>返回后，可以通过检查 <code>readfds</code> 有否标 记 16 号句柄，来判断该“可读”事件是否发生。另外，用户可以设置 <code>timeout</code> 时间。 下面将重新模拟上例中从多个客户端接收数据的模型。<br><img src="select.png" alt=""></p>
@@ -399,7 +400,7 @@ Reactor 模式是处理并发 I/O 比较常见的一种模式，用于同步 I/O
 <li>I/O 完成后，通过事件分离器呼唤处理器 </li>
 <li>事件处理器处理用户自定义缓冲区中的数据 </li>
 </ol>
-<p>从上面的处理流程，我们可以发现 <code>proactor</code> 模型最大的特点就是 <code>Proactor</code> 最大的特点是使用异步 I/O。所有的 I/O 操作都交由系统提供的异步 I/O 接口去执行。工作线程仅仅负责业务逻辑。在 Proactor 中，用户函数启动一个异步的文件操作。同时将这个操作注册到多路复用器上。多路复用器并不关心文件是否可读或可写而是关心这个异步读操作是否完成。异步操作是操作系统完成，用户程序不需要关心。多路复用器等待直到有完成通知到来。当操 作系统完成了读文件操作——将读到的数据复制到了用户先前提供的缓冲区之后，通知多路复用器相关操作已完成。多路复用器再调用相应的处理程序，处理数据。       </p>
+<p>从上面的处理流程，我们可以发现 <code>proactor</code> 模型最大的特点就是使用异步 I/O。所有的 I/O 操作都交由系统提供的异步 I/O 接口去执行。工作线程仅仅负责业务逻辑。在 Proactor 中，用户函数启动一个异步的文件操作。同时将这个操作注册到多路复用器上。多路复用器并不关心文件是否可读或可写而是关心这个异步读操作是否完成。异步操作是操作系统完成，用户程序不需要关心。多路复用器等待直到有完成通知到来。当操 作系统完成了读文件操作——将读到的数据复制到了用户先前提供的缓冲区之后，通知多路复用器相关操作已完成。多路复用器再调用相应的处理程序，处理数据。       </p>
 <blockquote>
 <p><code>Proactor</code> 增加了编程的复杂度，但给工作线程带来了更高的效率。<code>Proactor</code> 可以在 系统态将读写优化，利用 I/O 并行能力，提供一个高性能单线程模型。在 <code>windows</code> 上， 由于没有 <code>epoll</code> 这样的机制，因此提供了 <code>IOCP</code> 来支持高并发， 由于操作系统做了较好的优化，<code>windows</code> 较常采用 <code>Proactor</code> 的模型利用完成端口来实现服务器。在 <code>linux</code> 上，在 2.6 内核出现了 <code>aio</code> 接口，但 <code>aio</code> 实际效果并不理想，它的出现，主要是解决 <code>poll</code> 性能不佳的问题，但实际上经过测试，<code>epoll</code> 的性能高于 <code>poll+aio</code>，并且 <code>aio</code> 不能处理 <code>accept</code>， 因此 linux 主要还是以 <code>Reactor</code> 模型为主。</p>
 </blockquote>
@@ -605,7 +606,7 @@ Reactor 模式是处理并发 I/O 比较常见的一种模式，用于同步 I/O
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-count">63</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -618,7 +619,7 @@ Reactor 模式是处理并发 I/O 比较常见的一种模式，用于同步 I/O
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-count">129</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -655,6 +656,8 @@ Reactor 模式是处理并发 I/O 比较常见的一种模式，用于同步 I/O
     <footer class="footer">
       <div class="footer-inner">
         
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">粤ICP备19149780号 </a>
+  </div>
 
 <div class="copyright">
   
@@ -668,12 +671,12 @@ Reactor 模式是处理并发 I/O 比较常见的一种模式，用于同步 I/O
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">136k</span>
+    <span title="站点总字数">151k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:04</span>
+    <span title="站点阅读时长">2:18</span>
 </div>
 
         
