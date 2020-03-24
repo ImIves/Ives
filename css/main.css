@@ -156,7 +156,7 @@ body {
 }
 body {
   background: #282828;
-  color: #f5f5f5;
+  color: #d2d2d2;
   font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 1em;
   line-height: 2;
@@ -232,7 +232,7 @@ hr {
 blockquote {
   background: #000;
   border-left: 4px solid #00bfff;
-  color: #f5f5f5;
+  color: #d2d2d2;
   margin: 0;
   padding: 0 15px;
 }
@@ -248,7 +248,7 @@ dd {
   padding: 0;
 }
 kbd {
-  background-color: #f5f5f5;
+  background-color: #d2d2d2;
   background-image: linear-gradient(#1d1f21, #222, #1d1f21);
   border: 1px solid #ccc;
   border-radius: 0.2em;
@@ -410,7 +410,7 @@ code {
 code {
   background: #1d1f21;
   border-radius: 3px;
-  color: #f5f5f5;
+  color: #d2d2d2;
   padding: 2px 4px;
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -1085,7 +1085,7 @@ pre .javascript .function {
   width: 22px;
 }
 .site-nav-toggle .toggle .toggle-line {
-  background: #f5f5f5;
+  background: #d2d2d2;
   border-radius: 1px;
 }
 .site-nav {
@@ -1273,7 +1273,7 @@ pre .javascript .function {
   transform: rotateZ(360deg);
 }
 .site-author-name {
-  color: #f5f5f5;
+  color: #d2d2d2;
   font-weight: normal;
   margin: 5px 0 0;
   text-align: center;
@@ -1301,7 +1301,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #cd4af6;
+  background: #57600e;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1395,7 +1395,7 @@ pre .javascript .function {
   margin-left: 10px;
 }
 .sidebar-nav li:hover {
-  color: #f5f5f5;
+  color: #d2d2d2;
 }
 .sidebar-nav .sidebar-nav-active {
   border-bottom-color: #87daff;
@@ -1789,7 +1789,7 @@ pre .javascript .function {
   color: #666;
 }
 .posts-collapse::before {
-  background: #f5f5f5;
+  background: #d2d2d2;
   content: ' ';
   height: 100%;
   left: 0;
@@ -2282,7 +2282,7 @@ pre .javascript .function {
   content: '\f017';
 }
 .event-list .event-past {
-  background: #f5f5f5;
+  background: #d2d2d2;
 }
 .event-list .event-past .event-summary,
 .event-list .event-past .event-details {
@@ -2411,7 +2411,7 @@ ul.breadcrumb li + li:last-child {
 }
 .search-popup .search-header {
   display: flex;
-  background: #f5f5f5;
+  background: #d2d2d2;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   padding: 5px;
@@ -2692,7 +2692,7 @@ hr {
   text-align: left;
 }
 .posts-expand .post-tags a {
-  background: #f5f5f5;
+  background: #d2d2d2;
   border-bottom: none;
   padding: 1px 5px;
 }
