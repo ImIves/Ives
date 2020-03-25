@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://icevil.cn/"/>
-  <updated>2020-03-21T04:22:06.741Z</updated>
+  <updated>2020-03-25T16:14:21.757Z</updated>
   <id>https://icevil.cn/</id>
   
   <author>
@@ -15,6 +15,54 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>深入C++内存模型</title>
+    <link href="https://icevil.cn/2020/03/26/%E6%B7%B1%E5%85%A5C++%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/"/>
+    <id>https://icevil.cn/2020/03/26/%E6%B7%B1%E5%85%A5C++%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/</id>
+    <published>2020-03-26T01:05:23.000Z</published>
+    <updated>2020-03-25T16:14:21.757Z</updated>
+    
+    <content type="html"><![CDATA[<p>C++是由C语言发展过来的，兼容了C语言的所有特性，外加面向对象编程。所以有人说Java才是真正的面向对象编程的语言。我也承认Java在面向对象方面比C++要好，那么C++是怎么做到兼容C又面向对象的呢？本文主要目的是分析C++的内存模型以方便我们理解记忆C++的一些特性，以及C语言的共性。</p><a id="more"></a><h2 id="C-C-程序内存模型保持一致分为4大块"><a href="#C-C-程序内存模型保持一致分为4大块" class="headerlink" title="C/C++程序内存模型保持一致分为4大块"></a>C/C++程序内存模型保持一致分为4大块</h2><p>当操作系统在调用一个二进制C/C++程序时，是如何分配内存的呢？</p><h3 id="1-全局数据区（data-area）"><a href="#1-全局数据区（data-area）" class="headerlink" title="1. 全局数据区（data area）"></a>1. 全局数据区（data area）</h3><p><strong>全局数据区存放全局变量，静态数据和常量</strong>。<br>1.该区空间系统分配时会自动初始化为0.<br>2.所有全局变量，这个好理解不多说。<br>3.静态数据（包括类静态成员，函数内静态变量），这里就说明了一个现象，类的静态函数是属于类的而不是对象的。另外函数内静态变量生命周期直至程序结束，只是访问权限仅限函数内部（那么对于类成员访问权限控制是不是也一样呢？）；所以我们通常用这个原则来记录函数的被调用次数。<br>4.常量（包括类常量成员，函数内常量），和全局变量类似，权限上加了访问控制。</p><h3 id="2-代码区（code-area"><a href="#2-代码区（code-area" class="headerlink" title="2. 代码区（code area)"></a>2. 代码区（code area)</h3><p><strong>所有类成员函数和非成员函数代码存放在代码区，也叫只读区</strong>。<br>这里是存放程序的所有代码的地方，不可修改，控制着程序的执行流程。</p><h3 id="3-栈区（stack-area）"><a href="#3-栈区（stack-area）" class="headerlink" title="3. 栈区（stack area）"></a>3. 栈区（stack area）</h3><p><strong>为运行函数而分配的局部变量、函数参数、返回数据、返回地址等存放在栈区</strong>。<br>这是操作系统会自动回收内存的区域，所以函数内的局部变量我们是不需要去手动释放内存的，因为当函数被调用的时候，它会自动分配内存也叫入栈，函数执行完后，会有出栈。这也是形参和实参的根本区别的地方，入栈的是从实参拷贝过来的形参，例如：我们要给一个新定义的指针分配内存，一定要传指针的地址，然后在函数中修改指针的值，才能真正得到一个有价值的指针；而不是传指针，如果传指针的话，该指针会被<code>copy</code>一份，所以其指向的内存是形参的而不是实参的。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">New</span><span class="params">(<span class="keyword">int</span>* p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    p = <span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">5</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> *p = <span class="literal">NULL</span>;</span><br><span class="line">    New(p);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;p&lt;&lt;<span class="string">" "</span>&lt;&lt;(p!=<span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">if</span>(p)</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">" "</span>&lt;&lt;*p&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*输出结果如下应该不意外了吧？</span></span><br><span class="line"><span class="comment">0 0</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure><h3 id="4-堆区（heap-area）"><a href="#4-堆区（heap-area）" class="headerlink" title="4. 堆区（heap area）"></a>4. 堆区（heap area）</h3><p><strong>用户自由分配内存区，所有用户new/delete操作的空间都在此区</strong>。<br>该区是用户动态申请的内存空间，程序不会自动回收，是因为程序压根不知道你什么时候需要释放，主动权在用户，而不是程序，栈区，函数结束了，程序就知道回收了，而堆区，只有进程结束了，才会自动回收内存。至于Java这种垃圾回收机制，也不是100%的，即时的回收，因为逻辑上做不到。另外我们能new的大小是多少？是全内存条的空间吗？答案不是，操作系统内核空间，或者说低区空间，应用程序是不能使用的，这是操作系统，为了保障系统的正常运行自我预留的空间。所以new是设计了抛异常的，具体关注throw。</p><p>C/C++的内存模型总结完了，那下面聊点别的衍生产品</p><h2 id="类的剖析"><a href="#类的剖析" class="headerlink" title="类的剖析"></a>类的剖析</h2><p>C++在编译过程中会将用户所有的定义的变量，接口等<strong>重命名</strong>,具体重命名规则由编译器决定。本文重点讲内存，不讲编译原理，所以以下都是伪代码。</p><ol><li>所有成员函数参数都带着this指针，如<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#cpp文件编码</span></span><br><span class="line"><span class="function"><span class="keyword">void</span>* <span class="title">Myclass::fun</span><span class="params">(<span class="keyword">int</span> args,...)</span></span></span><br><span class="line">#转换后，对应的函数大概如下</span><br><span class="line"><span class="function"><span class="keyword">void</span>* <span class="title">Myclass::fun</span><span class="params">(Myclass *<span class="keyword">this</span>, <span class="keyword">int</span> args,...)</span></span></span><br></pre></td></tr></table></figure></li><li>成员函数与非成员函数的区别<br>成员函数编译后会带着类的信息在函数名，如<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#cpp文件编码</span></span><br><span class="line"><span class="function"><span class="keyword">void</span>* <span class="title">Myclass::fun</span><span class="params">(<span class="keyword">int</span> args,...)</span></span></span><br><span class="line">#转换后，对应的函数大概如下</span><br><span class="line"><span class="keyword">void</span>* Myclass@@fun(Myclass *<span class="keyword">this</span>, <span class="keyword">int</span> args,...)</span><br></pre></td></tr></table></figure></li><li>成员函数/变量访问权限控制<br>原理同2，如：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#cpp文件编码</span></span><br><span class="line"><span class="keyword">public</span>：</span><br><span class="line">    <span class="function"><span class="keyword">void</span>* <span class="title">Myclass::fun</span><span class="params">(<span class="keyword">int</span> args,...)</span></span></span><br><span class="line"><span class="function">    <span class="keyword">int</span> m_data</span>;</span><br><span class="line">#转换后，对应的函数大概如下</span><br><span class="line"><span class="keyword">void</span>* Myclass_pub@@fun(Myclass *<span class="keyword">this</span>, <span class="keyword">int</span> args,...)</span><br><span class="line"><span class="keyword">int</span> _pub_m_data;</span><br></pre></td></tr></table></figure></li><li>静态成员变量，常量成员变量<br>原理同2，不赘述，以及类的虚函数换名原则上还是一样的，虚函数单独分析</li></ol><h2 id="类的存储"><a href="#类的存储" class="headerlink" title="类的存储"></a>类的存储</h2><p>一个类，我们已经知道了其成员函数是直接放在代码区的，而静态的或者常量的成员是放在全局区的。那类占不占用空间？</p><blockquote><p>gcc，一个空类占用空间是1字节。<br>如果有成员，成员的空间是属于类的，但是类的空间扩展上有内存对齐，如果有一个<code>int m_data</code>,则会成4字节，再加一个<code>char m_c</code>则会变成8字节，和C语言的内存对齐基本一致。<br>一个类除了成员变量占用空间还有就是虚函数是占用空间的，那虚函数是怎么占用空间的呢？<br>给上述类中加一个<code>virtual void fun1(){cout&lt;&lt;&quot;hello&quot;&lt;&lt;endl;}</code>发现类空间扩大了8字节，这里原因是因为本人的电脑是64位Linux，如果是32位电脑应该是4字节。于是，一口气再加5个虚函数，发现类空间没变，原因是类空间维护的不是虚函数而是<code>虚函数表</code>（这是一个指针,指向一个类的虚函数地址数组）</p></blockquote><h2 id="虚函数与多态的关系"><a href="#虚函数与多态的关系" class="headerlink" title="虚函数与多态的关系"></a>虚函数与多态的关系</h2><p>我们如何访问类的虚函数表呢？</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> (<span class="keyword">void</span>)(* vft)();</span><br><span class="line"><span class="comment">//获取对象obj的虚函数表</span></span><br><span class="line">vft* pVFT = (vft*)(*((<span class="keyword">long</span>*)&amp;obj));</span><br><span class="line"><span class="comment">//通过虚函数表访问虚函数</span></span><br><span class="line">(*pVFT)();</span><br><span class="line">pVFT++;</span><br></pre></td></tr></table></figure><p>代码中pVFT就是一个虚函数表指针，它其实也是一个数组指针，用<code>pVFT[index]()</code>同样能访问到对应的虚函数。那么接下来有一个灵魂拷问，多态是怎么实现的？一个子类指针是如何调用到自身的虚函数的呢？<br>每一个对象如果基类或者自身出现过虚函数，那么就一定有一个虚函数表，虚函数在内存分配上，和普通函数没有区别。那虚函数表里面的函数地址指向函数的指针。子类做法如下：<br>1.先将基类的虚表中的内容拷贝一份（没错整个函数指针数组都要拷贝）<br>2.如果子类对基类中的虚函数进行重写，使用子类的函数指针替换相同偏移量位置的虚函数指针，使之指向重写的函数。<br>3.如果子类中新增加了虚函数，按照声明次序，放在基类虚函数，也就是扩展数组。</p><p>所以，虚函数换来多态的代价也就是缺点也暴露出来了：<br>1.效率降低了，多了一次虚表查找<br>2.加大了空间占用</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;C++是由C语言发展过来的，兼容了C语言的所有特性，外加面向对象编程。所以有人说Java才是真正的面向对象编程的语言。我也承认Java在面向对象方面比C++要好，那么C++是怎么做到兼容C又面向对象的呢？本文主要目的是分析C++的内存模型以方便我们理解记忆C++的一些特性，以及C语言的共性。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="c/c++" scheme="https://icevil.cn/categories/c-c/"/>
+    
+    
+      <category term="c++" scheme="https://icevil.cn/tags/c/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>闲谈SQLite</title>
+    <link href="https://icevil.cn/2020/03/24/%E9%97%B2%E8%B0%88SQLite/"/>
+    <id>https://icevil.cn/2020/03/24/%E9%97%B2%E8%B0%88SQLite/</id>
+    <published>2020-03-24T04:22:54.000Z</published>
+    <updated>2020-03-24T07:11:52.851Z</updated>
+    
+    <content type="html"><![CDATA[<p>用了几年的sqlite了，一直觉得好用，但是没去梳理其特性，下面我们开始总结一下这到底是一个什么东西，凭什么成为世界上部署最广泛的数据库？我们什么时候选择它呢？现在每个智能手机都有用到甚至每台手机都有数百个sqlite的db文件。</p><a id="more"></a><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>我们可以从<a href="https://www.sqlite.org/index.html" target="_blank" rel="noopener">官网</a>看到，基本一句话总结就是：<strong>SQLite是一个用C语言开发的小型，快速，自包含（无依赖），高可靠，功能齐全的sql数据库引擎库。</strong>SQLite是开源的，这意味着您可以根据需要制作任意数量的副本，并可以不受限制地对这些副本进行任何操作，以作任何目的用途。但是SQLite不是开放贡献的，该项目不接受来自未知人员的补丁。</p><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p><a href="https://sqlite.org/download.html" target="_blank" rel="noopener">官方发布版连接</a>选择对应版本下载即可。目前最新版本是<code>3.31.1</code>，下载下来源代码我们看到这是一个巨大的单文件<code>sqlite3.c</code>。其实是从<code>3.9.0</code>版本开始，sqlite库就将源代码102个c文件合并成1个了。</p><h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><h3 id="占空间小"><a href="#占空间小" class="headerlink" title="占空间小"></a>占空间小</h3><p>有多小：目前版本源文件7M多,22w+行代码。编译后的动态库sqlite3.dll多大呢？600kb+（和编译器优化相关，但是一般在<code>600~800kb</code>）。</p><h3 id="高性能"><a href="#高性能" class="headerlink" title="高性能"></a>高性能</h3><ol><li>最大支持数据库文件大小为140Tb($2^{47}$).</li><li>表最大行大小支持1Gb</li><li>读写blobs（块数据 ）的速度比<code>fread()/fwrite()</code>快35%。<blockquote><p>这个测试数据其实是测试随机生成快数据进行写db与系统写文件的比较。当文件数足够多的时候，系统写文件会越来越慢的。而db是一直在同一个文件扩充大小，所以速度略快，但是我们可以肯定的一点是写db与写文件速度是相当的。或者写同一个文件的话db并不会比写文件快。另外官方说读数据是android/macos的两倍，windows的十倍，但是这个测试方法没有去除文件查找时间。db的文件查找时间是肯定比操作系统要快的，取决于红黑树与B树的区别。</p></blockquote></li><li>0配置，随软件一起发布运行，无其他依赖与配置即可正常工作<h3 id="高可靠"><a href="#高可靠" class="headerlink" title="高可靠"></a>高可靠</h3></li><li>SQLite是事务数据库，所有更改与查询操作读是原子的。<blockquote><p>数据库不会因为程序崩溃、操作系统崩溃、停电引起数据库损坏；SQLite中单个事务中的所有更改要么完全发生，要么根本不发生，即使将更改写到磁盘的行为被中断了也是如此。</p></blockquote></li><li>稳定、持久的文件格式<br>db文件格式详细参考地址：<a href="https://sqlite.org/fileformat.html" target="_blank" rel="noopener">https://sqlite.org/fileformat.html</a>。</li></ol><h2 id="与mysql比较"><a href="#与mysql比较" class="headerlink" title="与mysql比较"></a>与mysql比较</h2><p>同是sql数据库，sqlite<br>优点：<br>1.轻量<br>2.便捷<br>3.写速度远快于mysql。<br>相较于mysql每秒不过 1,000 条的数据写入，sqlite能轻松达到 100,000 条/秒.</p><p>缺点：<br>1.无安全性可言<br>2.不支持远程访问<br>3.不支持存储过程等复杂事务（跨表的复杂查询上速度肯定不如mysql）</p><h2 id="与nosql比较"><a href="#与nosql比较" class="headerlink" title="与nosql比较"></a>与nosql比较</h2><p>优点：<br>1.有nosql相当的写速度的前提下，还支持sql。</p><p>缺点：<br>1.扩展性不如nosql<br>2.不能远程访问，不支持分布式集群等。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>综上，</p><ol><li>sqlite只适合做单机系统。</li><li>自行动态分库的话能支持很好的读、写、查询（不要一个文件干到底，虽然官方支持很大的文件）。</li><li>当内存支撑不够的时候，选择sqlite存储，是一个不错的选择。<blockquote><p>如：笔者曾做个的一个证券交易软件<code>万能菜单</code>的模块,既能满足复杂的模糊匹配，又有足够的效率，还不占内存，排序也自由，而且扩展也方便，非常适合。</p></blockquote></li><li>是数据持久化的一种选择，但是如果对数据安全要求较高不建议使用。</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;用了几年的sqlite了，一直觉得好用，但是没去梳理其特性，下面我们开始总结一下这到底是一个什么东西，凭什么成为世界上部署最广泛的数据库？我们什么时候选择它呢？现在每个智能手机都有用到甚至每台手机都有数百个sqlite的db文件。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="c/c++" scheme="https://icevil.cn/categories/c-c/"/>
+    
+    
+      <category term="sqlite" scheme="https://icevil.cn/tags/sqlite/"/>
+    
+      <category term="数据库" scheme="https://icevil.cn/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
   
   <entry>
     <title>ubuntu16配置samba共享文件夹</title>
@@ -516,60 +564,6 @@
       <category term="qt" scheme="https://icevil.cn/tags/qt/"/>
     
       <category term="Ubuntu" scheme="https://icevil.cn/tags/Ubuntu/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>run文件打包</title>
-    <link href="https://icevil.cn/2019/11/09/run%E6%96%87%E4%BB%B6%E6%89%93%E5%8C%85/"/>
-    <id>https://icevil.cn/2019/11/09/run%E6%96%87%E4%BB%B6%E6%89%93%E5%8C%85/</id>
-    <published>2019-11-09T04:02:46.000Z</published>
-    <updated>2020-02-29T07:55:40.626Z</updated>
-    
-    <content type="html"><![CDATA[<p>run程序安装包实质上是一个安装脚本+程序，为了简单起见，要安装的程序就是helloworld程序，安装它的过程就是把它拷贝到<code>/bin</code>目录下.</p><a id="more"></a><p>install.sh代码如下：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash </span></span><br><span class="line">cp helloworld /bin</span><br></pre></td></tr></table></figure><p><code>tar cvf helloworld.tar.gz helloworld</code><br>现在修改一个安装脚本<code>install.sh</code>改为： </p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash </span></span><br><span class="line">lines=7 <span class="comment">#这个值是指这个脚本的行数加1，这个脚本共有6行 </span></span><br><span class="line">tail +<span class="variable">$lines</span> <span class="variable">$0</span> &gt;/tmp/helloworld.tar.gz <span class="comment"># $0表示脚本本身，这个命令用来把从$lines开始的内容写入一个/tmp目录的helloworld.tar.gz文件里。 </span></span><br><span class="line">tar xvf /tmp/hellowrold.tar.gz </span><br><span class="line">cp helloworld /bin  <span class="comment">#该行代码不变</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></figure><p>然后使用cat命令连接安装脚本<code>install.sh</code>和<code>helloworld.tar.gz</code>。<br><code>cat install.sh helloworld.tar.gz &gt; myinstall.run</code><br>这样就得到了<code>myinstall.run</code>文件，它的结构如下：</p><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">|<span class="string">------------------</span>|<span class="string"> 第1行 </span></span><br><span class="line">|<span class="string"> </span>|<span class="string"> </span></span><br><span class="line">|<span class="string"> install.sh </span>|<span class="string"> </span></span><br><span class="line">|<span class="string"> </span>|<span class="string"> 第6行 </span></span><br><span class="line">|<span class="string">------------------</span>|<span class="string"> </span></span><br><span class="line">|<span class="string"> </span>|<span class="string"> 第7行 </span></span><br><span class="line">|<span class="string">helloworld.tar.gz</span>|<span class="string"> </span></span><br><span class="line">|<span class="string"> </span>|<span class="string"> </span></span><br><span class="line">|<span class="string">------------------</span>|<span class="string"> 结尾</span></span><br></pre></td></tr></table></figure><p>运行<code>myinstall.run</code>时，运行到第6行的<code>exit 0</code>脚本就退出了，所以不会去运行第7行以下的二进制数据(即 <code>helloworld.tar.gz</code>文件)，而我们用了<code>tail</code>巧妙地把第7行以下的数据重新生成了一个<code>helloworld.tar.gz</code>文件。再执行安装。<br><code>run</code>安装包制作较小的程序包是很好的选择，但是它也有缺点，做逻辑比较复杂的安装包，写的安装脚本将会很麻烦。因此此时还是用其他的安装包更好。 </p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;run程序安装包实质上是一个安装脚本+程序，为了简单起见，要安装的程序就是helloworld程序，安装它的过程就是把它拷贝到&lt;code&gt;/bin&lt;/code&gt;目录下.&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Linux系统" scheme="https://icevil.cn/categories/Linux%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-      <category term="linux" scheme="https://icevil.cn/tags/linux/"/>
-    
-      <category term="打包" scheme="https://icevil.cn/tags/%E6%89%93%E5%8C%85/"/>
-    
-      <category term="run" scheme="https://icevil.cn/tags/run/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux gdb 调试core dump</title>
-    <link href="https://icevil.cn/2019/10/18/Linux%20gdb%20%E8%B0%83%E8%AF%95core%20dump/"/>
-    <id>https://icevil.cn/2019/10/18/Linux%20gdb%20%E8%B0%83%E8%AF%95core%20dump/</id>
-    <published>2019-10-18T03:27:47.000Z</published>
-    <updated>2020-02-23T02:25:38.579Z</updated>
-    
-    <content type="html"><![CDATA[<p>gdb使用两个推荐链接：<a href="https://www.cnblogs.com/mister-lv/p/6022841.html" target="_blank" rel="noopener">GDB中文手册</a> <a href="https://www.jianshu.com/p/b7896e9afeb7" target="_blank" rel="noopener">GDB常用命令</a></p><a id="more"></a><ol start="0"><li>关于core文件的设置</li></ol><p>两种方式设置core文件名，默认系统是生成名为core的文件，但是当我们为了方便调试，需要生成带pid，time等信息的core文件时候，就需要自己设置一下了。以下命令一般都要root权限。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"1"</span> &gt; /proc/sys/kernel/core_uses_pid</span><br></pre></td></tr></table></figure><p>如果以上命令执行无权限，可以使用下列命令</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -w kernel.core_uses_pid=1</span><br></pre></td></tr></table></figure><p>都是一个意思，设置core文件名带进程id。另外我们也可以修改core文件统一生成到一个自定义默认路径，比如：“<code>/corefile</code>”更详细可以参考下面说明：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#执行如下命令的一条即可</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"/corefile/core-%e-%p-%t"</span> &gt; /proc/sys/kernel/core_pattern</span><br><span class="line"><span class="comment">#标识生成的core文件格式是 core-%e-%p-%t,保存路径为/corefile</span></span><br><span class="line">sysctl -w kernel.core_pattern=/corefile/core-%e-%p-%t</span><br></pre></td></tr></table></figure><blockquote><p>%p - insert pid into filename 添加pid(进程id)<br>%u - insert current uid into filename 添加当前uid(用户id)<br>%g - insert current gid into filename 添加当前gid(用户组id)<br>%s - insert signal that caused the coredump into the filename 添加导致产生core的信号<br>%t - insert UNIX time that the coredump occurred into filename 添加core文件生成时的unix时间<br>%h - insert hostname where the coredump happened into filename 添加主机名<br>%e - insert coredumping executable name into filename 添加导致产生core的命令名</p></blockquote><ol><li><p>在终端使用命令</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ulimit</span> -c</span><br></pre></td></tr></table></figure><p>查看你当前终端是否打开了core dump。系统一半默认输出0，此时我们需要设置一下</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ulimit</span> -c unlimited</span><br></pre></td></tr></table></figure><p>将终端设置成无限dump文件大小。也可以设置成一个值比如1000，dump文件超过1000字节就不会继续生成。所以通常使用无限制大小。</p></li><li><p>编写测试demo,text.cpp文件</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">int</span> *p = <span class="literal">NULL</span>;</span><br><span class="line">*p = <span class="number">5</span>;</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;*p&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><code>g++ -o text text.cpp</code>，生成text可执行文件，然后运行，就会得到<code>core.*</code>文件了。</p></li><li><p>gdb调试</p></li></ol><p>当我们发布程序后，拿到core文件了，怎么调试？答案就是gdb。</p><p>使用源代码，如果是用makefile的话也一样，编译的时候加 -g 参数</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#编译</span></span><br><span class="line">g++ -g -o textd text.cpp</span><br><span class="line"><span class="comment">#调试</span></span><br><span class="line">gdb textd core.*</span><br></pre></td></tr></table></figure><p>此时我们就会发现输出信息很直观了，如下图。<br><img src="20191018112559275.png" alt=""></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;gdb使用两个推荐链接：&lt;a href=&quot;https://www.cnblogs.com/mister-lv/p/6022841.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;GDB中文手册&lt;/a&gt; &lt;a href=&quot;https://www.jianshu.com/p/b7896e9afeb7&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;GDB常用命令&lt;/a&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="c/c++" scheme="https://icevil.cn/categories/c-c/"/>
-    
-    
-      <category term="linux" scheme="https://icevil.cn/tags/linux/"/>
-    
-      <category term="gdb" scheme="https://icevil.cn/tags/gdb/"/>
-    
-      <category term="core dump" scheme="https://icevil.cn/tags/core-dump/"/>
     
   </entry>
   
