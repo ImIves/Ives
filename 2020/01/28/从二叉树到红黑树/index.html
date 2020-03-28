@@ -27,6 +27,8 @@
 <meta property="og:site_name" content="Ives&#39;s Blog">
 <meta property="og:description" content="树有很多种，二叉树，多叉树(B-树，B+树)等，本文主要针对几种较为常用的树，做精要记录，梳理逻辑便于长时间之后的理解与记忆。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://icevil.cn/2020/01/28/%E4%BB%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91/heap.png">
+<meta property="og:image" content="https://icevil.cn/2020/01/28/%E4%BB%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91/heapArr.png">
 <meta property="og:image" content="https://icevil.cn/2020/01/28/%E4%BB%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91/rotate.png">
 <meta property="og:image" content="https://icevil.cn/2020/01/28/%E4%BB%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-4996bbfb4017a3b2.png">
 <meta property="og:image" content="https://icevil.cn/2020/01/28/%E4%BB%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-abedf3ecc733ccd5.webp">
@@ -34,7 +36,7 @@
 <meta property="og:image" content="https://icevil.cn/2020/01/28/%E4%BB%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-fa2b78271263d2c8.webp">
 <meta property="og:image" content="https://icevil.cn/2020/01/28/%E4%BB%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91/2392382-edaf96e55f08c198.webp">
 <meta property="article:published_time" content="2020-01-28T03:05:00.000Z">
-<meta property="article:modified_time" content="2020-02-29T03:09:11.659Z">
+<meta property="article:modified_time" content="2020-03-28T04:30:16.027Z">
 <meta property="article:author" content="Ives">
 <meta property="article:tag" content="tree">
 <meta property="article:tag" content="rbtree">
@@ -42,7 +44,7 @@
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://icevil.cn/2020/01/28/%E4%BB%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91/rotate.png">
+<meta name="twitter:image" content="https://icevil.cn/2020/01/28/%E4%BB%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91/heap.png">
 
 <link rel="canonical" href="https://icevil.cn/2020/01/28/%E4%BB%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91/">
 
@@ -243,14 +245,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>7.1k</span>
+              <span>7.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
+              <span>7 分钟</span>
             </span>
 
         </div>
@@ -270,7 +272,7 @@
 <li>每个结点最多有两颗子树，所以二叉树中不存在度大于2的结点。</li>
 <li>左子树和右子树是有顺序的，次序不能任意颠倒。</li>
 <li>即使树中某结点只有一棵子树，也要区分它是左子树还是右子树。<h3 id="二叉树存储方式"><a href="#二叉树存储方式" class="headerlink" title="二叉树存储方式"></a>二叉树存储方式</h3>除数据域外，主要区别体现形式是左右子树的表示不同</li>
-<li>链式存储<br>用数组表示二叉树，左右子树用数组下标表示<ul>
+<li>链式存储<br>用数组表示二叉树，二叉树中的某节点编号为i(i从1开始好理解)，左孩子编号为2i，右孩子编号为2i+1，父节点为i/2。实际情况$i&gt;=0$;左孩子为$2i+1$;右孩子为$2(i+1)$;父节点$(i-1)/2$。如下图<br><img src="heap.png" alt=""><br><img src="heapArr.png" alt=""><ul>
 <li>优点：查找速度更快</li>
 <li>缺点：不为<code>满二叉树</code>时，浪费了空间，扩展性差或者说插入新数据慢。</li>
 </ul>
@@ -328,7 +330,7 @@
 <h3 id="我们需要知道的是红黑树也许不是最优解但是绝对是一个较优解"><a href="#我们需要知道的是红黑树也许不是最优解但是绝对是一个较优解" class="headerlink" title="我们需要知道的是红黑树也许不是最优解但是绝对是一个较优解"></a>我们需要知道的是红黑树也许不是最优解但是绝对是一个较优解</h3><p><span style=color:red><strong>红黑树有着目前算法中内存读写综合性能最好的数据结构</strong></span>代码要求：不要求能盲打，但是最好能对照定义敲出。另外红黑树的算法论证见算法导论。</p>
 <ol>
 <li>查询速度仅次于hash，但是比hash省空间，几乎等于AVL树</li>
-<li>搜索稳定性能最佳，算法耗时稳定<code>O(long n)</code>（不会出现最长搜索时间，最短搜索时间）</li>
+<li>搜索稳定性能最佳，算法耗时稳定<code>O(long n)</code>（不会因为数据是顺序的、倒序的还是乱序的情况而出现耗时波动问题）</li>
 <li>伸缩性好，写操作也能很快</li>
 <li>红黑树的查询性能略微逊色于AVL树，因为他比avl树会稍微不平衡最多一层，也就是说红黑树的查询性能只比相同内容的avl树最多多一次比较</li>
 <li>红黑树在插入和删除上优于avl树，avl树每次插入删除会进行大量的平衡度计算，而红黑树为了维持红黑性质所做的红黑变换和旋转的开销，相较于avl树为了维持平衡的开销要小得多<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><a href="https://www.jianshu.com/p/e136ec79235c" target="_blank" rel="noopener">红黑树图片引用原文链接</a></li>
