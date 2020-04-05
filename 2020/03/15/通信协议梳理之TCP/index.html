@@ -39,7 +39,7 @@
 <meta property="og:image" content="https://icevil.cn/2020/03/15/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E6%A2%B3%E7%90%86%E4%B9%8BTCP/tcp_wnd2.png">
 <meta property="og:image" content="https://icevil.cn/2020/03/15/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E6%A2%B3%E7%90%86%E4%B9%8BTCP/slowstart.jpg">
 <meta property="article:published_time" content="2020-03-15T01:23:01.000Z">
-<meta property="article:modified_time" content="2020-03-16T08:38:52.588Z">
+<meta property="article:modified_time" content="2020-04-02T07:44:55.674Z">
 <meta property="article:author" content="Ives">
 <meta property="article:tag" content="tcp">
 <meta property="article:tag" content="通信协议">
@@ -414,8 +414,8 @@
 <h3 id="坚持定时器-persist-timer"><a href="#坚持定时器-persist-timer" class="headerlink" title="坚持定时器(persist timer)"></a>坚持定时器(persist timer)</h3><p>我们已经知道TCP通过让接收方指明希望从发送方接收的数据字节数（即窗口大小）来进行流量控制。如果窗口大小为 0会发生什么情况呢？这将有效地阻止发送方传送数据，直到窗口变为非0为止。接收端窗口变为非0后，就会发送一个确认ACK指明需要的报文段序号以及窗口大小。</p>
 <p>如果这个确认ACK丢失了，则双方就有可能因为等待对方而使连接终止：接收方等待接收数据（因为它已经向发送方通告了一个非0的窗口），而发送方在等待允许它继续发送数据的窗口更新。为防止这种死锁情况的发生，发送方使用一个坚持定时器 (persist timer)来周期性地向接收方查询，以便发现窗口是否已增大。这些从发送方发出的报文段称为窗口探查 (window probe)。</p>
 <h3 id="保活定时器-keepalive-timer"><a href="#保活定时器-keepalive-timer" class="headerlink" title="保活定时器(keepalive timer)"></a>保活定时器(keepalive timer)</h3><p>在TCP连接建立的时候指定了SO_KEEPALIVE，保活定时器才会生效。如果客户端和服务端长时间没有数据交互，那么需要保活定时器来判断是否对端还活着，但是这个其实很不实用，因为默认是2小时(<code>cat /proc/sys/net/ipv4/tcp_keepalive_time</code>)没有数据交互才探测，时间实在是太长了。如果你真的要确认对端是否活着， 那么应该自己实现心跳包，而不是依赖于这个保活定时器。</p>
-<h3 id="FIN-WAIT-2定时器-FIN-WAIT-2-timer"><a href="#FIN-WAIT-2定时器-FIN-WAIT-2-timer" class="headerlink" title="FIN_WAIT_2定时器(FIN_WAIT_2 timer)"></a>FIN_WAIT_2定时器(FIN_WAIT_2 timer)</h3><p>主动关闭的一端调用完close以后（即发FIN给被动关闭的一端， 并且收到其对FIN的确认ACK）则进入FIN_WAIT_2状态。如果这个时候因为网络突然断掉、被动关闭的一段宕机等原因，导致主动关闭的一端不能收到被动关闭的一端发来的FIN，主动关闭的一段总不能一直傻等着，占着资源不撒手吧？这个时候就需要FIN_WAIT_2定时器出马了， 如果在该定时器超时的时候，还是没收到被动关闭一端发来的FIN，那么不好意思， 不等了， 直接释放这个链接。FIN_WAIT_2定时器的时间可以从<code>/proc/sys/net/ipv4/tcp_fin_timeout</code>中查看和设置。</p>
-<h3 id="TIME-WAIT定时器-TIME-WAIT-timer-也叫2MSL-timer"><a href="#TIME-WAIT定时器-TIME-WAIT-timer-也叫2MSL-timer" class="headerlink" title="TIME_WAIT定时器 (TIME_WAIT timer, 也叫2MSL timer)"></a>TIME_WAIT定时器 (TIME_WAIT timer, 也叫2MSL timer)</h3><p>TIME_WAIT是主动关闭连接的一端最后进入的状态， 而不是直接变成CLOSED的状态， 为什么呢？第一个原因是万一被动关闭的一端在超时时间内没有收到最后一个ACK， 则会重发最后的FIN，2MSL（报文段最大生存时间）等待时间保证了重发的FIN会被主动关闭的一段收到且重新发送最后一个ACK；另外一个原因是在2MSL等待时间时，任何迟到的报文段会被接收并丢弃，防止老的TCP连接的包在新的TCP连接里面出现。不可避免的，在这个2MSL等待时间内，不会建立同样(源IP, 源端口，目的IP，目的端口)的连接。</p>
+<h3 id="FIN-WAIT-2定时器-FIN-WAIT-2-timer"><a href="#FIN-WAIT-2定时器-FIN-WAIT-2-timer" class="headerlink" title="FIN_WAIT_2定时器(FIN_WAIT_2 timer)"></a>FIN_WAIT_2定时器(FIN_WAIT_2 timer)</h3><p>主动关闭的一端调用完close以后（即发FIN给被动关闭的一端， 并且收到其对FIN的确认ACK）则进入FIN_WAIT_2状态。如果这个时候因为网络突然断掉、被动关闭的一端宕机等原因，导致主动关闭的一端不能收到被动关闭的一端发来的FIN，主动关闭的一端总不能一直傻等着，占着资源不撒手吧？这个时候就需要FIN_WAIT_2定时器出马了， 如果在该定时器超时的时候，还是没收到被动关闭一端发来的FIN，那么不好意思， 不等了， 直接释放这个链接。FIN_WAIT_2定时器的时间可以从<code>/proc/sys/net/ipv4/tcp_fin_timeout</code>中查看和设置。</p>
+<h3 id="TIME-WAIT定时器-TIME-WAIT-timer-也叫2MSL-timer"><a href="#TIME-WAIT定时器-TIME-WAIT-timer-也叫2MSL-timer" class="headerlink" title="TIME_WAIT定时器 (TIME_WAIT timer, 也叫2MSL timer)"></a>TIME_WAIT定时器 (TIME_WAIT timer, 也叫2MSL timer)</h3><p>TIME_WAIT是主动关闭连接的一端最后进入的状态， 而不是直接变成CLOSED的状态， 为什么呢？第一个原因是万一被动关闭的一端在超时时间内没有收到最后一个ACK， 则会重发最后的FIN，2MSL（报文段最大生存时间）等待时间保证了重发的FIN会被主动关闭的一端收到且重新发送最后一个ACK；另外一个原因是在2MSL等待时间时，任何迟到的报文段会被接收并丢弃，防止老的TCP连接的包在新的TCP连接里面出现。不可避免的，在这个2MSL等待时间内，不会建立同样(源IP, 源端口，目的IP，目的端口)的连接。</p>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p><em>1. 什么时候给对端发送确认消息？</em></p>
 <blockquote>
 <p>确认重传，接收端确认最小序号的包重传如：ack number=5,对方就会从5号包开始将窗口内的剩余数据全部重传一遍。这也导致了有些包被重传多次。</p>
@@ -605,7 +605,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">67</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -618,7 +618,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">132</span>
+        <span class="site-state-item-count">136</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -670,12 +670,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">166k</span>
+    <span title="站点总字数">181k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:31</span>
+    <span title="站点阅读时长">2:45</span>
 </div>
 
         

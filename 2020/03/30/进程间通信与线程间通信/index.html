@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/uploads/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/uploads/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"icevil.cn","root":"/","scheme":"Mist","version":"7.7.1","exturl":false,"sidebar":{"position":"left","width":310,"display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="进程间通信进程通信(Interprocess Communication，IPC)是一个进程与另一个进程间进程间传输数据或交换信息。目的是提高系统扩展功能的同时，以内存安全访问的形势提升的并行性能。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="进程间通信与线程同步">
+<meta property="og:url" content="https://icevil.cn/2020/03/30/%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E4%B8%8E%E7%BA%BF%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/index.html">
+<meta property="og:site_name" content="Ives&#39;s Blog">
+<meta property="og:description" content="进程间通信进程通信(Interprocess Communication，IPC)是一个进程与另一个进程间进程间传输数据或交换信息。目的是提高系统扩展功能的同时，以内存安全访问的形势提升的并行性能。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-30T03:40:00.000Z">
+<meta property="article:modified_time" content="2020-04-03T07:54:32.377Z">
+<meta property="article:author" content="Ives">
+<meta property="article:tag" content="进程间通信">
+<meta property="article:tag" content="ipc">
+<meta property="article:tag" content="线程间通信">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://icevil.cn/2020/03/30/%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E4%B8%8E%E7%BA%BF%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>进程间通信与线程同步 | Ives's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Ives's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta custom-logo">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ives's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Reading maketh a full man; conference a ready man; and writing an exact man. --Fransis Bacon</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404.html" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/" class="github-corner" title="去全球最大同性交友网站，走！" aria-label="去全球最大同性交友网站，走！" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2020/03/30/%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E4%B8%8E%E7%BA%BF%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ives">
+      <meta itemprop="description" content="当你开始满于现状时，你正在错失世界的美好。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ives's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          进程间通信与线程同步
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-30 11:40:00" itemprop="dateCreated datePublished" datetime="2020-03-30T11:40:00+08:00">2020-03-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c-c/" itemprop="url" rel="index">
+                    <span itemprop="name">c/c++</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h2><p>进程通信(Interprocess Communication，IPC)是一个进程与另一个进程间进程间传输数据或交换信息。目的是提高系统扩展功能的同时，以内存安全访问的形势提升的并行性能。</p>
+<a id="more"></a>
+<h3 id="管道（pipe）"><a href="#管道（pipe）" class="headerlink" title="管道（pipe）"></a>管道（pipe）</h3><p>管道是Linux/Windows（winCE不支持）都具有的进程间通信方式，它是一种半双工的通信方式，数据只能单向流动，且具有FIFO特性。分命名管道与匿名管道两种，管道默认指匿名管道。</p>
+<ol>
+<li>匿名管道（pipe）：而且<strong>只能在具有亲缘关系的进程间使用</strong>进程间的亲缘关系通常是指父子进程关系。<br> 匿名管道的特征：<br>　　①创建一个管道文件，只提供单向通信<br>　　②只能用于具有血缘关系的进程间通信，通常用于父子进程间通信<br>　　③管道是基于字节流来通信的<br>　　④依赖于文件系统，它的生命周期随进程的结束结束（随进程）<br>　　⑤其本身自带同步互斥效果</li>
+<li>命名管道（named pipe）：与匿名管道不同的是<strong>命名管道可以在不相关的进程之间</strong>。<br>有跨设备的情况也是封装了<code>tcp/ip</code>，所以通常还是用于同机不同进程的通信。</li>
+</ol>
+<h3 id="信号量（semophore）"><a href="#信号量（semophore）" class="headerlink" title="信号量（semophore）"></a>信号量（semophore）</h3><p>信号量是一个计数器，可以用来控制多个进程队共享资源的访问。它常作为一个锁机制，防止某进程在访问共享资源时，其他进程也访问此资源。例如：多个线程竞态的时候，当信号量达到某值num时，唤醒num个线程。<br>该方式其实是线程层面的控制，以达到进程竞态控制。（详见后文）</p>
+<h3 id="信号（signal）"><a href="#信号（signal）" class="headerlink" title="信号（signal）"></a>信号（signal）</h3><p>信号是一种通知进程某件事情发生了的一种通信机制，通过向进程发送某个信号，可以告诉进程发生了什么事情，进程收到这个信号后，就知道某事情发生了，进程可以做出相应的响应（处理）。与IPC中其他进程通信方式不同的是，信号属于不精确通信，信号只能告诉进程大概发生了什么事情，但是不能准确的告诉进程详细的细节信息。<br>信号在操作系统内核应用非常广泛，Linux下边定义了很多的信号，所有的信号都是一个整数编号，不过为了好辨识，Linux系统给这些整数编号都定义了对应的宏名，宏名都是以SIG开头，比如:<code>SIGABRT</code>,<code>kill -9 pid</code>,<kbd>ctrl</kbd>+<kbd>c</kbd>就是发送<code>SIGINT</code>。</p>
+<h3 id="消息队列（message-queue）"><a href="#消息队列（message-queue）" class="headerlink" title="消息队列（message queue）"></a>消息队列（message queue）</h3><p>消息队列就是一个消息的链表。消息队列克服了信号传递信息少，管道只能承载无格式字节流以及缓冲区大小受限等缺点。消息队列就是一个消息的链表<br>大家熟知的windows的gui就是消息队列驱动的，但是Linux下也是支持消息队列的。</p>
+<h3 id="共享内存（shared-memory）"><a href="#共享内存（shared-memory）" class="headerlink" title="共享内存（shared memory）"></a>共享内存（shared memory）</h3><p>共享内存就是映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问。共享内存是最快的ipc通信方式，它是针对其他进程间通信方式运行效率低而专门设计的。它往往和其他通信方式如信号量，配合使用来实现进程间的同步和通信。</p>
+<h3 id="套接字（socket）"><a href="#套接字（socket）" class="headerlink" title="套接字（socket）"></a>套接字（socket）</h3><p>套接字也是一种进程间通信机制，与其他通信机制不同的是，它可用于不同设备间的进程通信。<br>这是搭建网络通信的基础，这里就不多说了。</p>
+<h2 id="线程间通信-同步方式"><a href="#线程间通信-同步方式" class="headerlink" title="线程间通信/同步方式"></a>线程间通信/同步方式</h2><p>线程间通信方式，理论上所有的进程通信方式都是可以达到线程间通信的，因为进程就可以看作是一个不能为空的线程集。下面我们主要谈一些线程层面的或者说特有的通信方式。</p>
+<ol>
+<li>全局变量<br>线程可以访问所有全局变量。</li>
+<li>信号量<br>这是基于线程设计的</li>
+<li>事件(event)<br>Event对象有两种状态：有信号和无信号，线程可以监视处于有信号状态的事件，以便在适当的时候执行对事件的操作。</li>
+<li>锁</li>
+</ol>
+<p>线程同步主要分互斥控制与同步控制，</p>
+<ol>
+<li>互斥控制：临界区，互斥量。（锁的形式控制）</li>
+<li>同步控制：信号量，事件。（通知的形式控制）</li>
+</ol>
+<h3 id="临界区-CcriticalSection"><a href="#临界区-CcriticalSection" class="headerlink" title="临界区(CcriticalSection)"></a>临界区(CcriticalSection)</h3><p>通过对多线程的串行化来<strong>访问公共资源或一段代码，速度快，适合控制数据访问</strong>。在任意时刻只允许一个线程对共享资源进行访问，如果有多个线程试图访问公共资源，那么在有一个线程进入后，其他试图访问公共资源的线程将被挂起，并一直等到进入临界区的线程离开，临界区在被释放后，其他线程才可以抢占。<br>临界区对应着一个<code>CcriticalSection</code>对象，当线程需要访问保护数据时，调用<code>EnterCriticalSection</code>函数；当对保护数据的操作完成之后，调用<code>LeaveCriticalSection</code>函数释放对临界区对象的拥有权。</p>
+<h3 id="互斥量（mutex）"><a href="#互斥量（mutex）" class="headerlink" title="互斥量（mutex）"></a>互斥量（mutex）</h3><p>互斥与临界区很相似，但是使用时相对复杂一些（互斥量为内核对象），不仅可以在同一应用程序的线程间实现同步，还可以在不同的进程间实现同步，从而实现资源的安全共享。</p>
+<h3 id="信号量（semophore）-1"><a href="#信号量（semophore）-1" class="headerlink" title="信号量（semophore）"></a>信号量（semophore）</h3><p>信号量的用法和互斥的用法很相似，不同的是它可以同一时刻允许多个线程访问同一个资源，PV操作.</p>
+<blockquote>
+<p>用PV操作(P—— passeren，中文译为”通过”，V—— vrijgeven，中文译为”释放” 荷兰语)来管理共享资源时，首先要确保PV操作自身执行的正确性。由于P(S)和V(S)都是在同一个信号量S上操作，为了使得它们在执行时不发生因交叉访问信号量S而可能出现的错误，约定P(S)和V(S)必须是两个不可被中断的过程，即让它们在屏蔽中断下执行。把不可被中断的过程称为原语。于是，P操作和V操作实际上应该是P操作原语和V操作原语。<br>P操作的主要动作是：<br>①S减1；<br>②若S减1后仍大于或等于0，则进程继续执行；<br>③若S减1后小于0，<font color=red>则挂起该线程后放入该信号量对应的等待队列中，然后转线程调度（执行其他线程）。</font><br>V操作的主要动作是：<br>①S加1；<br>②若相加后结果大于0，则进程继续执行；<br>③若相加后结果小于或等于0，<font color=red>则从该信号的等待队列中释放一个线程，然后转线程调度（唤醒执行）。</font><br>PV操作对于每一个进程来说，都只能进行一次，而且必须成对使用。在PV原语执行期间不允许有中断发生。原语不能被中断执行，因为原语对变量的操作过程如果被打断，可能会去运行另一个对同一变量的操作过程，从而出现临界段问题。如果能够找到一种解决临界段问题的元方法，就可以实现对共享变量操作的原子性。</p>
+</blockquote>
+<h3 id="事件（event）"><a href="#事件（event）" class="headerlink" title="事件（event）"></a>事件（event）</h3><p>1.什么是事件？<br>事件Event对象是内核对象，代表系统的某一个状态（如），每一个事件都对应了一个事件触发函数。<br>2.事件什么时候产生?<br>当用户触发某元素的特定事件的时候（如：mouseMove,click），事件会调用事件响应函数，传递下去，函数不会在事件发生前被执行。<br>3.事件的编程<br>事件类型分为“通知事件”和“同步事件”两类，前者变为激发状态的时候，需要手动<code>置位事件</code>（<em>置位事件，是调用事件处理函数后，将事件恢复为未激发态，以便下次还能继续激发。所有事件都只有激活与未激活两种状态</em>），后者会自动置位事件。事件Event内部它包含一个使用计数（所有内核对象都有），一个布尔值表示是手动置位事件还是自动置位事件，另一个布尔值用来表示事件有无触发。由SetEvent()来触发，由ResetEvent()来设成未触发。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//例：win事件使用</span></span><br><span class="line"><span class="comment">//1.初始化事件为未触发状态</span></span><br><span class="line">HANDLE g_event = CreateEvent(<span class="literal">NULL</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">NULL</span>);	</span><br><span class="line"><span class="comment">//2.等待事件被触发</span></span><br><span class="line">WaitForSingleObject(g_event, INFINITE);	</span><br><span class="line"><span class="comment">//3.触发事件</span></span><br><span class="line">SetEvent(g_event);	</span><br><span class="line"><span class="comment">//4.事件解绑</span></span><br><span class="line">CloseHandle(g_event);</span><br></pre></td></tr></table></figure>
+
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a><span style="color:red; background:yellow">注意</span></h3><p>以上4种方式，只有临界区不是内核对象，所以必须手动释放，其他线程才能继续获取<code>相应代码段</code>的执行权限。而互斥量的释放是将该互斥量的所有权从某线程剥离，互斥量本身并没有被释放，内核对象的管理是操作系统完成的。<br>信号量也属于内核对象，可用于进程间的通信</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/uploads/wechatpay.png" alt="Ives 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Ives
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://icevil.cn/2020/03/30/%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E4%B8%8E%E7%BA%BF%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/" title="进程间通信与线程同步">https://icevil.cn/2020/03/30/进程间通信与线程间通信/</a>                   
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="https://twitter.com/Ives">
+                <span class="icon">
+                  <i class="fa fa-twitter"></i>
+                </span>
+
+                <span class="label">Twitter</span>
+              </a>
+            </div>
+
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="/images/wechat.png">
+                <span class="icon">
+                  <i class="fa fa-wechat"></i>
+                </span>
+
+                <span class="label">WeChat</span>
+              </a>
+            </div>
+
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="/atom.xml">
+                <span class="icon">
+                  <i class="fa fa-rss"></i>
+                </span>
+
+                <span class="label">RSS</span>
+              </a>
+            </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/" rel="tag"><i class="fa fa-tag"></i> 进程间通信</a>
+              <a href="/tags/ipc/" rel="tag"><i class="fa fa-tag"></i> ipc</a>
+              <a href="/tags/%E7%BA%BF%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/" rel="tag"><i class="fa fa-tag"></i> 线程间通信</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/26/%E6%B7%B1%E5%85%A5C++%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" rel="prev" title="深入C++内存模型">
+      <i class="fa fa-chevron-left"></i> 深入C++内存模型
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/04/Redis%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" rel="next" title="Redis源码分析之数据库存储结构">
+      Redis源码分析之数据库存储结构 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程间通信"><span class="nav-number">1.</span> <span class="nav-text">进程间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#管道（pipe）"><span class="nav-number">1.1.</span> <span class="nav-text">管道（pipe）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信号量（semophore）"><span class="nav-number">1.2.</span> <span class="nav-text">信号量（semophore）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信号（signal）"><span class="nav-number">1.3.</span> <span class="nav-text">信号（signal）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#消息队列（message-queue）"><span class="nav-number">1.4.</span> <span class="nav-text">消息队列（message queue）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#共享内存（shared-memory）"><span class="nav-number">1.5.</span> <span class="nav-text">共享内存（shared memory）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#套接字（socket）"><span class="nav-number">1.6.</span> <span class="nav-text">套接字（socket）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程间通信-同步方式"><span class="nav-number">2.</span> <span class="nav-text">线程间通信&#x2F;同步方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#临界区-CcriticalSection"><span class="nav-number">2.1.</span> <span class="nav-text">临界区(CcriticalSection)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#互斥量（mutex）"><span class="nav-number">2.2.</span> <span class="nav-text">互斥量（mutex）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信号量（semophore）-1"><span class="nav-number">2.3.</span> <span class="nav-text">信号量（semophore）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件（event）"><span class="nav-number">2.4.</span> <span class="nav-text">事件（event）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意"><span class="nav-number">2.5.</span> <span class="nav-text">注意</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ives"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Ives</p>
+  <div class="site-description" itemprop="description">当你开始满于现状时，你正在错失世界的美好。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">136</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:somepure@foxmail.com" title="E-Mail → mailto:somepure@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+    <!--插入外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" height=240 src="//music.163.com/outchain/player?type=0&id=4866221043&auto=0&height=430"></iframe>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">粤ICP备19149780号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">版权归原作者Ives所有，转载请标注。</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">181k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:45</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
