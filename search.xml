@@ -3,7 +3,7 @@
   <entry>
     <title>Redis源码分析之数据库存储结构</title>
     <url>/2020/04/04/Redis%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<p>redis作为一个key-value存储系统，是如何做到高效的呢？在内存中维护一个hash表，hash表的操作时间复杂度是O(1),但是hash是由一定概率发生hash碰撞的，通常做法是还会维护一个list，以确保数据完整性。但是这个list一旦过长，速率必然明细下降，所以一定要有足够的空间分配来避免list过长，而redis是怎么灵活控制内存伸缩的呢？下面从源码着手查找原因。</p>
+    <content><![CDATA[<p>redis作为一个key-value存储系统，是如何做到高效的呢？在内存中维护一个hash表，hash表的操作时间复杂度是O(1),但是hash是由一定概率发生hash碰撞的，通常做法是还会维护一个list，以确保数据完整性。但是这个list一旦过长，速率必然明显下降，所以一定要有足够的空间分配来避免list过长，而redis是怎么灵活控制内存伸缩的呢？下面从源码着手查找原因。</p>
 <a id="more"></a>
 <h2 id="选择HASH算法"><a href="#选择HASH算法" class="headerlink" title="选择HASH算法"></a>选择HASH算法</h2><p>作为一个高效查找的数据库，从大量数据中查找一条数据，速度上来说的话，hash以O(1)的时间复杂度远胜于list，红黑树等现存数据结构。具体做法是怎样呢？</p>
 <blockquote>
