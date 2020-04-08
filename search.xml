@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>内存对齐</title>
+    <url>/2020/04/06/%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90/</url>
+    <content><![CDATA[<h2 id="内存对齐定义"><a href="#内存对齐定义" class="headerlink" title="内存对齐定义"></a>内存对齐定义</h2><p>编译器为程序中的每个“数据单元”安排在适当的位置上。<strong>实际是一种为变量分配内存的策略/方法</strong>。</p>
+<a id="more"></a>
+<p>如下代码：我们看到的结果是12，而不是理想的7字节。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//hello.c</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">C</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">char</span> b;</span><br><span class="line">    <span class="keyword">int</span> c;</span><br><span class="line">    short a;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%ld\n"</span>, <span class="keyword">sizeof</span>(struct C));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">zm@DESKTOP-M5RRFGE:~$ gcc hello.c &amp;&amp; ./a.out</span><br><span class="line"><span class="number">12</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>首先我们需要知道cpu目前分32位与64位架构表示为：x86, x64，取址前者一次能从内存中读4字节，后者能读8字节（64bit）。这也是64位cpu性能强过32位的主要原因。所以这就决定了，内存IO访问颗粒是 32 / 64 bit。</p>
+<p>然后我们看结构体成员为何要设计成内存对齐？</p>
+<p>为了缓解寄存器与内存之间的巨大速度差异，硬件设计师做出了许多努力，包括在CPU内部设置缓存、优化CPU工作方式，<strong>尽量一次性从内存读取指令所要用到的全部数据</strong>。所以内存访问并非设计成单字节的访问，而是设计成<strong>块</strong>的方式读取。如果不设置内存对齐，会增加内存寻址次数，从而使cpu处于忙等待的状态，拖累cpu性能。</p>
+<blockquote>
+<p>“访问内存”与cpu寻址是密不可分的，当cpu需要用到某地址的时候，才会去“访问内存”，“访问内存”是一个复杂的过程，优先查找寄存器，然后cache，最后内存页；找到后要先加载到cache，再加载到寄存器。所以能直接一次将所需地址加载到寄存器是最理想的状态，目前几乎不可能；其次加大cache命中是较好的状态，我们的内存对齐就是优化这里的；最后，直接内存页查找速度最慢。</p>
+</blockquote>
+<h2 id="那内存补齐能解决什么问题？"><a href="#那内存补齐能解决什么问题？" class="headerlink" title="那内存补齐能解决什么问题？"></a>那内存补齐能解决什么问题？</h2><p>多个变量一次被读到寄高速缓存（cache）中，下次如果使用，可以直接从cache取，而无需再访问内存。</p>
+<p>内存对齐优化的是memory到cache的方式，可以减少两次寻址变量的出现。不补齐会有很多，补齐只有长度超过处理单元（32位4byte，64位8byte）的变量才需要二次寻址。<strong>这里空间换时间换的非常值</strong>。</p>
+<h2 id="对齐原则"><a href="#对齐原则" class="headerlink" title="对齐原则"></a>对齐原则</h2><p>对于程序中没有对齐的变量，编译器在编译程序的时候，会自动将变量所占空间补齐，即内存对齐。其补齐原则如下：</p>
+<ul>
+<li><strong>结构体变量的首地址能够被其对齐字节数大小所整除</strong>。</li>
+<li><strong>结构体每个成员相对结构体首地址的偏移都是成员大小的整数倍</strong>，如不满足，对前一个成员填充字节以满足。。</li>
+<li><strong>结构体的总大小为结构体对齐字节数大小的整数倍</strong>，如不满足，最后填充字节以满足。<br><font color=red>个人总结：就是以最大<strong>类型长度</strong>为准进行对齐，不足的补齐，数组也同样只关注你类型长度</font><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//如下例：</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">C</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">    <span class="comment">//short a;</span></span><br><span class="line">    <span class="keyword">char</span> aa[<span class="number">10</span>];</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//a为整型：sizeof(struct C) = 16。	必须4的倍数</span></span><br><span class="line"><span class="comment">//a为短整：sizeof(struct C) = 12。	2的倍数即可</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="修改对齐方式"><a href="#修改对齐方式" class="headerlink" title="修改对齐方式"></a>修改对齐方式</h2><p>认为修改内存对齐方式只需在声明结构体声明文件加上如下代码即可。通常和操作系统位数有关。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack (n) <span class="comment">/*指定按n字节对齐,一般取2，4，8*/</span></span></span><br></pre></td></tr></table></figure>
+
+<p>n:也叫对齐系数。文章开始代码中我将n置为1的时候，即可得到理想的值：7</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>建议在设计结构体的时候，成员变量按照4字节一组的形势声明即可，一般情况从小到大的顺序（<code>bool-&gt;short-&gt;int-&gt;long-&gt;long long</code>）就能满足节省内存空间。切勿用长短类型穿插声明（<u>这样不是不行，而是容易乱</u>）。</p>
+<p>题外话：内存对齐的存在是导致<code>memcmp</code>函数比较A、B两个结构体不安全的根本原因，所以一般要求使用memcmp之前一定要将A,B两个结构体清0处理（如：<code>memset(0)</code>），目的是<strong>清除补齐内存的随机值</strong>。<code>memcmp</code>是按内存逐字节比较的。返回0表示成功，大于零表示第几位内存出现不相等。</p>
+]]></content>
+      <categories>
+        <category>c/c++</category>
+      </categories>
+      <tags>
+        <tag>内存对齐</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Redis源码分析之数据库存储结构</title>
     <url>/2020/04/04/Redis%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/</url>
     <content><![CDATA[<p>redis作为一个key-value存储系统，是如何做到高效的呢？在内存中维护一个hash表，hash表的操作时间复杂度是O(1),但是hash是由一定概率发生hash碰撞的，通常做法是还会维护一个list，以确保数据完整性。但是这个list一旦过长，速率必然明显下降，所以一定要有足够的空间分配来避免list过长，而redis是怎么灵活控制内存伸缩的呢？下面从源码着手查找原因。</p>
@@ -187,8 +229,11 @@
 <p>用PV操作(P—— passeren，中文译为”通过”，V—— vrijgeven，中文译为”释放” 荷兰语)来管理共享资源时，首先要确保PV操作自身执行的正确性。由于P(S)和V(S)都是在同一个信号量S上操作，为了使得它们在执行时不发生因交叉访问信号量S而可能出现的错误，约定P(S)和V(S)必须是两个不可被中断的过程，即让它们在屏蔽中断下执行。把不可被中断的过程称为原语。于是，P操作和V操作实际上应该是P操作原语和V操作原语。<br>P操作的主要动作是：<br>①S减1；<br>②若S减1后仍大于或等于0，则进程继续执行；<br>③若S减1后小于0，<font color=red>则挂起该线程后放入该信号量对应的等待队列中，然后转线程调度（执行其他线程）。</font><br>V操作的主要动作是：<br>①S加1；<br>②若相加后结果大于0，则进程继续执行；<br>③若相加后结果小于或等于0，<font color=red>则从该信号的等待队列中释放一个线程，然后转线程调度（唤醒执行）。</font><br>PV操作对于每一个进程来说，都只能进行一次，而且必须成对使用。在PV原语执行期间不允许有中断发生。原语不能被中断执行，因为原语对变量的操作过程如果被打断，可能会去运行另一个对同一变量的操作过程，从而出现临界段问题。如果能够找到一种解决临界段问题的元方法，就可以实现对共享变量操作的原子性。</p>
 </blockquote>
 <h3 id="事件（event）"><a href="#事件（event）" class="headerlink" title="事件（event）"></a>事件（event）</h3><p>1.什么是事件？<br>事件Event对象是内核对象，代表系统的某一个状态（如），每一个事件都对应了一个事件触发函数。<br>2.事件什么时候产生?<br>当用户触发某元素的特定事件的时候（如：mouseMove,click），事件会调用事件响应函数，传递下去，函数不会在事件发生前被执行。<br>3.事件的编程<br>事件类型分为“通知事件”和“同步事件”两类，前者变为激发状态的时候，需要手动<code>置位事件</code>（<em>置位事件，是调用事件处理函数后，将事件恢复为未激发态，以便下次还能继续激发。所有事件都只有激活与未激活两种状态</em>），后者会自动置位事件。事件Event内部它包含一个使用计数（所有内核对象都有），一个布尔值表示是手动置位事件还是自动置位事件，另一个布尔值用来表示事件有无触发。由SetEvent()来触发，由ResetEvent()来设成未触发。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//例：win事件使用</span></span><br><span class="line"><span class="comment">//1.初始化事件为未触发状态</span></span><br><span class="line">HANDLE g_event = CreateEvent(<span class="literal">NULL</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">NULL</span>);	</span><br><span class="line"><span class="comment">//2.等待事件被触发</span></span><br><span class="line">WaitForSingleObject(g_event, INFINITE);	</span><br><span class="line"><span class="comment">//3.触发事件</span></span><br><span class="line">SetEvent(g_event);	</span><br><span class="line"><span class="comment">//4.事件解绑</span></span><br><span class="line">CloseHandle(g_event);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//例：win事件使用</span></span><br><span class="line"><span class="function">HANDLE <span class="title">CreateEvent</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">LPSECURITY_ATTRIBUTES lpEventAttributes,<span class="comment">// 安全属性</span></span></span></span><br><span class="line"><span class="function"><span class="params">BOOL bManualReset,<span class="comment">// 复位方式 </span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="comment">//如果是TRUE，那么必须用 ResetEvent 函数来手工将事件的状态复原到无信号状态。</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="comment">//如果设置为FALSE，当一个线程等待到事件信号后系统会自动将事件状态复原为无信号状态。</span></span></span></span><br><span class="line"><span class="function"><span class="params">BOOL bInitialState,<span class="comment">// 初始状态 </span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="comment">//如果为TRUE，初始状态为有信号状态；否则为无信号状态。</span></span></span></span><br><span class="line"><span class="function"><span class="params">LPCTSTR lpName <span class="comment">// 对象名称</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br><span class="line"><span class="comment">//1.初始化事件为未触发状态</span></span><br><span class="line">HANDLE g_event = CreateEvent(<span class="literal">NULL</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">NULL</span>);	</span><br><span class="line"><span class="comment">//2.等待事件被触发</span></span><br><span class="line">WaitForSingleObject(g_event, INFINITE);	</span><br><span class="line"><span class="comment">//3.触发事件</span></span><br><span class="line">SetEvent(g_event);	</span><br><span class="line"><span class="comment">//4.重置事件</span></span><br><span class="line">ResetEvent(g_event);<span class="comment">//手动复位时，setEvent/resetEvent应该成对出现。</span></span><br><span class="line"><span class="comment">//5.事件解绑</span></span><br><span class="line">CloseHandle(g_event);</span><br></pre></td></tr></table></figure>
 
+<blockquote>
+<p><strong>对于事件使用手自动触发怎么选择？</strong><br>我个人认为如果你每次都要触发可以考虑自动复位事件，手动复位事件一定是人为想控制不被重复触发的时候使用，比如某个状态业务没处理完，不希望再接收到这个状态的事件信息。所以，我甚至怀疑，epoll的水平触发就是自动事件实现的，边缘触发就是手动事件实现的，这个以后有找到相关资料再来确定这一点。</p>
+</blockquote>
 <h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a><span style="color:red; background:yellow">注意</span></h3><p>以上4种方式，只有临界区不是内核对象，所以必须手动释放，其他线程才能继续获取<code>相应代码段</code>的执行权限。而互斥量的释放是将该互斥量的所有权从某线程剥离，互斥量本身并没有被释放，内核对象的管理是操作系统完成的。<br>信号量也属于内核对象，可用于进程间的通信</p>
 ]]></content>
       <categories>
@@ -339,7 +384,7 @@
 <li><p>2字节标志位 </p>
 <blockquote>
 <ol>
-<li>TCP头长度：占4bit，以 <code>4Byte</code> 为单位显示TCP头长，TCP协议头固定20Byte，因此length最小为5，选项部分最长40Byte，加上固定头长总共60Byte，所以length最大值为15，4bit刚刚好；</li>
+<li>TCP头长度：占4bit，以 <code>4Byte</code> 为单位显示TCP头长，TCP协议头固定20Byte，因此length最小为5（以4字节为一个单位），选项部分最长40Byte，加上固定头长总共60Byte，所以length最大值为15，4bit刚刚好；</li>
 <li>Resv：占4bit，预留；</li>
 <li>CWR（Congestion Window Reduce）：发送端收到ECE置位的数据后进行设置，用来通知接收端已收到ECE标志的数据，了解了拥塞情况，接收端收到CWR置位消息后，不再设置ECE标志，同时发送端发送CWR信息时，将开始减小拥塞窗口，以此减小数据发送量，避免拥塞；</li>
 <li>ECE（ECN ECHO）：网络拥塞一般出现在路由交换时，在支持ECN功能情况下，发生拥塞时路由会设置IP中该标志位，接收端收到IP头中标志了ECN的报文后，在返回的数据ACK中设置ECE标志，表示链路发生拥塞，将拥塞消息通知发送端；</li>
@@ -1236,6 +1281,7 @@ commonweal: heartbeat</code></pre></li>
         <tag>B树</tag>
         <tag>B-树</tag>
         <tag>B+树</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>

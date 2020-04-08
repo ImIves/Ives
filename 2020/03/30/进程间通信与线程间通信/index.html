@@ -28,7 +28,7 @@
 <meta property="og:description" content="进程间通信进程通信(Interprocess Communication，IPC)是一个进程与另一个进程间进程间传输数据或交换信息。目的是提高系统扩展功能的同时，以内存安全访问的形势提升的并行性能。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-03-30T03:40:00.000Z">
-<meta property="article:modified_time" content="2020-04-03T07:54:32.377Z">
+<meta property="article:modified_time" content="2020-04-08T08:48:22.637Z">
 <meta property="article:author" content="Ives">
 <meta property="article:tag" content="进程间通信">
 <meta property="article:tag" content="ipc">
@@ -234,7 +234,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.1k</span>
+              <span>3.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -284,8 +284,11 @@
 <p>用PV操作(P—— passeren，中文译为”通过”，V—— vrijgeven，中文译为”释放” 荷兰语)来管理共享资源时，首先要确保PV操作自身执行的正确性。由于P(S)和V(S)都是在同一个信号量S上操作，为了使得它们在执行时不发生因交叉访问信号量S而可能出现的错误，约定P(S)和V(S)必须是两个不可被中断的过程，即让它们在屏蔽中断下执行。把不可被中断的过程称为原语。于是，P操作和V操作实际上应该是P操作原语和V操作原语。<br>P操作的主要动作是：<br>①S减1；<br>②若S减1后仍大于或等于0，则进程继续执行；<br>③若S减1后小于0，<font color=red>则挂起该线程后放入该信号量对应的等待队列中，然后转线程调度（执行其他线程）。</font><br>V操作的主要动作是：<br>①S加1；<br>②若相加后结果大于0，则进程继续执行；<br>③若相加后结果小于或等于0，<font color=red>则从该信号的等待队列中释放一个线程，然后转线程调度（唤醒执行）。</font><br>PV操作对于每一个进程来说，都只能进行一次，而且必须成对使用。在PV原语执行期间不允许有中断发生。原语不能被中断执行，因为原语对变量的操作过程如果被打断，可能会去运行另一个对同一变量的操作过程，从而出现临界段问题。如果能够找到一种解决临界段问题的元方法，就可以实现对共享变量操作的原子性。</p>
 </blockquote>
 <h3 id="事件（event）"><a href="#事件（event）" class="headerlink" title="事件（event）"></a>事件（event）</h3><p>1.什么是事件？<br>事件Event对象是内核对象，代表系统的某一个状态（如），每一个事件都对应了一个事件触发函数。<br>2.事件什么时候产生?<br>当用户触发某元素的特定事件的时候（如：mouseMove,click），事件会调用事件响应函数，传递下去，函数不会在事件发生前被执行。<br>3.事件的编程<br>事件类型分为“通知事件”和“同步事件”两类，前者变为激发状态的时候，需要手动<code>置位事件</code>（<em>置位事件，是调用事件处理函数后，将事件恢复为未激发态，以便下次还能继续激发。所有事件都只有激活与未激活两种状态</em>），后者会自动置位事件。事件Event内部它包含一个使用计数（所有内核对象都有），一个布尔值表示是手动置位事件还是自动置位事件，另一个布尔值用来表示事件有无触发。由SetEvent()来触发，由ResetEvent()来设成未触发。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//例：win事件使用</span></span><br><span class="line"><span class="comment">//1.初始化事件为未触发状态</span></span><br><span class="line">HANDLE g_event = CreateEvent(<span class="literal">NULL</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">NULL</span>);	</span><br><span class="line"><span class="comment">//2.等待事件被触发</span></span><br><span class="line">WaitForSingleObject(g_event, INFINITE);	</span><br><span class="line"><span class="comment">//3.触发事件</span></span><br><span class="line">SetEvent(g_event);	</span><br><span class="line"><span class="comment">//4.事件解绑</span></span><br><span class="line">CloseHandle(g_event);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//例：win事件使用</span></span><br><span class="line"><span class="function">HANDLE <span class="title">CreateEvent</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">LPSECURITY_ATTRIBUTES lpEventAttributes,<span class="comment">// 安全属性</span></span></span></span><br><span class="line"><span class="function"><span class="params">BOOL bManualReset,<span class="comment">// 复位方式 </span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="comment">//如果是TRUE，那么必须用 ResetEvent 函数来手工将事件的状态复原到无信号状态。</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="comment">//如果设置为FALSE，当一个线程等待到事件信号后系统会自动将事件状态复原为无信号状态。</span></span></span></span><br><span class="line"><span class="function"><span class="params">BOOL bInitialState,<span class="comment">// 初始状态 </span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="comment">//如果为TRUE，初始状态为有信号状态；否则为无信号状态。</span></span></span></span><br><span class="line"><span class="function"><span class="params">LPCTSTR lpName <span class="comment">// 对象名称</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br><span class="line"><span class="comment">//1.初始化事件为未触发状态</span></span><br><span class="line">HANDLE g_event = CreateEvent(<span class="literal">NULL</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">NULL</span>);	</span><br><span class="line"><span class="comment">//2.等待事件被触发</span></span><br><span class="line">WaitForSingleObject(g_event, INFINITE);	</span><br><span class="line"><span class="comment">//3.触发事件</span></span><br><span class="line">SetEvent(g_event);	</span><br><span class="line"><span class="comment">//4.重置事件</span></span><br><span class="line">ResetEvent(g_event);<span class="comment">//手动复位时，setEvent/resetEvent应该成对出现。</span></span><br><span class="line"><span class="comment">//5.事件解绑</span></span><br><span class="line">CloseHandle(g_event);</span><br></pre></td></tr></table></figure>
 
+<blockquote>
+<p><strong>对于事件使用手自动触发怎么选择？</strong><br>我个人认为如果你每次都要触发可以考虑自动复位事件，手动复位事件一定是人为想控制不被重复触发的时候使用，比如某个状态业务没处理完，不希望再接收到这个状态的事件信息。所以，我甚至怀疑，epoll的水平触发就是自动事件实现的，边缘触发就是手动事件实现的，这个以后有找到相关资料再来确定这一点。</p>
+</blockquote>
 <h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a><span style="color:red; background:yellow">注意</span></h3><p>以上4种方式，只有临界区不是内核对象，所以必须手动释放，其他线程才能继续获取<code>相应代码段</code>的执行权限。而互斥量的释放是将该互斥量的所有权从某线程剥离，互斥量本身并没有被释放，内核对象的管理是操作系统完成的。<br>信号量也属于内核对象，可用于进程间的通信</p>
 
     </div>
@@ -461,7 +464,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -474,7 +477,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">136</span>
+        <span class="site-state-item-count">137</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -526,12 +529,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">181k</span>
+    <span title="站点总字数">183k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:45</span>
+    <span title="站点阅读时长">2:47</span>
 </div>
 
         

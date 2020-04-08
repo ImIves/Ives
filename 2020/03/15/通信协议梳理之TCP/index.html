@@ -39,7 +39,7 @@
 <meta property="og:image" content="https://icevil.cn/2020/03/15/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E6%A2%B3%E7%90%86%E4%B9%8BTCP/tcp_wnd2.png">
 <meta property="og:image" content="https://icevil.cn/2020/03/15/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E6%A2%B3%E7%90%86%E4%B9%8BTCP/slowstart.jpg">
 <meta property="article:published_time" content="2020-03-15T01:23:01.000Z">
-<meta property="article:modified_time" content="2020-04-02T07:44:55.674Z">
+<meta property="article:modified_time" content="2020-04-07T11:51:42.618Z">
 <meta property="article:author" content="Ives">
 <meta property="article:tag" content="tcp">
 <meta property="article:tag" content="通信协议">
@@ -288,7 +288,7 @@
 <li><p>2字节标志位 </p>
 <blockquote>
 <ol>
-<li>TCP头长度：占4bit，以 <code>4Byte</code> 为单位显示TCP头长，TCP协议头固定20Byte，因此length最小为5，选项部分最长40Byte，加上固定头长总共60Byte，所以length最大值为15，4bit刚刚好；</li>
+<li>TCP头长度：占4bit，以 <code>4Byte</code> 为单位显示TCP头长，TCP协议头固定20Byte，因此length最小为5（以4字节为一个单位），选项部分最长40Byte，加上固定头长总共60Byte，所以length最大值为15，4bit刚刚好；</li>
 <li>Resv：占4bit，预留；</li>
 <li>CWR（Congestion Window Reduce）：发送端收到ECE置位的数据后进行设置，用来通知接收端已收到ECE标志的数据，了解了拥塞情况，接收端收到CWR置位消息后，不再设置ECE标志，同时发送端发送CWR信息时，将开始减小拥塞窗口，以此减小数据发送量，避免拥塞；</li>
 <li>ECE（ECN ECHO）：网络拥塞一般出现在路由交换时，在支持ECN功能情况下，发生拥塞时路由会设置IP中该标志位，接收端收到IP头中标志了ECN的报文后，在返回的数据ACK中设置ECE标志，表示链路发生拥塞，将拥塞消息通知发送端；</li>
@@ -605,7 +605,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -618,7 +618,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">136</span>
+        <span class="site-state-item-count">137</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -670,12 +670,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">181k</span>
+    <span title="站点总字数">183k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:45</span>
+    <span title="站点阅读时长">2:47</span>
 </div>
 
         
