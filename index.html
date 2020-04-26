@@ -189,6 +189,119 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2020/04/26/spin_lock%E8%87%AA%E6%97%8B%E9%94%81%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Ives">
+      <meta itemprop="description" content="当你开始满于现状时，你正在错失世界的美好。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ives's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/26/spin_lock%E8%87%AA%E6%97%8B%E9%94%81%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">spin lock 自旋锁详解</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-26 10:48:55" itemprop="dateCreated datePublished" datetime="2020-04-26T10:48:55+08:00">2020-04-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c-c/" itemprop="url" rel="index">
+                    <span itemprop="name">c/c++</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="spin-lock-定义"><a href="#spin-lock-定义" class="headerlink" title="spin_lock 定义"></a><code>spin_lock</code> 定义</h2><p>何谓自旋锁？它是为实现保护共享资源而提出一种锁机制。其实，自旋锁与互斥锁比较类似，它们都是为了解决对某项资源的互斥使用。无论是互斥锁，还是自旋锁，在任何时刻，最多只能有一个保持者，也就说，在任何时刻最多只能有一个执行单元获得锁。但是两者在调度机制上略有不同。对于互斥锁，如果资源已经被占用，资源申请者只能进入睡眠状态。但是自旋锁不会引起调用者睡眠，如果自旋锁已经被别的执行单元保持，调用者就一直循环在那里看是否该自旋锁的保持者已经释放了锁，”自旋”一词就是因此而得名。</p>
+<blockquote>
+<p>传统意义上的锁，只能有一个线程占有，其他线程休眠直到拿到锁才唤醒，如互斥锁；从这个层面来说，甚至可以认为自旋锁并非锁，而是一种忙等待或者说就是死循环直到拿到“锁”才跳出循环。</p>
+</blockquote>
+<h2 id="自旋锁的实现原理"><a href="#自旋锁的实现原理" class="headerlink" title="自旋锁的实现原理"></a>自旋锁的实现原理</h2><ol>
+<li>当某个CPU<strong>锁住数据总线</strong>后, 它读一个内存单元(spinlock_t)来判断这个spinlock 是否已经被别的CPU锁住。</li>
+<li>如果是, 它会重复以上操作直到成功</li>
+<li>如果否, 它写进一个特定值, 表示锁定成功, 然后返回</li>
+</ol>
+<p><font color=red>所以我们看到第2步，本质是在持续读取spinlock_t并比较,所以，自旋锁通常只适合锁定非常小的数据，否则性能会很低；不过我们也可以根据业务自行优化，对第2步，如果自旋一定次数失败，就跳出循环，交出线程。</font></p>
+<p>自旋锁是系统内核层面的低级操作，用于实现用户态的 <code>Mutex</code>，<code>Semaphore</code> 等。而自旋锁更底层的是原子操作来实现，看下文。</p>
+<h2 id="CAS机制（compare-and-swap）"><a href="#CAS机制（compare-and-swap）" class="headerlink" title="CAS机制（compare_and_swap）"></a>CAS机制（compare_and_swap）</h2><p>现在几乎所有的CPU指令都支持CAS的原子操作，汇编指令<code>cmpxchg</code> (<code>compare and exchange</code>) 的原子操作</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用c语言伪代码来表示</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">compare_and_swap</span> <span class="params">(<span class="keyword">int</span>*accum, <span class="keyword">int</span>*dest, <span class="keyword">int</span> newval)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>( *accum == *dest ) </span><br><span class="line">  &#123;</span><br><span class="line">      *dest = newval;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>与CAS相似的还有下面的原子操作：<br><code>Fetch And Add</code>，一般用来对变量做 +1 的原子操作,<em>（总所周知 <code>i++</code> 并非原子操作，本文就不再赘述，详见反汇编）</em><br><code>Test-and-set</code>，写值到某个内存位置并传回其旧值。汇编指令<code>BST</code><br><code>Test Test-and-set</code> 这是对<code>TAS</code>的优化</p>
+<h2 id="ABA-Problem"><a href="#ABA-Problem" class="headerlink" title="ABA Problem"></a>ABA Problem</h2><p><a href="http://en.wikipedia.org/wiki/ABA_problem" target="_blank" rel="noopener">所谓ABA</a>，问题基本是这个样子：</p>
+<p>在CAS算法中，需要取出内存中某时刻的数据(由用户完成)，在下一时刻比较并交换(CPU保证原子操作)，这个时间差会导致数据的变化。 假设有以下顺序事件： </p>
+<blockquote>
+<ol>
+<li>线程1从内存位置V中取出A </li>
+<li>线程2从内存位置V中取出A </li>
+<li>线程2进行了写操作，将B写入内存位置V </li>
+<li>线程2将A再次写入内存位置V </li>
+<li>线程1进行CAS操作，发现V中仍然是A，交换成功</li>
+</ol>
+</blockquote>
+<p>尽管线程1的CAS操作成功，但线程1并不知道内存位置V的数据发生过改变.</p>
+<h2 id="ABA问题解决"><a href="#ABA问题解决" class="headerlink" title="ABA问题解决"></a>ABA问题解决</h2><p>对于ABA问题，比较有效的方案是引入<code>版本号</code>，内存中的值每发生一次变化，版本号都+1；在进行<code>CAS</code>操作时，不仅比较内存中的值，也会比较版本号，只有当二者都没有变化时，<code>CAS</code>才能执行成功。</p>
+<h2 id="乐观锁与悲观锁"><a href="#乐观锁与悲观锁" class="headerlink" title="乐观锁与悲观锁"></a>乐观锁与悲观锁</h2><h3 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h3><p>顾名思义，就是很乐观，每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是在更新的时候会判断一下在此期间别人有没有去更新这个数据，可以使用版本号等机制。乐观锁适用于多读的应用类型，这样可以提高吞吐量，像数据库提供的类似于write_condition机制，其实都是提供的乐观锁。</p>
+<h3 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h3><p>总是假设最坏的情况，每次去拿数据的时候都认为别人会修改，所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会阻塞直到它拿到锁。传统的关系型数据库里边就用到了很多这种锁机制，比如行锁，表锁等，读锁，写锁等，都是在做操作之前先上锁。再比如Java里面的同步原语synchronized关键字的实现就是悲观锁，volatile关键字虽然是synchronized关键字的轻量级实现，但是其无法保证原子性，所以一般也要搭配锁使用。</p>
+<h2 id="题外：shared-lock与unique-lock"><a href="#题外：shared-lock与unique-lock" class="headerlink" title="题外：shared_lock与unique_lock"></a>题外：shared_lock与unique_lock</h2><p>shared_lock是<code>read lock</code>。被锁后仍允许其他线程执行同样被shared_lock的代码。这是一般做读操作时的需要。</p>
+<p>unique_lock是<code>write lock</code>。被锁后不允许其他线程执行被shared_lock或unique_lock的代码。在写操作时，一般用这个，可以同时限制unique_lock的写和share_lock的读。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://icevil.cn/2020/04/06/%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -997,96 +1110,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://icevil.cn/2020/03/05/VS%E4%BD%BF%E7%94%A8WSL%E5%BC%80%E5%8F%91Linux%E7%A8%8B%E5%BA%8F%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-      <meta itemprop="name" content="Ives">
-      <meta itemprop="description" content="当你开始满于现状时，你正在错失世界的美好。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ives's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/05/VS%E4%BD%BF%E7%94%A8WSL%E5%BC%80%E5%8F%91Linux%E7%A8%8B%E5%BA%8F%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E/" class="post-title-link" itemprop="url">VS使用WSL开发Linux程序配置说明</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-05 16:57:15" itemprop="dateCreated datePublished" datetime="2020-03-05T16:57:15+08:00">2020-03-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%85%B6%E5%AE%83/" itemprop="url" rel="index">
-                    <span itemprop="name">其它</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>986</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>自Visual Studio 2019（简称vs）16.1版本开始，vs已经能够很好的支持WSL了，我们可以通过ssh连接在WSL上开发并调试c/c++程序。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/05/VS%E4%BD%BF%E7%94%A8WSL%E5%BC%80%E5%8F%91Linux%E7%A8%8B%E5%BA%8F%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1159,7 +1182,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1172,7 +1195,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">137</span>
+        <span class="site-state-item-count">139</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1224,12 +1247,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">183k</span>
+    <span title="站点总字数">185k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:47</span>
+    <span title="站点阅读时长">2:48</span>
 </div>
 
         
