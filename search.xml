@@ -1,6 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Mysql笔记</title>
+    <url>/2020/05/05/Mysql%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h2 id="Mysql简介"><a href="#Mysql简介" class="headerlink" title="Mysql简介"></a>Mysql简介</h2><p>MySQL 是最流行的关系型数据库管理系统，在 <code>WEB</code> 应用方面 <code>MySQL</code> 是最好的 <code>RDBMS</code>(<code>Relational Database Management System</code>：关系数据库管理系统)应用软件之一。mysql是基于innoDB数据库引擎的。</p>
+<a id="more"></a>
+<h2 id="Mysql常用操作"><a href="#Mysql常用操作" class="headerlink" title="Mysql常用操作"></a>Mysql常用操作</h2><p>Linux登录mysql。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">[root@host]<span class="comment"># mysql -u root -p   </span></span><br><span class="line">Enter password:******  <span class="comment"># 登录后进入终端</span></span><br><span class="line">mysql&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="1-库操作"><a href="#1-库操作" class="headerlink" title="1.库操作"></a>1.库操作</h3>   <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--建库</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> &lt;数据库名&gt;;</span><br><span class="line"><span class="comment">--删库</span></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">database</span> &lt;数据库名&gt;;</span><br><span class="line"><span class="comment">--选择数据库</span></span><br><span class="line"><span class="keyword">use</span> &lt;数据库名&gt;;</span><br></pre></td></tr></table></figure>
+<h3 id="2-表操作"><a href="#2-表操作" class="headerlink" title="2.表操作"></a>2.表操作</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--建表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> table_name (column_name column_type);</span><br><span class="line"><span class="comment">--删表</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> table_name ;</span><br><span class="line"><span class="comment">--修改表结构ALTER</span></span><br><span class="line"><span class="comment">--删除i列</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> testalter_tbl <span class="keyword">DROP</span> i;</span><br><span class="line"><span class="comment">--添加i列</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> testalter_tbl <span class="keyword">ADD</span> i <span class="built_in">INT</span> <span class="keyword">FIRST</span>;</span><br><span class="line"><span class="comment">--把字段 c 的类型从 CHAR(1) 改为 CHAR(10)</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> testalter_tbl <span class="keyword">MODIFY</span> c <span class="built_in">CHAR</span>(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> testalter_tbl <span class="keyword">RENAME</span> <span class="keyword">TO</span> alter_tbl;</span><br><span class="line"><span class="comment">-- 在 CHANGE 关键字之后，将i改为j，并使j为INT</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> testalter_tbl <span class="keyword">CHANGE</span> i j <span class="built_in">INT</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="3-增"><a href="#3-增" class="headerlink" title="3.增"></a>3.增</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> table_name ( field1, field2,...fieldN )</span><br><span class="line">                       <span class="keyword">VALUES</span></span><br><span class="line">                       ( value1, value2,...valueN );</span><br></pre></td></tr></table></figure>
+<h3 id="4-删"><a href="#4-删" class="headerlink" title="4.删"></a>4.删</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> table_name [<span class="keyword">WHERE</span> Clause]</span><br></pre></td></tr></table></figure>
+<h3 id="5-改"><a href="#5-改" class="headerlink" title="5.改"></a>5.改</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> table_name <span class="keyword">SET</span> field1=<span class="keyword">new</span>-value1, field2=<span class="keyword">new</span>-value2 [<span class="keyword">WHERE</span> Clause]</span><br></pre></td></tr></table></figure>
+<h3 id="6-查"><a href="#6-查" class="headerlink" title="6.查"></a>6.查</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_name,column_name <span class="keyword">FROM</span> table_name [<span class="keyword">WHERE</span> Clause] [<span class="keyword">LIMIT</span> N][ <span class="keyword">OFFSET</span> M]</span><br></pre></td></tr></table></figure>
+<h2 id="Mysql事务（ACID）"><a href="#Mysql事务（ACID）" class="headerlink" title="Mysql事务（ACID）"></a>Mysql事务（ACID）</h2><p>MySQL 事务主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你既需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！</p>
+<h3 id="1-Atomiciy原子性"><a href="#1-Atomiciy原子性" class="headerlink" title="1.Atomiciy原子性"></a>1.Atomiciy原子性</h3><p>一个事务必须保证其中的所有的操作作为一个整体去执行，要么全部执行，要么全部回滚，不可能存在只执行了一部分这种情况出现。</p>
+<h3 id="2-Consistency一致性"><a href="#2-Consistency一致性" class="headerlink" title="2.Consistency一致性"></a>2.Consistency一致性</h3><p>数据必须保证从一种一致性的状态转换为另一种一致性状态。 比如king转账 10000 到lee账号。king账户扣款后系统崩溃了，数据也不会出现king的账户少了 10000 块，但是lee的账户没变的情况。要么维持原装（全部 回滚），要么king少了 10000 块同时lee多了 10000 块，只有这两种一致性状态的.</p>
+<h3 id="3-Isolation隔离性"><a href="#3-Isolation隔离性" class="headerlink" title="3.Isolation隔离性"></a>3.Isolation隔离性</h3><p>在一个事务未执行完毕时，是否允许其他的session见到这个事物.<br>数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。事务隔离分为不同级别，包括</p>
+<h4 id="1-读未提交（Read-uncommitted）"><a href="#1-读未提交（Read-uncommitted）" class="headerlink" title="1. 读未提交（Read uncommitted）"></a>1. 读未提交（<code>Read uncommitted</code>）</h4><p>事务中的修改，即使没有提交，对其他会话也是可见的。<strong>可以读取未提交的数据——脏读</strong>。脏读会导致很多问题，一般不适用这个隔离级别<br><img src="read_uncommitted.png" alt=""></p>
+<h4 id="2-读提交（read-committed）"><a href="#2-读提交（read-committed）" class="headerlink" title="2. 读提交（read committed）"></a>2. 读提交（<code>read committed</code>）</h4><p>一般数据库都默认使用这个隔离级别（mysql不是），这个隔离级别保证了一个事务如果没有完全成功（commit执行完），事务中的操 作对其他会话是不可见的。但是，commit之后是可见的了，这样会产生不可重复读，比如事物1有两次查询得到的结果不一样。<br><img src="read_committed.png" alt=""></p>
+<h4 id="3-可重复读（repeatable-read）"><a href="#3-可重复读（repeatable-read）" class="headerlink" title="3. 可重复读（repeatable read）"></a>3. 可重复读（<code>repeatable read</code>）</h4><p>一个事务中多次执行统一读SQL,返回结果一样。 这个隔离级别解决了脏读的问题，和不可重复读的问题。但是可能会引起幻读的<br>问题<br><img src="repeatable_read.png" alt=""></p>
+<h4 id="4-串行化（Serializable）"><a href="#4-串行化（Serializable）" class="headerlink" title="4. 串行化（Serializable）"></a>4. 串行化（<code>Serializable</code>）</h4><p>innodb中使用next-key锁对”当前读”进行加锁，锁住行以及可能产生幻读的插入位置，阻止新的数据插入产生幻行，最强的隔离级别，通过给事务中每次读取的行加锁，写加写锁，保证不产生幻读问题，但是会导致大量超时以及锁争用问题。<br><img src="serializable.png" alt=""></p>
+<h3 id="4-Durability持久性"><a href="#4-Durability持久性" class="headerlink" title="4.Durability持久性"></a>4.Durability持久性</h3><p>事务一旦commit，则数据就会保存下来，即使提交完之后系统崩溃，数据也不会丢失.</p>
+<h3 id="MYSQL-事务处理主要有两种方法："><a href="#MYSQL-事务处理主要有两种方法：" class="headerlink" title="MYSQL 事务处理主要有两种方法："></a>MYSQL 事务处理主要有两种方法：</h3><h4 id="1、用-BEGIN-ROLLBACK-COMMIT来实现"><a href="#1、用-BEGIN-ROLLBACK-COMMIT来实现" class="headerlink" title="1、用 BEGIN, ROLLBACK, COMMIT来实现"></a>1、用 BEGIN, ROLLBACK, COMMIT来实现</h4><ul>
+<li><code>BEGIN</code> 开始一个事务</li>
+<li><code>ROLLBACK</code> 事务回滚</li>
+<li><code>COMMIT</code> 事务确认</li>
+</ul>
+<h4 id="2、直接用-SET-来改变-MySQL-的自动提交模式"><a href="#2、直接用-SET-来改变-MySQL-的自动提交模式" class="headerlink" title="2、直接用 SET 来改变 MySQL 的自动提交模式:"></a>2、直接用 SET 来改变 MySQL 的自动提交模式:</h4><ul>
+<li><code>SET AUTOCOMMIT=0</code> 禁止自动提交</li>
+<li><code>SET AUTOCOMMIT=1</code> 开启自动提交</li>
+</ul>
+<blockquote>
+<p>在 MySQL 命令行的默认设置下，事务都是自动提交的，即执行 SQL 语句后就会马上执行 COMMIT 操作。因此要显式地开启一个事务务须使用命令 BEGIN 或 START TRANSACTION，或者执行命令 SET AUTOCOMMIT=0，用来禁止使用当前会话的自动提交。</p>
+</blockquote>
+<h2 id="存储过程"><a href="#存储过程" class="headerlink" title="存储过程"></a>存储过程</h2><h3 id="什么是存储过程"><a href="#什么是存储过程" class="headerlink" title="什么是存储过程"></a>什么是存储过程</h3><p>存储过程<br>是在大型数据库系统中，一组为了完成特定功能的SQL 语句集，存储在数据库中，经过第一次编译后再次调用不需要再次编译，<br>用户通过指定存储过程的名字并给出参数（如果该存储过程带有参数）来执行它。存储过程是数据库中的一个重要对象，任何一个设计良好的数据库应用程序都应该用到存储过程。</p>
+<h3 id="为什么要用存储过程"><a href="#为什么要用存储过程" class="headerlink" title="为什么要用存储过程"></a>为什么要用存储过程</h3><p>存储过程真的那么重要吗，它到底有什么好处呢？存储过程说白了就是一堆SQL 的合并。中间加了点逻辑控制。<br>1.存储过程处理比较复杂的业务时比较实用。具体分为两个方面：<br>(一)响应时间上来说有<br>优势：如果你在前台处理的话。可能会涉及到多次数据库连接。但如果你用存储过程的话，就只有一次。存储过程可以给我们带来运行效率提高的好处；<br>(二)、从安全上使用了存储过程的系统更加稳定：程序容易出现BUG 不稳定，而存储过程，只要数据库不出现问题，基本上是不会出现什么问题的。<br>2.数据量小的项目不用存储过程也可以正常运作。</p>
+<h3 id="什么时候才需要用存储过程"><a href="#什么时候才需要用存储过程" class="headerlink" title="什么时候才需要用存储过程"></a>什么时候才需要用存储过程</h3><p>存储过程不仅仅适用于大型项目，对于中小型项目，使用存储过程也是非常有必要的。<br>其优势主要体现在：<br>1.存储过程只在创造时进行编译，以后每次执行存储过程都不需再重新编译，而一般SQL 语句每执行一次就编译一次所以使用存储过程可提高数据库执行速度。<br>2.当对数据库进行复杂操作时(如对多个表进行Update,Insert,Query,Delete 时）可将此复杂操作用存储过程封装起来与数据库提供的事务处理结合一起使用。<br>这些操作，如果用程序来完成，就变成了一条条的SQL 语句，可能要多次连接数据库。而换成存储，只需要连接一次数据库就可以了。<br>3.存储过程可以重复使用<br>可减少数据库开发人员的工作量。<br>4.安全性高<br>可设定只有某此用户才具有对指定存储过程的使用权。<br>5.更强的适应性<br>由于存储过程对数据库的访问是通过存储过程来进行的，因此数据库开发<br>人员可以在不改动存储过程接口的情况下对数据库进行任何改动，而这些改动不会对应用程序造成影响。<br>6.分布式工作<br>应用程序和数据库的编码工作可以分别独立进行，而不会相互压制。<br>一般来说，存储过程的编写比基本SQL语句复杂，编写存储过程需要更高的技能，更丰富的经验。</p>
+<h3 id="系统开发中存储过程使用的优势和劣势"><a href="#系统开发中存储过程使用的优势和劣势" class="headerlink" title="系统开发中存储过程使用的优势和劣势"></a>系统开发中存储过程使用的优势和劣势</h3><p>优点如下：</p>
+<ol>
+<li>执行效率高.</li>
+<li>安全性能好。</li>
+<li>对于一些场合非常容易实现需求。</li>
+</ol>
+<p>缺点如下：</p>
+<ol>
+<li>可维护性比较差。</li>
+<li>可读性也差。</li>
+</ol>
+<p>在开发系统时存储过程不要滥用，有些能够在代码中实现而且对系统性能影响不大的操作就不用写在存储过程中了，而且考虑发布容易的问题，可以考虑在服务端完成一些业务操作，使用服务代替一部分存储过程的功能。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>语法： </p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> 存储过程名字 ( [<span class="keyword">in</span>|<span class="keyword">out</span>|inout] 参数 datatype ) </span><br><span class="line"><span class="keyword">begin</span> </span><br><span class="line">MySQL 语句; </span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
+<p>调用： </p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">call</span> procedure_name(参数列表)</span><br></pre></td></tr></table></figure>
+<h2 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h2><h3 id="为什么要备份"><a href="#为什么要备份" class="headerlink" title="为什么要备份"></a>为什么要备份</h3><ol>
+<li>保证数据安全与完整<br>企业的数据安全应该来说是企业的命脉，一旦丢失或造成损坏，轻则损失客户与金钱，重则倒闭。备份的目的：为了保证数据在被人为失误、操作不当、蓄意等情况下删除或损坏后，能及时、有效的进行恢复并不会很大程度上影响到业务运行。</li>
+<li>为业务提供不间断服务<br>实际生产环境对数据库的要求，首先就是具备7×24×365不间断服务的能力，这也是一定要备份数据库的其中原因之一。<h3 id="备份的方式"><a href="#备份的方式" class="headerlink" title="备份的方式"></a>备份的方式</h3></li>
+<li>逻辑备份<br>其实就是利用MySQL数据库自带的mysqldump命令，或者使用第三方的工具，然后把数据库里的数据以SQL语句的方式导出成文件的形式。在需要 恢复数据时，通过使用相关的命令（如：source ）将备份文件里的SQL语句提取出来重新在数据库中执行一遍，从而达到恢复数据的目的。</li>
+<li>物理备份<br>物理备份就是利用命令（如cp、 tar、 scp等）直接将数据库的存储数据文件复制一份或多份，分别存放在其它目录，以达到备份的效果。这种备份方式，由于在备份时数据库还会存在数据写入的情况，一定程度上会造成数据丢失的可能性。在进行数据恢复时，需要注意新安装的数据的目录路径、版本、配置等与原数据要保持高度一致，否则同样也会有问题。所以，这种物理备份方式，常常需要在停机状态下进行，一般对实际生产中的数据库不太可取。因此，此方式比较适用于数据库物理迁移，这种场景下这种方式比较高效率。</li>
+<li>全量与增量备份</li>
+</ol>
+<p><strong>全量备份：</strong><br>就是将数据库中的所有数据，或者是某一个特定的库里的所有数据，一次全部备份下来。<br>1）备份数据库中所有数据<br><code>mysqldump -A --single-transaction ｜gzip&gt;/server/backup/All_data_$(date +%F).sql.gz</code><br>2）备份某个库的数据<br><code>mysqldump --single-transaction -B ClondVoice｜gzip&gt;/server/backup/ClondVoice_$(date +%F).sql.gz</code><br>3）恢复日志<br><code>mysql -uroot –p123 -h 192.168.2.127 &lt; /server/backup/mysql_$(date +%F).sql</code></p>
+<p><strong>增量备份:</strong><br>指的是上一次全量备份之后到下一次全量备份这前这段时间内数据库所更新或者是增加的数据，将其备份下来。<br>备份日志：<br>增量备份依赖我们上一次的全量备份，比如我们8月28日做了一次全量备份：<br><code>mysqldump -u root -p --lock-all-tables --flush-logs --master-data = 2 | gzip &gt; /server/backup/mysql_20190828.sql.gz</code><br>对于myisam来讲我们使用<code>--lock-all-tables</code>是备份的时候锁住所有的表，不允许写入，以保证数据的一致性，innodb中使用<code>—single-transaction</code>替换。<br><code>--flush-logs</code>指结束当前的binlog日志，开启一个新的日志；<br><code>--master-data = 2</code>，会在mysql的备份日志中记录完成备份后binlog的位置，用于日志恢复参考的起始点。例如我们也可以通过<code>show master status</code>查看这个记录点。<br>比如我们会在mysql_20190828.sql文件中查看到以下信息： <code>-- CHANGE MASTER TO MASTER_LOG_FILE=&#39;mysql-bin.000002&#39;, MASTER_LOG_POS=107;</code><br>登录mysql后，执行以下两条语句，则会生成一个新的binlog日志，比如生成新的binlog为<code>mysql-bin.000005</code>，则全备后的日志包含<code>binlog.000003</code>, <code>mysql-bin.000004</code>。这两个日志文件即为增量日志文件。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">flush</span> <span class="keyword">tables</span> <span class="keyword">with</span> <span class="keyword">read</span> <span class="keyword">lock</span>; </span><br><span class="line"><span class="keyword">flush</span> <span class="keyword">logs</span>;</span><br></pre></td></tr></table></figure>
+<p>恢复日志:<br><code>mysqlbinlog /server/backup/mysql-bin.000003 /server/backup/mysql-bin.000004 | mysql -uroot -p123456;</code></p>
+<h2 id="MySQL集群解决方案？"><a href="#MySQL集群解决方案？" class="headerlink" title="MySQL集群解决方案？"></a>MySQL集群解决方案？</h2><p>首先我们要明白<strong>集群有两点作用：增强吞吐量</strong>和<strong>高可用</strong>。<br>怎么做呢？看下面一一对应的解决方案。</p>
+<ol>
+<li>高可用 — 主从同步 </li>
+<li>高并发 — 读写分离与分库分表 </li>
+<li>自动扩容 — 部署机器好扩展</li>
+</ol>
+<p>通常环境分析：<br>4. 博客 ，评论，读多于写场景  （<font color=red>可以参考：<code>MySQL写，Redis读</code>的读写分离方案：<code>master写</code>当<code>redis读</code>为空的时候，去<code>slave读</code>取。同时保持<code>master-slave同步</code></font>）<br>5. 定位，日志，写多于读场景<br>6. 一起写，读与写一样多</p>
+<h2 id="分库"><a href="#分库" class="headerlink" title="分库"></a>分库</h2><p>目的：解决高并发插入多数据<br><img src="db_.png" alt=""></p>
+<h2 id="分表"><a href="#分表" class="headerlink" title="分表"></a>分表</h2><p>目的：解决查询速度慢<br><img src="table_.png" alt=""></p>
+<p>又12点了，睡觉！！！</p>
+]]></content>
+      <categories>
+        <category>c/c++</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+        <tag>sql</tag>
+        <tag>关系型数据库</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>设计模式</title>
     <url>/2020/05/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><a href="http://c.biancheng.net/design_pattern/" target="_blank" rel="noopener">设计模式</a>（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。<strong>设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。</strong></p>
