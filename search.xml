@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>VC调用COM组件</title>
+    <url>/2020/05/11/VC%E8%B0%83%E7%94%A8COM%E7%BB%84%E4%BB%B6/</url>
+    <content><![CDATA[<p>COM技术是微软的一个通用组件框架技术，支持跨语言调用，只要遵循COM规则调用即可。com支持的文件形式也是多种多样，dll，ocx，tlb等等。<br>ActiveX控件是基于COM技术的一种，visual studio通常在“工具”-&gt;”选择工具箱” 即可看到系统提供了丰富的COM组件，如下图各种语言框架下的都有。<br>下面我们以调用excel和ActiveX控件为例。</p>
+<a id="more"></a>
+
+<p><img src="vc_activeX.png" alt="com组件"></p>
+<h2 id="excel调用"><a href="#excel调用" class="headerlink" title="excel调用"></a><code>excel</code>调用</h2><p>选择右击工程，选择”类向导”，在“添加类”处，选择“类型库中的MFC类”。<br>或者在“添加类”中，添加相应的MFC类，如下图：<br><img src="mfc_libs.png" alt=""><br>点击“添加”。由于excel我们需要从安装的excel.exe中导入，故我们选择“从文件”导入形式，生成相应的类文件（<code>*.h,*.cpp</code>）。<br><img src="vc_excel.png" alt="excel组件"><br>后续的excel操作就是很简单的接口调用了，本文不做赘述。<br>excel的通用操作类是：<code>App-&gt;worksheets-&gt;worksheet-&gt;ranges-&gt;range-&gt;cell(对应单元格)</code><br>若涉及图表的操作还会涉及如下的几个类：<code>ChartObjects</code>、<code>ChartObject</code>、<code>_Chart</code>、<code>Series</code>.</p>
+<h2 id="windows-media-play调用"><a href="#windows-media-play调用" class="headerlink" title="windows media play调用"></a><code>windows media play</code>调用</h2><p>对于wmp，微软也提供了一个ActiveX控件。该控件支持对话框设计界面的控件拖拽，但是vs默认在“工具箱”中是不显示的，我们需要先在菜单“工具”中“选择工具箱”，找到COM组件中的<code>windows media play</code>，勾选，然后确定，我们即可在“工具箱”中看到了。<br>至此，如果我们直接给控件静态绑定路径已经可以正常播放视频了，但是如果我们需要动态调用，设置播放列表，控制音频大小，进度条等等。我们必须“添加类”，然后<code>wmp.dll</code>导入,生成所有相关的类(<code>CWMPPlayer4</code>,<code>CWMPSetting</code>)。如下图，即可。<br><img src="vc_wmp.png" alt="wmp组件"></p>
+]]></content>
+      <categories>
+        <category>vc</category>
+      </categories>
+      <tags>
+        <tag>vc</tag>
+        <tag>COM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mysql笔记</title>
     <url>/2020/05/05/Mysql%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="Mysql简介"><a href="#Mysql简介" class="headerlink" title="Mysql简介"></a>Mysql简介</h2><p>MySQL 是最流行的关系型数据库管理系统，在 <code>WEB</code> 应用方面 <code>MySQL</code> 是最好的 <code>RDBMS</code>(<code>Relational Database Management System</code>：关系数据库管理系统)应用软件之一。mysql是基于innoDB数据库引擎的。</p>
