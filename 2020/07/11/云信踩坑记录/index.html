@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"icevil.cn","root":"/","scheme":"Mist","version":"7.7.1","exturl":false,"sidebar":{"position":"left","width":310,"display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="云信踩坑记录： gif解析，直接解压到内存，导致内存暴涨，撑爆内存。 推送通知，pc，安卓，ios不统一，ios的sdk不能直接解析出push_title,安卓确可以所以必须额外自定义一个title传给ios。使用第三方扩展字段可以解决该问题 cef控件回掉函数没做有效判断 message_loop的线程回调函数（回调指针）没做有效判断添加try catch捕获函数指针释放导致的异常。 nim.d">
+  <meta name="description" content="云信踩坑记录： gif解析，直接解压到内存，导致内存暴涨，撑爆内存。 推送通知，pc，安卓，ios不统一，ios的sdk不能直接解析出push_title,安卓却可以">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用网易云信做IM系统踩坑记录">
 <meta property="og:url" content="https://icevil.cn/2020/07/11/%E4%BA%91%E4%BF%A1%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="Ives&#39;s Blog">
-<meta property="og:description" content="云信踩坑记录： gif解析，直接解压到内存，导致内存暴涨，撑爆内存。 推送通知，pc，安卓，ios不统一，ios的sdk不能直接解析出push_title,安卓确可以所以必须额外自定义一个title传给ios。使用第三方扩展字段可以解决该问题 cef控件回掉函数没做有效判断 message_loop的线程回调函数（回调指针）没做有效判断添加try catch捕获函数指针释放导致的异常。 nim.d">
+<meta property="og:description" content="云信踩坑记录： gif解析，直接解压到内存，导致内存暴涨，撑爆内存。 推送通知，pc，安卓，ios不统一，ios的sdk不能直接解析出push_title,安卓却可以">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-11T01:00:23.000Z">
-<meta property="article:modified_time" content="2020-07-16T09:35:41.215Z">
+<meta property="article:modified_time" content="2020-07-19T00:55:51.968Z">
 <meta property="article:author" content="Ives">
 <meta property="article:tag" content="云信">
 <meta property="article:tag" content="IM">
@@ -233,7 +233,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>406</span>
+              <span>476</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -254,7 +254,8 @@
       
         <h2 id="云信踩坑记录："><a href="#云信踩坑记录：" class="headerlink" title="云信踩坑记录："></a>云信踩坑记录：</h2><ol>
 <li>gif解析，直接解压到内存，导致内存暴涨，撑爆内存。</li>
-<li>推送通知，pc，安卓，ios不统一，ios的sdk不能直接解析出push_title,安卓确可以<br>所以必须额外自定义一个title传给ios。<br>使用第三方扩展字段可以解决该问题</li>
+<li>推送通知，pc，安卓，ios不统一，ios的sdk不能直接解析出push_title,安卓却可以<a id="more"></a>
+所以必须额外自定义一个title传给ios。<br>使用第三方扩展字段可以解决该问题</li>
 <li>cef控件回掉函数没做有效判断</li>
 <li>message_loop的线程回调函数（回调指针）没做有效判断<br>添加try catch捕获函数指针释放导致的异常。</li>
 <li>nim.dll崩溃，（如：nim_vchat_audio_play_mute_enabled不只是这一个接口）（非常多，try catch）</li>
@@ -263,9 +264,9 @@
 <li>sougouPy.ime/QQ拼音输入法等都会有小概率导致崩溃</li>
 <li>richedit输入图片/表情有时候会崩溃</li>
 <li>Relogin崩溃（非常多，try catch）</li>
-<li></li>
 </ol>
-
+<p>大厂不代表什么，程序员只需要信仰code，另外笔者还发现一个网易云音乐(v2.7.1(Build:198242))巨大bug具体看下面视频:</p>
+<iframe height=320 width=480 src="2020-07-19 08-35-12.mp4">
     </div>
 
     

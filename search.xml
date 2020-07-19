@@ -5,7 +5,8 @@
     <url>/2020/07/11/%E4%BA%91%E4%BF%A1%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<h2 id="云信踩坑记录："><a href="#云信踩坑记录：" class="headerlink" title="云信踩坑记录："></a>云信踩坑记录：</h2><ol>
 <li>gif解析，直接解压到内存，导致内存暴涨，撑爆内存。</li>
-<li>推送通知，pc，安卓，ios不统一，ios的sdk不能直接解析出push_title,安卓确可以<br>所以必须额外自定义一个title传给ios。<br>使用第三方扩展字段可以解决该问题</li>
+<li>推送通知，pc，安卓，ios不统一，ios的sdk不能直接解析出push_title,安卓却可以<a id="more"></a>
+所以必须额外自定义一个title传给ios。<br>使用第三方扩展字段可以解决该问题</li>
 <li>cef控件回掉函数没做有效判断</li>
 <li>message_loop的线程回调函数（回调指针）没做有效判断<br>添加try catch捕获函数指针释放导致的异常。</li>
 <li>nim.dll崩溃，（如：nim_vchat_audio_play_mute_enabled不只是这一个接口）（非常多，try catch）</li>
@@ -14,9 +15,9 @@
 <li>sougouPy.ime/QQ拼音输入法等都会有小概率导致崩溃</li>
 <li>richedit输入图片/表情有时候会崩溃</li>
 <li>Relogin崩溃（非常多，try catch）</li>
-<li></li>
 </ol>
-]]></content>
+<p>大厂不代表什么，程序员只需要信仰code，另外笔者还发现一个网易云音乐(v2.7.1(Build:198242))巨大bug具体看下面视频:</p>
+<iframe height=320 width=480 src="2020-07-19 08-35-12.mp4">]]></content>
       <categories>
         <category>其它</category>
       </categories>
