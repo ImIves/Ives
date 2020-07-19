@@ -1,6 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>使用网易云信做IM系统踩坑记录</title>
+    <url>/2020/07/11/%E4%BA%91%E4%BF%A1%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<h2 id="云信踩坑记录："><a href="#云信踩坑记录：" class="headerlink" title="云信踩坑记录："></a>云信踩坑记录：</h2><ol>
+<li>gif解析，直接解压到内存，导致内存暴涨，撑爆内存。</li>
+<li>推送通知，pc，安卓，ios不统一，ios的sdk不能直接解析出push_title,安卓确可以<br>所以必须额外自定义一个title传给ios。<br>使用第三方扩展字段可以解决该问题</li>
+<li>cef控件回掉函数没做有效判断</li>
+<li>message_loop的线程回调函数（回调指针）没做有效判断<br>添加try catch捕获函数指针释放导致的异常。</li>
+<li>nim.dll崩溃，（如：nim_vchat_audio_play_mute_enabled不只是这一个接口）（非常多，try catch）</li>
+<li>cef控件显示时（重绘时，比如窗口大小变化），直接hDC拷贝即可，完全没必要先new一次再校验DC,浪费cpu。</li>
+<li>窗口已退出，消息泵还在运行导致崩溃</li>
+<li>sougouPy.ime/QQ拼音输入法等都会有小概率导致崩溃</li>
+<li>richedit输入图片/表情有时候会崩溃</li>
+<li>Relogin崩溃（非常多，try catch）</li>
+<li></li>
+</ol>
+]]></content>
+      <categories>
+        <category>其它</category>
+      </categories>
+      <tags>
+        <tag>云信</tag>
+        <tag>IM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>shared_ptr与weak_ptr源码分析</title>
+    <url>/2020/06/07/shared_ptr%E4%B8%8Eweak_ptr%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<p>智能指针在c++11标准已经被正式引用，在头文件<code>#include &lt;memory&gt;</code>中。传统智能指针<code>auto_ptr</code>作为一个半成品，已被shared_ptr和weak_ptr取代，<br>翻译中文名为：共享指针，弱指针。既然都是智能指针，内存释放自然都是自动释放，无需用户管理的。<br>本文将从源码分析shared_ptr与weak_ptr的关系与使用</p>
+<a id="more"></a>
+
+<h2 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h2><p>首先我们看下面智能指针UML类图<br><img src="smartpoint.svg" alt="智能指针类图"></p>
+<ol>
+<li>智能指针都是以模板的形式封装。</li>
+<li>基类<code>_Ptr_base&lt;_Ty&gt;</code>是一个完整的智能指针实现,它拥有一个计数器指针<code>_Ref_count_base</code></li>
+<li>关于这个计数器我们称其为<code>引用计数</code>,它能同时计数 <code>User</code> 和 <code>weaks</code>,这两个分别统计<code>共享引用数</code>与<code>弱引用数</code>。该类的核心是实现计数的原子操作。以达到线程安全的目的。这也间接说明<code>shared_ptr</code>与<code>weak_ptr</code>都是线程安全的</li>
+<li>理论上来说，<code>shared_ptr</code>和<code>weak_ptr</code>是可以不需要的了，核心内容都已经在基类中实现</li>
+<li>那标准这么做的原因是什么呢？答案就是：限制用户滥用，会降低智能指针的使用安全。所以还是设计两个不同作用的模板目的是明确划分权限。当然也有人说：weak_ptr是对share_ptr存在循环引用（也叫交叉引用）导致内存无法释放而设计的。这个其实无需过多纠结，理解本质就好。</li>
+</ol>
+<h2 id="shared-ptr"><a href="#shared-ptr" class="headerlink" title="shared_ptr"></a>shared_ptr</h2><p>共享指针对<code>用户使用计数</code>进行管理，当计数为0的时候才真正释放内存。<br>它提供了丰富的操作接口。使用上和操作普通指针基本无异。注意几个关键接口如上图：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>shared_ptr::element_type</td>
+<td>元素的类型。</td>
+</tr>
+<tr>
+<td>shared_ptr::get</td>
+<td>获取特定资源地址。</td>
+</tr>
+<tr>
+<td>shared_ptr::owner_before</td>
+<td>如果 shared_ptr 是之前指针所命令的，返回true。</td>
+</tr>
+<tr>
+<td>shared_ptr::reset</td>
+<td>替换拥有的资源。</td>
+</tr>
+<tr>
+<td>shared_ptr::swap</td>
+<td>交换两个 shared_ptr 对象。很快，没做深拷贝</td>
+</tr>
+<tr>
+<td>shared_ptr::unique</td>
+<td>测试资源是否唯一的。</td>
+</tr>
+<tr>
+<td>shared_ptr::use_count</td>
+<td>计数资源所有者的数量。</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>shared_ptr::operator boolean-type</td>
+<td>测试资源是否存在。该函数提供了到bool型的隐式转换</td>
+</tr>
+<tr>
+<td>shared_ptr::operator*</td>
+<td>获取一个指定的值。</td>
+</tr>
+<tr>
+<td>shared_ptr::operator=</td>
+<td>替换特定资源。</td>
+</tr>
+<tr>
+<td>shared_ptr::operator-&gt;</td>
+<td>获取指向该指定的值的指针。</td>
+</tr>
+<tr>
+<td>由于对<code>bool</code>运算符的重载，所以<code>shared_ptr</code>支持<code>if(shared_ptr&lt;int&gt;)</code>判断。</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="weak-ptr"><a href="#weak-ptr" class="headerlink" title="weak_ptr"></a>weak_ptr</h2><p>它针对<code>弱引用计数</code>进行管理，当计数为0的时候才真正释放内存。<br>相对共享指针来说功能就简单了很多,通常使用过程中，先判断指针是否已过期，例如，资源被其他线程释放了，本线程即可通过调用<code>expired()</code>知道资源是否已被释放。注意的是，弱指针是不能直接操作原始指针的，而是通过创建一个<code>shared_ptr</code>间接管理原始指针，我们必须通过<code>lock()</code>接口得到<code>shared_ptr</code>才能进行指针操作。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>weak_ptr::element_type</td>
+<td>元素的类型。</td>
+</tr>
+<tr>
+<td>weak_ptr::expired</td>
+<td>测试是否过期，该函数本质也是判断用户引用计数是否为0。</td>
+</tr>
+<tr>
+<td>weak_ptr::lock</td>
+<td>获取资源的独占所有权，获取<code>shared_ptr</code>。</td>
+</tr>
+<tr>
+<td>weak_ptr::owner_before</td>
+<td>返回 true，则此 weak_ptr。(大于) 或提供的指针前顺序。</td>
+</tr>
+<tr>
+<td>weak_ptr::reset</td>
+<td>释放的资源。</td>
+</tr>
+<tr>
+<td>weak_ptr::swap</td>
+<td>交换两个 <code>weak_ptr</code> 对象。</td>
+</tr>
+<tr>
+<td>weak_ptr::use_count</td>
+<td>计数指定的 <code>shared_ptr</code> 对象的数目。</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>weak_ptr::operator=</td>
+<td>replaces 的资源</td>
+</tr>
+</tbody></table>
+<h2 id="关于交互引用的问题"><a href="#关于交互引用的问题" class="headerlink" title="关于交互引用的问题"></a>关于交互引用的问题</h2><p>什么是交互引用？</p>
+<p><strong>A类中有成员指针指向B类，B类中有成员指针指向A类。</strong><br>代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;memeory&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    A()&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"A()"</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">    ~A()&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"~A()"</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">set_ptr</span><span class="params">(<span class="built_in">shared_ptr</span>&lt;B&gt;&amp; p)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_pB = p;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">shared_ptr</span>&lt;B&gt; m_pB;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    B()&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"B()"</span> &lt;&lt; <span class="built_in">endl</span>; 	&#125;</span><br><span class="line">    ~B()&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"~B()"</span> &lt;&lt; <span class="built_in">endl</span>; 	&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">set_ptr</span><span class="params">(<span class="built_in">shared_ptr</span>&lt;A&gt;&amp; p)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_pA = p;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">shared_ptr</span>&lt;A&gt; m_pA;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    &#123;<span class="comment">//方便查看调试输出信息，加个作用域</span></span><br><span class="line">        <span class="function"><span class="built_in">shared_ptr</span>&lt;A&gt; <span class="title">ptrA</span><span class="params">(<span class="keyword">new</span> A)</span></span>;</span><br><span class="line">        <span class="function"><span class="built_in">shared_ptr</span>&lt;B&gt; <span class="title">ptrB</span><span class="params">(<span class="keyword">new</span> B)</span></span>;</span><br><span class="line"></span><br><span class="line">        ptrA-&gt;set_ptr(ptrB);</span><br><span class="line">        ptrB-&gt;set_ptr(ptrA);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#输出：</span><br><span class="line">A()</span><br><span class="line">B()</span><br><span class="line">没有正常打印析构函数，为什么？</span><br></pre></td></tr></table></figure>
+
+<p>当我们都用<code>shared_ptr</code>管理成员指针的时候，我们单步调试会发现<code>m_pA,m_pB</code>的引用计数都成了2，那么智能指针是不会析构的，只有为1才会去析构。那么怎么解决这种问题呢？对于<code>m_pA,m_pB</code>任意一个申明成<code>weak_ptr</code>类型即可。随便聊聊auto与unique两个智能指针吧。</p>
+<h2 id="auto-ptr"><a href="#auto-ptr" class="headerlink" title="auto_ptr"></a>auto_ptr</h2><p>作为一个最早的智能指针，我们看看它的源码</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> _<span class="title">Ty</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="title">class</span> <span class="title">auto_ptr</span></span></span><br><span class="line"><span class="class">    &#123;</span>	<span class="comment">// wrap an object pointer to ensure destruction</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">typedef</span> <span class="built_in">auto_ptr</span>&lt;_Ty&gt; _Myt;</span><br><span class="line">    <span class="comment">//此处省略构造等一系列函数</span></span><br><span class="line">    <span class="comment">//.........................</span></span><br><span class="line">    <span class="function">_Ty *<span class="title">get</span><span class="params">()</span> <span class="keyword">const</span> _<span class="title">THROW0</span><span class="params">()</span> </span>&#123;	<span class="comment">// return wrapped pointer</span></span><br><span class="line">        <span class="keyword">return</span> (_Myptr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">_Ty *<span class="title">release</span><span class="params">()</span> _<span class="title">THROW0</span><span class="params">()</span> </span>&#123;	<span class="comment">// return wrapped pointer and give up ownership</span></span><br><span class="line">        _Ty *_Tmp = _Myptr;</span><br><span class="line">        _Myptr = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> (_Tmp);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">reset</span><span class="params">(_Ty *_Ptr = <span class="number">0</span>)</span> </span>&#123;	<span class="comment">// destroy designated object and store new pointer</span></span><br><span class="line">        <span class="keyword">if</span> (_Ptr != _Myptr)</span><br><span class="line">            <span class="keyword">delete</span> _Myptr;</span><br><span class="line">        _Myptr = _Ptr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    _Ty *_Myptr;	<span class="comment">// the wrapped object pointer</span></span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
+<p>由上代码可以看出，auto指针，只是封装了裸指针，并在析构函数中自动释放内存。主要就提供了3个接口：<code>get,release,reset</code>。没有引用计数，代码少，功能简单，就一个目的：防止new出的内存忘记delete。</p>
+<h2 id="unique-ptr"><a href="#unique-ptr" class="headerlink" title="unique_ptr"></a>unique_ptr</h2><p>重点记住该指针不允许copy，只提供move。也没有引用计数，支持内存自释放。<br>主要功能函数如下：<br>|Functions||<br>|–|–|<br>get    | Returns stored_ptr.<br>get_deleter |    Returns a reference to stored_deleter.<br>release |    stores pointer() in stored_ptr and returns its previous contents.<br>reset |    Releases the currently owned resource and accepts a new resource.<br>swap |    Exchanges resource and deleter with the provided unique_ptr.</p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>如果一个指针，交给了智能指针来管理，就不要再使用裸指针操作，因为裸指针操作并不会影响其他智能指针的引用计数。如果手动释放了裸指针内存，当智能制作析构时就会<code>double freee</code>。</p>
+]]></content>
+      <categories>
+        <category>c/c++</category>
+      </categories>
+      <tags>
+        <tag>智能指针</tag>
+        <tag>auto_ptr</tag>
+        <tag>share_ptr</tag>
+        <tag>weak_ptr</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>VC调用COM组件</title>
     <url>/2020/05/11/VC%E8%B0%83%E7%94%A8COM%E7%BB%84%E4%BB%B6/</url>
     <content><![CDATA[<p>COM技术是微软的一个通用组件框架技术，支持跨语言调用，只要遵循COM规则调用即可。com支持的文件形式也是多种多样，dll，ocx，tlb等等。<br>ActiveX控件是基于COM技术的一种，visual studio通常在“工具”-&gt;”选择工具箱” 即可看到系统提供了丰富的COM组件，如下图各种语言框架下的都有。<br>下面我们以调用excel和ActiveX控件为例。</p>
@@ -14,8 +188,7 @@
         <category>vc</category>
       </categories>
       <tags>
-        <tag>vc</tag>
-        <tag>COM</tag>
+        <tag>com</tag>
       </tags>
   </entry>
   <entry>
@@ -245,6 +418,33 @@
         <tag>spin lock</tag>
         <tag>自旋锁</tag>
         <tag>锁</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>进程与虚拟内存</title>
+    <url>/2020/04/07/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/</url>
+    <content><![CDATA[<h2 id="Linux进程和线程"><a href="#Linux进程和线程" class="headerlink" title="Linux进程和线程"></a>Linux进程和线程</h2><ul>
+<li>操作系统本身也是一个进程 </li>
+<li>操作系统内核层面没有线程的概念，只有进程的概念，因此线程在内核看来也是一个进程，只是比较特殊 </li>
+<li>线程的实现是glibc实现的(pthread)，包括创建，管理等<a id="more"></a>
+<h2 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h2></li>
+</ul>
+<p>每个进程都有一个虚拟空间，如32位系统，就都是4G。显然，不可能直接映射到4G物理内存上面，那其他进程不要用了。用多少映射多少，具体映射由操作系统管理，用户态不能直接访问。<br>$$<br>虚拟内存空间 = 1024 * 内存页表 = 1024 * （1024 * 内存页）= 1024 * 1024 * 4kb<br>$$</p>
+<h3 id="虚拟内存是怎么工作的？"><a href="#虚拟内存是怎么工作的？" class="headerlink" title="虚拟内存是怎么工作的？"></a>虚拟内存是怎么工作的？</h3><p>当每个进程创建的时候，内核会为进程分配4G的虚拟内存，当进程还没有开始运行时，这只是一个内存布局。实际上并不立即就把虚拟内存对应位置的程序数据和代码（比如.text .data段）拷贝到物理内存中，只是建立好虚拟内存和磁盘文件之间的映射就好（叫做存储器映射）。这个时候数据和代码还是在磁盘上的。当运行到对应的程序时，进程去寻找页表，发现页表中地址没有存放在物理内存上，而是在磁盘上，于是发生<strong>缺页异常</strong>，于是将磁盘上的数据拷贝到物理内存中。</p>
+<p>另外在进程运行过程中，要通过malloc来动态分配内存时，也只是分配了虚拟内存，即为这块虚拟内存对应的页表项做相应设置，当进程真正访问到此数据时，才引发缺页异常。<strong>malloc分配的内存空间在逻辑上是连续的，而在物理上可以不连续</strong>。我们作为程序员，关注的 是逻辑上的连续，其它的，操作系统会帮着我们处理的。</p>
+<p>可以认为虚拟空间都被映射到了磁盘空间中（事实上也是按需要映射到磁盘空间上，通过mmap，mmap是用来建立虚拟空间和磁盘空间的映射关系的）</p>
+<p>由于在机器语言层面都是采用虚拟地址，当实际的机器码程序涉及到内存操作时，需要根据当前进程运行的实际上下文将虚拟地址转换为物理内存地址，才能实现对真实内存数据的操作。这个转换一般由一个叫<a href="http://en.wikipedia.org/wiki/Memory_management_unit" target="_blank" rel="noopener">MMU</a>（Memory Management Unit）的硬件完成。</p>
+<h3 id="虚拟内存机制的优点"><a href="#虚拟内存机制的优点" class="headerlink" title="虚拟内存机制的优点"></a>虚拟内存机制的优点</h3><ol>
+<li>既然每个进程的内存空间都是一致而且固定的（32位平台下都是4G），所以链接器在链接可执行文件时，可以设定内存地址，而不用去管这些数据最终实际内存地址，这交给内核来完成映射关系</li>
+<li>当不同的进程使用同一段代码时，比如库文件的代码，在物理内存中可以只存储一份这样的代码，不同进程只要将自己的虚拟内存映射过去就好了，这样可以节省物理内存</li>
+<li>在程序需要分配连续空间的时候，只需要在虚拟内存分配连续空间，而不需要物理内存时连续的，实际上，往往物理内存都是断断续续的内存碎片。这样就可以有效地利用我们的物理内存</li>
+</ol>
+]]></content>
+      <categories>
+        <category>c/c++</category>
+      </categories>
+      <tags>
+        <tag>虚拟内存</tag>
       </tags>
   </entry>
   <entry>
